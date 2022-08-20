@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "oggy-web-oggy-v1": "apps/oggy-web/oggy-v1",
+    "oggy-web-oggy-v1-e2e": "apps/oggy-web/oggy-v1-e2e"
+  }
+}
