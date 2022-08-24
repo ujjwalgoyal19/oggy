@@ -1,13 +1,19 @@
-import NxWelcome from './nx-welcome';
+import styled from 'styled-components';
+import Footer from './components/footer';
+import NavigationBar from './components/navigation-bar';
+import Home from './pages/home';
+
+const StyledApp = styled.div`
+  // Your style here
+`;
 
 export function App() {
   return (
-    <>
-      <style jsx>{`
-        /** your style here **/
-      `}</style>
-      <NxWelcome title="oggy-web-oggy-v1" />
-    </>
+    <StyledApp>
+      <NavigationBar />
+      <Home />
+      <Footer />
+    </StyledApp>
   );
 }
 
