@@ -1,19 +1,22 @@
-import styled from 'styled-components';
-import Footer from './components/footer';
-import NavigationBar from './components/navigation-bar';
+import styled, { ThemeProvider } from 'styled-components';
+import * as config from './config';
+import GlobalStyles from './components/templates/Global.styled';
+// import Footer from './components/footer';
+// import NavigationBar from './components/navigation-bar';
 import Home from './pages/home';
 
-const StyledApp = styled.div`
-  // Your style here
-`;
+const StyledApp = styled.div``;
 
 export function App() {
   return (
-    <StyledApp>
-      <NavigationBar />
-      <Home />
-      <Footer />
-    </StyledApp>
+    <ThemeProvider theme={config.themes.light}>
+      <GlobalStyles />
+      <StyledApp>
+        {/* <NavigationBar /> */}
+        <Home />
+        {/* <Footer /> */}
+      </StyledApp>
+    </ThemeProvider>
   );
 }
 
