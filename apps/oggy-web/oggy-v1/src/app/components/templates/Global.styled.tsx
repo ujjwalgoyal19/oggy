@@ -21,10 +21,13 @@ const GlobalStyles = createGlobalStyle`
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
   margin: 0;
+  background-color: #f7f7f7;
+  font-size: 1.6rem;
 }
 
 main {

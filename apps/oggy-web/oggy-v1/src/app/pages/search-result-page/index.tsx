@@ -8,11 +8,7 @@ const StyledSearchResultPage = styled.div`
 `;
 
 export function SearchResultPage(props: SearchResultPageProps) {
-  return (
-    <StyledSearchResultPage>
-      <h1>Welcome to SearchResultPage!</h1>
-    </StyledSearchResultPage>
-  );
+  return <StyledSearchResultPage></StyledSearchResultPage>;
 }
 
 export default SearchResultPage;

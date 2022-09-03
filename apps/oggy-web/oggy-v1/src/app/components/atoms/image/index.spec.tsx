@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import SearchBarHero from './index';
+import Image from './index';
 
-describe('SearchBarHero', () => {
+describe('Image', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<SearchBarHero />);
+    const { baseElement } = render(<Image />);
     expect(baseElement).toBeTruthy();
   });
 });

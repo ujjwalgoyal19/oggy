@@ -1,0 +1,129 @@
+{
+  "localities": [
+    {
+      "locality_name": "Mansarovar",
+      "city": "Jaipur",
+      "res_count": 1693
+    },
+    {
+      "locality_id": "vaishali-nagar",
+      "locality_name": "Vaishali Nagar",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 1611
+    },
+    {
+      "locality_id": "vidhyadhar-nagar",
+      "locality_name": "Vidhyadhar Nagar",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 1464
+    },
+    {
+      "locality_id": "malviya-nagar",
+      "locality_name": "Malviya Nagar",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 1371
+    },
+    {
+      "locality_id": "c-scheme",
+      "locality_name": "C-Scheme",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 1334
+    },
+    {
+      "locality_id": "pratap-nagar",
+      "locality_name": "Pratap Nagar",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 1089
+    },
+    {
+      "locality_id": "raja-park",
+      "locality_name": "Raja Park",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 883
+    },
+    {
+      "locality_id": "tonk-road",
+      "locality_name": "Tonk Road",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 841
+    },
+    {
+      "locality_id": "sodala",
+      "locality_name": "Sodala",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 481
+    },
+    {
+      "locality_id": "pink-city",
+      "locality_name": "Pink City",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 310
+    },
+    {
+      "locality_id": "bani-park",
+      "locality_name": "Bani Park",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 307
+    },
+    {
+      "locality_id": "sindhi-camp",
+      "locality_name": "Sindhi Camp",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 292
+    },
+    {
+      "locality_id": "gopalpura",
+      "locality_name": "Gopalpura",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 253
+    },
+    {
+      "locality_id": "sikar-road",
+      "locality_name": "Sikar Road",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 221
+    },
+    {
+      "locality_id": "amer-road",
+      "locality_name": "Amer Road",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 203
+    },
+    {
+      "locality_id": "mi-road",
+      "locality_name": "MI Road",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 194
+    },
+    {
+      "locality_id": "kukas",
+      "locality_name": "Kukas",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 82
+    },
+    {
+      "locality_id": "achrol",
+      "locality_name": "Achrol",
+      "city_id": 1,
+      "city": "Jaipur",
+      "res_count": 3
+    }
+  ],
+  "totalLocalities": 18
+}
