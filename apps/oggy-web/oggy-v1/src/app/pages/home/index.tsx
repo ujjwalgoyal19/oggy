@@ -1,5 +1,5 @@
-import * as config from '../../config';
-import HomeTemplate from '../../components/templates/home.template';
+import config from 'app/config';
+import HomeTemplate from 'app/components/templates/home-template';
 
 /* eslint-disable-next-line */
 export interface HomeProps {}

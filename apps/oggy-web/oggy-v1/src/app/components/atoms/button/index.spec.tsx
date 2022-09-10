@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import ErrorPage from './index';
+import Button from './index';
 
-describe('ErrorPage', () => {
+describe('Button', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<ErrorPage />);
+    const { baseElement } = render(<Button />);
     expect(baseElement).toBeTruthy();
   });
 });

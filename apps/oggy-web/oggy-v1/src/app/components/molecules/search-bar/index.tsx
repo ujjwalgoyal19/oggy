@@ -1,6 +1,6 @@
 import Image from 'app/components/atoms/image';
 import styled from 'styled-components';
-import * as config from 'app/config';
+import config from 'app/config';
 
 /* eslint-disable-next-line */
 export interface SearchBarProps {
@@ -19,7 +19,7 @@ const StyledSearchBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
 `;
 
 interface IStyledInputWrapper {

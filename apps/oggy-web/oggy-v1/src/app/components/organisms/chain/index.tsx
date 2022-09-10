@@ -1,4 +1,4 @@
-import { components } from 'app/config';
+import config from 'app/config';
 import styled from 'styled-components';
 import Heading from 'app/components/atoms/heading';
 import Slider from 'app/components/atoms/slider';
@@ -24,12 +24,13 @@ export function Chain(props: ChainProps) {
   return (
     <StyledChain>
       <Heading
-        Heading={components.heading.primary}
+        Heading={config.components.heading.primary}
         HeadingWeight="800"
         HeadingColor="#1D1D1B"
         MarginBottom="4rem"
-        Text="Top Chain in Jaipur"
-      />
+      >
+        Top Chain in Jaipur
+      </Heading>
       <Slider childSize={170}>
         {props.Content.map((chain, index) => {
           return (

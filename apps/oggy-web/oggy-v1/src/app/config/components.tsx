@@ -17,6 +17,13 @@ export const heading = {
   },
 };
 
+export const button = {
+  link: {},
+  primary: {},
+  secondary: {},
+  image: {},
+};
+
 export const card = {
   chain: {
     color: 'white',

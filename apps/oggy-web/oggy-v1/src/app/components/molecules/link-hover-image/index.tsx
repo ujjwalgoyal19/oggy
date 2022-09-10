@@ -32,14 +32,13 @@ const ImageWrapper = styled.div<IImageWrapper>`
   position: absolute;
   overflow: hidden;
   top: -70%;
-  left: 30%;
+  left: 40%;
   width: 45vh;
   height: auto;
   visibility: hidden;
   transform: scale(0);
   transition: all 0.3s ease-in-out;
   z-index: 101;
-  // clip-path: polygon(7% 46%, 45% 8%, 100% 0, 93% 36%, 100% 100%, 40% 100%);
   clip-path: ${(props) => props.clip};
   &:before {
     ${(props) =>
@@ -103,7 +102,7 @@ const Subtext = styled.h5`
   margin: 0;
   font-size: 1.8vw;
   font-weight: 500;
-  color: rgba(29, 29, 27);
+  color: inherit;
   transform: translateY(100%);
   transition: all 0.4s ease;
 `;
@@ -113,7 +112,7 @@ const Wrapper = styled.div`
 `;
 const Heading = styled.h2`
   font-size: 5vw;
-  color: rgba(29, 29, 27);
+  color: inherit;
   margin: 0;
   z-index: 100;
 `;
@@ -128,6 +127,7 @@ interface IStyledLinkHoverImage {
 }
 
 const StyledLinkHoverImage = styled.a<IStyledLinkHoverImage>`
+  color: inherit;
   text-decoration: none;
   position: relative;
   display: flex;
@@ -157,7 +157,8 @@ const Light = styled.span`
 `;
 const Bold = styled.span`
   font-weight: 700;
-  color: rgb(255, 152, 0, 0.8);
+  // color: rgb(255, 152, 0, 0.8);
+  color: white;
 `;
 
 const getHeading = (text: string) => {

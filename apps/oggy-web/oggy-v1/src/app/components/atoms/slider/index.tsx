@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Image from 'app/components/atoms/image';
-import * as config from 'app/config';
+import config from 'app/config';
 import { useEffect, useRef, useState } from 'react';
 /* eslint-disable-next-line */
 export interface SliderProps {

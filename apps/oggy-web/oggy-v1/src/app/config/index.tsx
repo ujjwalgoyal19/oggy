@@ -3,4 +3,6 @@ import * as themes from './themes';
 import * as images from './images';
 import * as components from './components';
 
-export { content, themes, images, components };
+const config = { content, themes, images, components };
+
+export default config;

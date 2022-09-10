@@ -8,21 +8,20 @@ export interface HeadingProps {
     fontFamily?: string;
   };
   Engraved?: boolean;
+  Embossed?: boolean;
   HeadingSize?: string;
   HeadingWeight?: string;
-  HeadingColor: string;
+  HeadingColor?: string;
   MarginLeft?: string;
   MarginRight?: string;
   MarginTop?: string;
   MarginBottom?: string;
   TextAlign?: string;
-  Text?: string;
-  children?: JSX.Element[];
+  children: string | JSX.Element[] | null;
 }
 
 interface IStyledHeading {
   heading?: {
-    type?: string;
     size?: string;
     weight?: string;
     fontFamily?: string;
@@ -35,7 +34,7 @@ interface IStyledHeading {
   marginTop?: string;
   marginBottom?: string;
   textAlign?: string;
-  color: string;
+  color?: string;
   engraved?: boolean;
 }
 
@@ -43,7 +42,6 @@ const StyledHeading = styled.h1<IStyledHeading>`
   color: ${(props) => props.color || 'inherit'};
   font-size: ${(props) => props.headingSize || props.heading?.size};
   font-weight: ${(props) => props.headingWeight || props.heading?.weight};
-  font-family: inherit;
   margin-left: ${(props) => props.marginLeft || 'none'};
   margin-right: ${(props) => props.marginRight || 'none'};
   margin-top: ${(props) => props.marginTop || 'none'};
@@ -76,7 +74,7 @@ export function Heading(props: HeadingProps) {
       textAlign={props.TextAlign}
       engraved={props.Engraved}
     >
-      {props.children || props.Text}
+      {props.children}
     </StyledHeading>
   );
 }

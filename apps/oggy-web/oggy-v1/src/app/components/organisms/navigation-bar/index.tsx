@@ -10,17 +10,20 @@ export interface NavigationBarProps {
     width: string;
     height: string;
   };
+  Width?: string;
+  SearchBar?: boolean;
 }
 
 interface IStyledNavigationBar {
   visible: boolean;
+  width?: string;
 }
 
 const StyledNavigationBar = styled.div<IStyledNavigationBar>`
   font-family: Raleway;
   position: fixed;
   max-height: 6vh;
-  width: 80%;
+  width: ${(props) => props.width || '70%'};
   display: grid;
   top: ${(props) => (!props.visible ? '-10%' : '2%')};
   left: 50%;
@@ -64,10 +67,10 @@ export function NavigationBar(props: NavigationBarProps) {
     };
   }, [prevScrollPos]);
   return (
-    <StyledNavigationBar visible={visible}>
+    <StyledNavigationBar visible={visible} width={props.Width}>
       <Left>
         <Image Image={props.Logo} />
-        {/* <SearchBarHero></SearchBarHero> */}
+        {props.SearchBar ? <SearchBarHero type="combined" /> : null}
       </Left>
       <Right>
         <a>Sign In</a>

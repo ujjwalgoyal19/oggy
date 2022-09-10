@@ -3,6 +3,8 @@
     "files.autoSave": "afterDelay",
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.words": [
-        "Oggy"
+        "focusring",
+        "Oggy",
+        "reduxjs"
     ]
 }

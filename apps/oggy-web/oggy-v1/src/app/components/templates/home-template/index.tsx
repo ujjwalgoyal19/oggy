@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import gsap from 'gsap';
 
 import Hero from 'app/components/organisms/hero';
 import Chain from 'app/components/organisms/chain';
 import Locality from 'app/components/organisms/locality';
 import Download from 'app/components/organisms/download';
-import * as config from 'app/config';
+import Section from 'app/components/atoms/section';
+import { useEffect, useRef } from 'react';
 
 /* eslint-disable-next-line */
 export interface HomeProps {
@@ -15,30 +17,8 @@ export interface HomeProps {
 const StyledHome = styled.div`
   min-height: 100vh;
   height: 100%;
-  color: black;
-  /* display: grid; */
+  transition: all 0.6s ease;
 `;
-
-interface ISectionWrapper {
-  Width?: string;
-  MarginBottom?: string;
-  MarginTop?: string;
-  MarginRight?: string;
-  MarginLeft?: string;
-}
-
-const SectionWrapper = styled.section<ISectionWrapper>`
-  font-family: Raleway;
-  width: ${(props) => props.Width || 'auto'};
-  display: flex;
-  flex-direction: column;
-  margin-bottom: ${(props) => props.MarginBottom || 'auto'};
-  margin-top: ${(props) => props.MarginTop || 'auto'};
-  margin-left: ${(props) => props.MarginLeft || 'auto'};
-  margin-right: ${(props) => props.MarginRight || 'auto'};
-`;
-
-const StyledAppDownloadCTA = styled.div``;
 
 const getRandomMargin = (length: number) => {
   const Margin = [];
@@ -53,32 +33,47 @@ const getRandomMargin = (length: number) => {
 };
 
 const HomeTemplate = (props: HomeProps) => {
+  const locationRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    console.log('hello');
+    gsap.to(locationRef.current, {
+      backgroundColor: 'black',
+      scrollTrigger: {
+        trigger: locationRef.current,
+        scrub: true,
+        start: 'top center',
+        end: 'top top',
+        markers: true,
+      },
+    });
+  }, []);
   return (
     <StyledHome>
-      <SectionWrapper MarginBottom="2rem">
+      <Section MarginBottom="2rem">
         <Hero
           ImageOne={props.HomeImages.FoodPlate}
           Heading={props.HomeContent.Hero.Heading}
           SubHeading={props.HomeContent.Hero.SubHeading}
         />
-      </SectionWrapper>
-      <SectionWrapper Width="80%" MarginBottom="22rem">
+      </Section>
+      <Section Width="80%" MarginBottom="50vh">
         <Chain
-          Content={config.content.HeroSectionChainsJaipur}
+          Content={props.HomeContent.HeroSectionChainsJaipur}
           Heading="Top Chain in Jaipur"
         />
-      </SectionWrapper>
-      <SectionWrapper Width="100%" MarginBottom="22rem">
+      </Section>
+      <Section Width="100%" MarginBottom="22rem">
         <Locality
-          Content={config.content.HeroSectionLocalitiesJaipur}
+          ref={locationRef}
+          Content={props.HomeContent.HeroSectionLocalitiesJaipur}
           Margin={getRandomMargin(
-            config.content.HeroSectionLocalitiesJaipur.length
+            props.HomeContent.HeroSectionLocalitiesJaipur.length
           )}
         />
-      </SectionWrapper>
-      <SectionWrapper>
+      </Section>
+      <Section>
         <Download />
-      </SectionWrapper>
+      </Section>
     </StyledHome>
   );
 };

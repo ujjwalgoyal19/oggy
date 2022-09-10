@@ -1,10 +1,10 @@
 import styled, { ThemeProvider } from 'styled-components';
-import * as config from './config';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Switch from 'app/routes';
+import config from './config';
 import GlobalStyles from './components/templates/Global.styled';
-// import Footer from './components/footer';
-// import NavigationBar from './components/navigation-bar';
 import NavigationBar from './components/organisms/navigation-bar';
-import Home from './pages/home';
+import Footer from 'app/components/organisms/footer';
 
 const StyledApp = styled.div``;
 
@@ -14,8 +14,10 @@ export function App() {
       <GlobalStyles />
       <StyledApp>
         <NavigationBar Logo={config.images.Oggy.Logo} />
-        <Home />
-        {/* <Footer /> */}
+        <Router basename="/">
+          <Switch />
+        </Router>
+        <Footer />
       </StyledApp>
     </ThemeProvider>
   );

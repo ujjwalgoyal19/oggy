@@ -9,8 +9,7 @@ const GlobalStyles = createGlobalStyle`
  */
 @font-face {
   font-family: Raleway;
-  src: url('./assets/fonts/Raleway/Raleway-VF.woff2') format('woff2 supports variations'),
-       url('./assets/fonts/Raleway/Raleway-VF.woff2') format('woff2-variations');
+  src: url('./assets/fonts/Raleway/Raleway-VF.woff2') format('woff2-variations');
   font-weight: 100 1000;
   font-stretch: 25% 151%;
 }
@@ -19,14 +18,16 @@ const GlobalStyles = createGlobalStyle`
   * * Style Reset
  */
 html {
+  font-family: Raleway;
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  overflow-x: hidden;
   font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
   margin: 0;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   font-size: 1.6rem;
 }
 

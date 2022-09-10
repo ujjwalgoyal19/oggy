@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as config from 'app/config';
+import config from 'app/config';
 import Heading from 'app/components/atoms/heading';
 import SearchBarHero from 'app/components/molecules/search-bar';
 import Image from 'app/components/atoms/image';
@@ -15,7 +15,7 @@ export interface HeroProps {
 }
 
 const StyledHero = styled.section`
-  background-color: #f7f7f7;
+  // background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -92,8 +92,9 @@ export function Hero(props: HeroProps) {
           Heading={config.components.heading.secondary}
           HeadingColor="#1D1D1B"
           MarginBottom="4.5rem"
-          Text={props.SubHeading}
-        />
+        >
+          {props.SubHeading}
+        </Heading>
         <SearchBarHero type="combined" />
       </Left>
       <Right>
