@@ -10,37 +10,31 @@ import Gallery from 'app/components/organisms/gallery';
 /* eslint-disable-next-line */
 export interface SearchResultTemplateProps {
   Heading: string;
-  Filters: Array<{
-    Name: string;
-    List: {
-      command: string;
-      text: string;
-    }[];
-    Type: string;
-  }>;
-  ActiveFilters: Array<object>;
-  Data: any;
-  ApplyFilterHandler: (filter: Map<string, object>) => void;
 }
 
 const StyledSearchResultTemplate = styled.div`
   min-height: 100vh;
-  padding-top: 20vh;
+  margin-bottom: 20vh;
   background-color: inherit;
 `;
 
 export function SearchResultTemplate(props: SearchResultTemplateProps) {
   return (
     <StyledSearchResultTemplate>
-      <Section Width="70%" Sticky Padding="3rem 0rem 3rem 0rem">
-        <Filters
-          FilterList={props.Filters}
-          ActiveFilters={props.ActiveFilters}
-          ApplyFilterHandler={props.ApplyFilterHandler}
-        />
+      <Section
+        Width="100%"
+        Sticky
+        Padding="3rem 0rem 3rem 0rem"
+        MarginBottom="2rem"
+        Index={100}
+        BackgroundColor="white"
+      >
+        <Section Width="70%">
+          <Filters />
+        </Section>
       </Section>
-      <Section Width="70%">
-        <Gallery Heading={props.Heading} Data={props.Data} />
+      <Section Width="70%" Index={99}>
+        <Gallery />
       </Section>
     </StyledSearchResultTemplate>
   );

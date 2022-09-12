@@ -14,6 +14,13 @@ const GlobalStyles = createGlobalStyle`
   font-stretch: 25% 151%;
 }
 
+@font-face {
+  font-family: Roboto;
+  src: url('./assets/fonts/RobotoFlex.ttf');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+}
+
 /**
   * * Style Reset
  */

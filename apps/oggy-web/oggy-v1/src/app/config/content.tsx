@@ -191,3 +191,49 @@ export const Home = {
 export const SearchBarLocationPlaceholder = 'Location';
 export const SearchBarRestaurantPlaceholder =
   'Search for restaurant, cuisine, and more!';
+
+export const SortOptions = [
+  {
+    command: 'SORT_BY=alphabetic',
+    text: 'Alphabetic',
+  },
+  {
+    command: 'SORT_BY=zomato_delivery_rating',
+    text: 'Rating: Zomato Delivery',
+  },
+  {
+    command: 'SORT_BY=zomato_dining_rating',
+    text: 'Rating: Zomato Dining',
+  },
+  {
+    command: 'SORT_BY=swiggy_rating',
+    text: 'Rating: Swiggy',
+  },
+  {
+    command: 'SORT_BY=dineout_rating',
+    text: 'Rating: Dineout',
+  },
+  {
+    command: 'SORT_BY=eazydiner_rating',
+    text: 'Rating: Eazydiner',
+  },
+];
+
+export const MoreFilterOptions = [
+  {
+    command: 'isVeg=true',
+    text: 'Vegetarian Restaurant',
+  },
+  {
+    command: 'isDining=true',
+    text: 'Dining',
+  },
+  {
+    command: 'isDeliver=true',
+    text: 'Delivery',
+  },
+  {
+    command: 'isNightlife=true',
+    text: 'Nightlife',
+  },
+];

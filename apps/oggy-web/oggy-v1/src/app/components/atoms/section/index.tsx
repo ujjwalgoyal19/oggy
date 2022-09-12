@@ -10,6 +10,8 @@ export interface SectionProps {
   MarginLeft?: string;
   Padding?: string;
   Sticky?: boolean;
+  Index?: number;
+  BackgroundColor?: string;
   children: JSX.Element | JSX.Element[] | null;
 }
 
@@ -21,6 +23,8 @@ interface ISectionWrapper {
   marginRight?: string;
   marginLeft?: string;
   padding?: string;
+  index?: number;
+  backgroundColor?: string;
   sticky?: boolean;
 }
 
@@ -39,6 +43,8 @@ const StyledSection = styled.section<ISectionWrapper>`
   margin-top: ${(props) => props.marginTop || 'auto'};
   margin-left: ${(props) => props.marginLeft || 'auto'};
   margin-right: ${(props) => props.marginRight || 'auto'};
+  background: ${(props) => props.backgroundColor || 'inherit'};
+  z-index: ${(props) => props.index || '1'};
 `;
 
 export function Section(props: SectionProps) {
@@ -51,6 +57,8 @@ export function Section(props: SectionProps) {
       marginLeft={props.MarginLeft}
       marginRight={props.MarginRight}
       padding={props.Padding}
+      index={props.Index}
+      backgroundColor={props.BackgroundColor}
       sticky={props.Sticky}
     >
       {props.children}

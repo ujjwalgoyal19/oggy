@@ -13,8 +13,8 @@ export function App() {
     <ThemeProvider theme={config.themes.light}>
       <GlobalStyles />
       <StyledApp>
-        <NavigationBar Logo={config.images.Oggy.Logo} />
         <Router basename="/">
+          <NavigationBar Logo={config.images.Oggy.Logo} />
           <Switch />
         </Router>
         <Footer />

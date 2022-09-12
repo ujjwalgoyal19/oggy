@@ -19,7 +19,8 @@ const StyledSearchBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+  border: 0.1rem solid rgb(232, 232, 232);
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.04);
 `;
 
 interface IStyledInputWrapper {

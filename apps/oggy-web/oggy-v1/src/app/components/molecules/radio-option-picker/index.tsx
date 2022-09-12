@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 /* eslint-disable-next-line */
 export interface RadioOptionPickerProps {
   Options: string[];
-  Active: number;
+  Active: boolean[];
   ChangeSelectedOption: (option: number) => void;
 }
 
@@ -31,6 +32,7 @@ const StyledRadio = styled.label<StyledRadio>`
 `;
 
 export function RadioOptionPicker(props: RadioOptionPickerProps) {
+  // const [activeOption, setActiveOption] = useState(props.Active);
   return (
     <StyledRadioOptionPicker>
       {props.Options.map((option, index) => {
@@ -40,7 +42,7 @@ export function RadioOptionPicker(props: RadioOptionPickerProps) {
               type="radio"
               value={option}
               name="option"
-              checked={props.Active === index}
+              checked={props.Active[index]}
               onChange={() => {
                 props.ChangeSelectedOption(index);
               }}

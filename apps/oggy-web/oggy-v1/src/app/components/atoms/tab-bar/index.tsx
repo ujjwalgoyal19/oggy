@@ -28,6 +28,7 @@ const StyledTab = styled.div<IStyledTab>`
   font: inherit;
   font-size: 1.9rem;
   transition: all 0.1s ease;
+  cursor: pointer;
   & div {
     height: 100%;
     width: 5px;

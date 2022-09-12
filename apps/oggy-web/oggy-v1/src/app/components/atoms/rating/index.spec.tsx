@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import FilterList from './index';
+import Rating from './index';
 
-describe('FilterList', () => {
+describe('Rating', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<FilterList />);
+    const { baseElement } = render(<Rating />);
     expect(baseElement).toBeTruthy();
   });
 });

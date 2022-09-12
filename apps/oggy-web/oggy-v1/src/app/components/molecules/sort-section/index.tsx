@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import RadioOptionPicker from '../radio-option-picker';
 
@@ -7,24 +8,29 @@ export interface SortSectionProps {
     command: string;
     text: string;
   }>;
-  Active: Array<number> | undefined;
-  FilterHandler: (section: number, filter: number[]) => void;
+  Active: Array<boolean> | undefined;
+  FilterHandler: (section: number, filter: boolean[]) => void;
 }
 
 const StyledSortSection = styled.div``;
 
 export function SortSection(props: SortSectionProps) {
-  const active = props.Active ? props.Active[0] : 0;
-  console.log(active);
+  const [radioState, setRadioState] = useState(
+    props.Active ? props.Active : new Array(props.Filters.length).fill(false)
+  );
+  const handleOnChange = (position: number) => {
+    const updateRadioState = radioState.map((item, index) =>
+      index === position ? true : false
+    );
+    setRadioState(updateRadioState);
+    props.FilterHandler(0, updateRadioState);
+  };
   return (
     <StyledSortSection>
       <RadioOptionPicker
-        Active={active}
-        ChangeSelectedOption={(option: number) => {
-          const arrayOption = [option];
-          props.FilterHandler(0, arrayOption);
-        }}
-        Options={props.Filters.map((filter) => filter.text)}
+        Active={radioState}
+        ChangeSelectedOption={handleOnChange}
+        Options={props.Filters?.map((filter) => filter.text)}
       />
     </StyledSortSection>
   );
