@@ -145,10 +145,32 @@ const StyledRestaurantCard = styled.div<IRestaurantCard>`
     props.skeleton &&
     css`
       & ${RestaurantShowcase} {
-        background-color: grey;
+        background: #949494 !important; /* Customizable skeleton loader color */
+        color: rgba(0, 0, 0, 0) !important;
+        border-color: rgba(0, 0, 0, 0) !important;
+        user-select: none;
+        cursor: wait;
+        & * {
+          visibility: hidden !important;
+        }
+        &:empty::after,
+        & *:empty::after {
+          content: '\00a0';
+        }
       }
       & ${RestaurantInformationWrapper} {
-        background-color: grey;
+        background: #949494 !important; /* Customizable skeleton loader color */
+        color: rgba(0, 0, 0, 0) !important;
+        border-color: rgba(0, 0, 0, 0) !important;
+        user-select: none;
+        cursor: wait;
+        & * {
+          visibility: hidden !important;
+        }
+        &:empty::after,
+        & *:empty::after {
+          content: '\00a0';
+        }
       }
     `}
 `;
