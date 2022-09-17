@@ -12,7 +12,7 @@ export interface SectionProps {
   Sticky?: boolean;
   Index?: number;
   BackgroundColor?: string;
-  children: JSX.Element | JSX.Element[] | null;
+  children: JSX.Element | JSX.Element[] | string | null;
 }
 
 interface ISectionWrapper {

@@ -9,7 +9,7 @@ const Switch = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<SearchResultPage />} />
-      <Route path="/restaurant" element={<RestaurantPage />} />
+      <Route path="/restaurant/:restaurantId" element={<RestaurantPage />} />
       <Route path="/error" element={<Page404 />} />
     </Routes>
   );

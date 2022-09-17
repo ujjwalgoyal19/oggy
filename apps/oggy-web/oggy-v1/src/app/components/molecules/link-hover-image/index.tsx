@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
+import { is } from 'immer/dist/internal';
 
 /* eslint-disable-next-line */
 export interface LinkHoverImageProps {
@@ -11,6 +12,7 @@ export interface LinkHoverImageProps {
   hoverHandler: (value: boolean) => void;
   hoverState: boolean;
   margin: string;
+  className?: string;
 }
 
 interface IImageWrapper {
@@ -126,7 +128,9 @@ interface IStyledLinkHoverImage {
   margin: string;
 }
 
-const StyledLinkHoverImage = styled.a<IStyledLinkHoverImage>`
+const StyledLinkHoverImage = styled.a.attrs((props) => ({
+  className: props.className,
+}))<IStyledLinkHoverImage>`
   color: inherit;
   text-decoration: none;
   position: relative;
@@ -182,6 +186,7 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
   const [active, setActive] = useState(false);
   return (
     <StyledLinkHoverImage
+      className={props.className}
       href={props.url}
       margin={props.margin}
       onMouseEnter={() => {

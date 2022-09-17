@@ -1,6 +1,9 @@
 import Heading from 'app/components/atoms/heading';
 import Image from 'app/components/atoms/image';
 import config from 'app/config';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -9,7 +12,9 @@ export interface DownloadProps {}
 const StyledDownload = styled.section`
   height: 100vh;
   display: flex;
+  background-color: black;
   flex-direction: row;
+  color: white;
 `;
 
 const Children = styled.div`
@@ -35,15 +40,28 @@ const CTAWrapper = styled.div`
 `;
 
 export function Download(props: DownloadProps) {
+  const download = useRef<HTMLDivElement>(null);
+  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    const DownloadTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: download.current,
+        scrub: true,
+        start: 'top top',
+        end: 'bottom top',
+        markers: true,
+      },
+    });
+  }, []);
   return (
-    <StyledDownload>
+    <StyledDownload ref={download}>
       <Left>
         <Image Image={config.images.Home.Mockup.First} />
       </Left>
       <Right>
         <Heading
           Heading={config.components.heading.primary}
-          HeadingColor="black"
+          HeadingColor="white"
           HeadingSize="3vw"
           MarginBottom="6vh"
         >
@@ -51,7 +69,7 @@ export function Download(props: DownloadProps) {
         </Heading>
         <Heading
           Heading={config.components.heading.secondary}
-          HeadingColor="black"
+          HeadingColor="white"
           MarginBottom="6vh"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum

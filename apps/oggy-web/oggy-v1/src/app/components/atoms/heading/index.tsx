@@ -60,7 +60,7 @@ const StyledHeading = styled.h1<IStyledHeading>`
     `}
 `;
 
-export function Heading(props: HeadingProps) {
+const Heading = (props: HeadingProps) => {
   return (
     <StyledHeading
       color={props.HeadingColor}
@@ -77,6 +77,6 @@ export function Heading(props: HeadingProps) {
       {props.children}
     </StyledHeading>
   );
-}
+};
 
 export default Heading;
