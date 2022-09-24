@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
-import { is } from 'immer/dist/internal';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface LinkHoverImageProps {
+  Key: number;
   text: string;
   image: string;
   subtext: string;
   url: string;
-  hoverHandler: (value: boolean) => void;
   hoverState: boolean;
   margin: string;
+  hoverHandler: (value: boolean) => void;
+  clickHandler: () => void;
   className?: string;
 }
 
@@ -128,7 +130,7 @@ interface IStyledLinkHoverImage {
   margin: string;
 }
 
-const StyledLinkHoverImage = styled.a.attrs((props) => ({
+const StyledLinkHoverImage = styled(Link).attrs((props) => ({
   className: props.className,
 }))<IStyledLinkHoverImage>`
   color: inherit;
@@ -186,9 +188,11 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
   const [active, setActive] = useState(false);
   return (
     <StyledLinkHoverImage
+      key={props.Key}
       className={props.className}
-      href={props.url}
+      to={props.url}
       margin={props.margin}
+      onClick={props.clickHandler}
       onMouseEnter={() => {
         props.hoverHandler(true);
         setActive(true);

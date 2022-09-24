@@ -15,20 +15,6 @@ export const RESTAURANT_FEATURE_KEY = 'restaurant';
  */
 export interface RestaurantEntity {
   id: number;
-  // name: string;
-  // cft: string;
-  // contactDetails: string[];
-  // timings: any;
-  // cuisines: any;
-  // resLicenses: any;
-  // address: string;
-  // locality: string;
-  // about: any;
-  // chain: any;
-  // deliveryRating: any;
-  // diningRating: any;
-  // images: any;
-  // resStatus: any;
 }
 
 export interface RestaurantState extends EntityState<RestaurantEntity> {
@@ -68,7 +54,7 @@ export const fetchRestaurant = createAsyncThunk(
      * Right now we just return an empty array.
      */
     const restaurant = await RestaurantAPI.getRestaurantOverview(id);
-    return restaurant;
+    return [restaurant];
   }
 );
 
@@ -89,8 +75,8 @@ export const restaurantSlice = createSlice({
       })
       .addCase(
         fetchRestaurant.fulfilled,
-        (state: RestaurantState, action: PayloadAction<RestaurantEntity>) => {
-          restaurantAdapter.setOne(state, action.payload);
+        (state: RestaurantState, action: PayloadAction<RestaurantEntity[]>) => {
+          restaurantAdapter.setAll(state, action.payload);
           state.loadingStatus = 'loaded';
         }
       )

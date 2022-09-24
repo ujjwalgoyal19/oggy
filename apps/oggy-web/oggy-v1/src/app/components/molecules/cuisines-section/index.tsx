@@ -12,7 +12,10 @@ export interface CuisinesSectionProps {
   FilterHandler: (section: number, filter: boolean[]) => void;
 }
 
-const StyledCuisinesSection = styled.div``;
+const StyledCuisinesSection = styled.div`
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
 
 export function CuisinesSection(props: CuisinesSectionProps) {
   const [checkedState, setCheckedState] = useState(

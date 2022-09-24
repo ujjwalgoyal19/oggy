@@ -63,6 +63,12 @@ export const RightArrow = {
   width: '1.5rem',
 };
 
+export const Checkbox = {
+  src: 'assets/icons/check-32.webp',
+  width: '100%',
+  height: '100%',
+};
+
 export const StarIcon = {
   src: 'assets/images/star-16.webp',
   width: '.9rem',

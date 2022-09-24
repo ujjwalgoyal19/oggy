@@ -3,6 +3,9 @@ import config from 'app/config';
 import Heading from 'app/components/atoms/heading';
 import SearchBarHero from 'app/components/molecules/search-bar';
 import Image from 'app/components/atoms/image';
+import Text from 'app/components/atoms/text';
+import Container from 'app/components/atoms/container';
+import { useState } from 'react';
 /* eslint-disable-next-line */
 export interface HeroProps {
   ImageOne: {
@@ -15,20 +18,11 @@ export interface HeroProps {
 }
 
 const StyledHero = styled.section`
-  // background-color: #f7f7f7;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   min-height: 100vh;
   width: 100%;
+  display: block;
 `;
 
-const Left = styled.div`
-  width: 38%;
-  margin-left: 10%;
-  height: 100%;
-`;
 const Right = styled.div`
   width: 60%;
   height: 100vh;
@@ -77,31 +71,37 @@ const HeroHeadingColor = styled.span`
 `;
 
 export function Hero(props: HeroProps) {
+  const [search, setSearch] = useState(false);
   return (
     <StyledHero>
-      <Left>
-        <Heading
-          Heading={config.components.heading.hero}
-          HeadingColor="#1D1D1B"
-          MarginBottom="8rem"
+      <Container Row CenterMA CenterCA Height="100vh">
+        <Container
+          Column
+          Gap="6vh"
+          Width="50%"
+          Height="fit-content"
+          MarginLeft="10%"
         >
-          <span>The Best Discounts in </span>
-          <HeroHeadingColor>Your City</HeroHeadingColor>
-        </Heading>
-        <Heading
-          Heading={config.components.heading.secondary}
-          HeadingColor="#1D1D1B"
-          MarginBottom="4.5rem"
-        >
-          {props.SubHeading}
-        </Heading>
-        <SearchBarHero type="combined" />
-      </Left>
-      <Right>
-        <Canvas>
-          <Image Image={props.ImageOne} />
-        </Canvas>
-      </Right>
+          <Text D3 EB>
+            <span>The Best </span>
+            <br />
+            <span>Discounts in</span>
+            <br />
+            <HeroHeadingColor>Your City</HeroHeadingColor>
+          </Text>
+          <Text H2 L>
+            {props.SubHeading}
+          </Text>
+          <Container Row Width="55rem">
+            <SearchBarHero type="combined" />
+          </Container>
+        </Container>
+        <Container Row EndMA CenterCA>
+          <Canvas>
+            <Image Image={props.ImageOne} />
+          </Canvas>
+        </Container>
+      </Container>
     </StyledHero>
   );
 }

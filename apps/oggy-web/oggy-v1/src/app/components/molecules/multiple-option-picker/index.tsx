@@ -1,4 +1,4 @@
-import Checkbox from 'app/components/atoms/checkbox';
+import Input from 'app/components/atoms/input';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -9,7 +9,9 @@ export interface MultipleOptionPickerProps {
 }
 
 const StyledMultipleOptionPicker = styled.div`
-  color: pink;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 `;
 
 export function MultipleOptionPicker(props: MultipleOptionPickerProps) {
@@ -17,13 +19,13 @@ export function MultipleOptionPicker(props: MultipleOptionPickerProps) {
     <StyledMultipleOptionPicker>
       {props.Options.map((option, index) => {
         return (
-          <Checkbox
+          <Input
+            Checkbox
             key={index}
-            Index={index}
-            Name={option}
-            Checked={props.Active[index]}
-            HandleOnChange={props.HandleOnSelect}
-          />
+            Key={index}
+            Label={option}
+            ChangeHandler={props.HandleOnSelect}
+          ></Input>
         );
       })}
     </StyledMultipleOptionPicker>

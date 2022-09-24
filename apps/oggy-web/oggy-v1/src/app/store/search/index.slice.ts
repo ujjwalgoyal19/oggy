@@ -14,11 +14,17 @@ export const SEARCH_FEATURE_KEY = 'search';
  * Update these interfaces according to your requirements.
  */
 export interface SearchEntity {
+  name: string | undefined;
+  cft: string | undefined;
+  cuisines: string | undefined;
+  image: string | undefined;
+  rating: any;
   id: number;
 }
 
-export interface CityEntity {
-  id: number;
+export interface LocationEntity {
+  type: string;
+  id: number | string;
   name: string;
 }
 
@@ -48,52 +54,29 @@ export interface RestaurantEntity {
 export interface SearchState extends EntityState<SearchEntity> {
   type: 'city' | 'locality';
   restart: boolean;
-  city: CityEntity;
-  locality: string;
+  searchQuery: string;
+  city: string | null;
+  locality: string | null;
+  location: LocationEntity;
   page: number;
   totalPage: number | null;
   filters: FilterEntity[] | null;
-  list: Array<any>;
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error: string | null;
 }
 
 export const searchAdapter = createEntityAdapter<SearchEntity>();
 
-/**
- * Export an effect using createAsyncThunk from
- * the Redux Toolkit: https://redux-toolkit.js.org/api/createAsyncThunk
- *
- * e.g.
- * ```
- * import React, { useEffect } from 'react';
- * import { useDispatch } from 'react-redux';
- *
- * // ...
- *
- * const dispatch = useDispatch();
- * useEffect(() => {
- *   dispatch(fetchSearch())
- * }, [dispatch]);
- * ```
- */
 export const fetchSearch = createAsyncThunk(
   'search/fetchStatus',
   async (searchState: SearchState, thunkAPI) => {
-    let Data: any;
-    if (searchState.type === 'city') {
-      Data = await SearchAPI.getByCity(
-        searchState.page,
-        searchState.city!,
-        searchState.filters
-      );
-    } else if (searchState.type === 'locality') {
-      Data = await SearchAPI.getByLocality(
-        searchState.page,
-        searchState.locality!,
-        searchState.filters
-      );
-    }
+    const Data = await SearchAPI.getRestaurants(
+      searchState.page + 1,
+      searchState.location,
+      searchState.filters,
+      searchState.searchQuery
+    );
+
     const RestaurantList = new Array<any>();
 
     Data.data.data.forEach((restaurant: any) => {
@@ -104,7 +87,6 @@ export const fetchSearch = createAsyncThunk(
         : null;
       const delivery = restaurant.delivery_rating;
       const dining = restaurant.dining_rating;
-
       RestaurantList.push({
         id: restaurant.id,
         name: restaurant.name,
@@ -155,16 +137,18 @@ export const fetchSearch = createAsyncThunk(
 export const initialSearchState: SearchState = searchAdapter.getInitialState({
   type: 'city',
   restart: false,
-  city: {
+  location: {
+    type: 'City',
     id: 1,
     name: 'Jaipur',
   },
-  locality: 'malviya-nagar',
-  page: 1,
+  searchQuery: '',
+  city: 'Jaipur',
+  locality: null,
+  page: 0,
   totalPage: null,
   filters: null,
   loadingStatus: 'not loaded',
-  list: new Array<any>(),
   error: null,
 });
 
@@ -177,23 +161,16 @@ export const searchSlice = createSlice({
       state.page = 1;
       state.restart = true;
     },
-    changeCity: (state, action: PayloadAction<CityEntity>) => {
+    changeLocation: (state, action: PayloadAction<LocationEntity>) => {
       state.restart = true;
-      state.type = 'city';
-      state.city = action.payload;
+      state.location = action.payload;
+      if (state.location.type === 'city') {
+        state.city = action.payload.name;
+        state.locality = null;
+      } else {
+        state.locality = action.payload.name;
+      }
       state.page = 1;
-    },
-    changeLocality: (state, action: PayloadAction<string>) => {
-      state.restart = true;
-      state.type = 'locality';
-      state.locality = action.payload;
-      state.page = 1;
-    },
-    nextPage: (state) => {
-      state.page += 1;
-    },
-    previousPage: (state) => {
-      state.page -= 1;
     },
   },
   extraReducers: (builder) => {
@@ -205,11 +182,12 @@ export const searchSlice = createSlice({
         fetchSearch.fulfilled,
         (state: SearchState, action: PayloadAction<any>) => {
           if (state.restart) {
-            state.list = action.payload.list;
+            searchAdapter.setAll(state, action.payload.list);
+            state.restart = false;
           } else {
-            state.list.push(...action.payload.list);
+            searchAdapter.addMany(state, action.payload.list);
           }
-          state.restart = false;
+          state.page = action.payload.currentPage;
           state.totalPage = action.payload.pages;
           state.loadingStatus = 'loaded';
         }

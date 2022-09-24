@@ -1,24 +1,17 @@
-import {
-  fetchRestaurant,
-  restaurantAdapter,
-  restaurantReducer,
-} from './restaurant.slice';
+import { fetchFilters, filtersAdapter, filtersReducer } from './index.slice';
 
-describe('restaurant reducer', () => {
+describe('filters reducer', () => {
   it('should handle initial state', () => {
-    const expected = restaurantAdapter.getInitialState({
+    const expected = filtersAdapter.getInitialState({
       loadingStatus: 'not loaded',
       error: null,
     });
 
-    expect(restaurantReducer(undefined, { type: '' })).toEqual(expected);
+    expect(filtersReducer(undefined, { type: '' })).toEqual(expected);
   });
 
-  it('should handle fetchRestaurants', () => {
-    let state = restaurantReducer(
-      undefined,
-      fetchRestaurant.pending(null, null)
-    );
+  it('should handle fetchFilterss', () => {
+    let state = filtersReducer(undefined, fetchFilters.pending(null, null));
 
     expect(state).toEqual(
       expect.objectContaining({
@@ -28,9 +21,9 @@ describe('restaurant reducer', () => {
       })
     );
 
-    state = restaurantReducer(
+    state = filtersReducer(
       state,
-      fetchRestaurant.fulfilled([{ id: 1 }], null, null)
+      fetchFilters.fulfilled([{ id: 1 }], null, null)
     );
 
     expect(state).toEqual(
@@ -41,9 +34,9 @@ describe('restaurant reducer', () => {
       })
     );
 
-    state = restaurantReducer(
+    state = filtersReducer(
       state,
-      fetchRestaurant.rejected(new Error('Uh oh'), null, null)
+      fetchFilters.rejected(new Error('Uh oh'), null, null)
     );
 
     expect(state).toEqual(

@@ -1,17 +1,24 @@
-import { fetchSearch, searchAdapter, searchReducer } from './search.slice';
+import {
+  fetchRestaurant,
+  restaurantAdapter,
+  restaurantReducer,
+} from './index.slice';
 
-describe('search reducer', () => {
+describe('restaurant reducer', () => {
   it('should handle initial state', () => {
-    const expected = searchAdapter.getInitialState({
+    const expected = restaurantAdapter.getInitialState({
       loadingStatus: 'not loaded',
       error: null,
     });
 
-    expect(searchReducer(undefined, { type: '' })).toEqual(expected);
+    expect(restaurantReducer(undefined, { type: '' })).toEqual(expected);
   });
 
-  it('should handle fetchSearchs', () => {
-    let state = searchReducer(undefined, fetchSearch.pending(null, null));
+  it('should handle fetchRestaurants', () => {
+    let state = restaurantReducer(
+      undefined,
+      fetchRestaurant.pending(null, null)
+    );
 
     expect(state).toEqual(
       expect.objectContaining({
@@ -21,9 +28,9 @@ describe('search reducer', () => {
       })
     );
 
-    state = searchReducer(
+    state = restaurantReducer(
       state,
-      fetchSearch.fulfilled([{ id: 1 }], null, null)
+      fetchRestaurant.fulfilled([{ id: 1 }], null, null)
     );
 
     expect(state).toEqual(
@@ -34,9 +41,9 @@ describe('search reducer', () => {
       })
     );
 
-    state = searchReducer(
+    state = restaurantReducer(
       state,
-      fetchSearch.rejected(new Error('Uh oh'), null, null)
+      fetchRestaurant.rejected(new Error('Uh oh'), null, null)
     );
 
     expect(state).toEqual(

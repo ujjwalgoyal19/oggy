@@ -8,6 +8,7 @@ import Section from 'app/components/atoms/section';
 
 /* eslint-disable-next-line */
 export interface HomeProps {
+  Localities: any;
   HomeContent: any;
   HomeImages: any;
 }
@@ -48,7 +49,7 @@ const HomeTemplate = (props: HomeProps) => {
       </Section>
       <Section Width="100%" MarginBottom="0rem">
         <Locality
-          Content={props.HomeContent.HeroSectionLocalitiesJaipur}
+          Localities={props.Localities}
           Margin={getRandomMargin(
             props.HomeContent.HeroSectionLocalitiesJaipur.length
           )}

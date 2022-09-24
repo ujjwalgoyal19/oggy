@@ -1,17 +1,17 @@
-import { fetchFilters, filtersAdapter, filtersReducer } from './filters.slice';
+import { fetchSearch, searchAdapter, searchReducer } from './index.slice';
 
-describe('filters reducer', () => {
+describe('search reducer', () => {
   it('should handle initial state', () => {
-    const expected = filtersAdapter.getInitialState({
+    const expected = searchAdapter.getInitialState({
       loadingStatus: 'not loaded',
       error: null,
     });
 
-    expect(filtersReducer(undefined, { type: '' })).toEqual(expected);
+    expect(searchReducer(undefined, { type: '' })).toEqual(expected);
   });
 
-  it('should handle fetchFilterss', () => {
-    let state = filtersReducer(undefined, fetchFilters.pending(null, null));
+  it('should handle fetchSearchs', () => {
+    let state = searchReducer(undefined, fetchSearch.pending(null, null));
 
     expect(state).toEqual(
       expect.objectContaining({
@@ -21,9 +21,9 @@ describe('filters reducer', () => {
       })
     );
 
-    state = filtersReducer(
+    state = searchReducer(
       state,
-      fetchFilters.fulfilled([{ id: 1 }], null, null)
+      fetchSearch.fulfilled([{ id: 1 }], null, null)
     );
 
     expect(state).toEqual(
@@ -34,9 +34,9 @@ describe('filters reducer', () => {
       })
     );
 
-    state = filtersReducer(
+    state = searchReducer(
       state,
-      fetchFilters.rejected(new Error('Uh oh'), null, null)
+      fetchSearch.rejected(new Error('Uh oh'), null, null)
     );
 
     expect(state).toEqual(

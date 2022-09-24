@@ -11,8 +11,9 @@ import TabBar from 'app/components/atoms/tab-bar';
 import config from 'app/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
-import { filtersActions } from 'app/pages/search-result-page/filters.slice';
-import { searchActions } from 'app/pages/search-result-page/search.slice';
+import { filtersActions } from 'app/store/filter/index.slice';
+import { searchActions } from 'app/store/search/index.slice';
+import Container from 'app/components/atoms/container';
 
 /* eslint-disable-next-line */
 export interface FiltersProps {}
@@ -32,27 +33,9 @@ const Wrapper = styled.div`
   width: 70rem;
   height: 47rem;
   z-index: 100001;
-`;
-
-const StyledFilterList = styled.div`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  border: 2px solid rgba(0, 0, 0, 0.05);
-  box-shadow: -2px 3px 10px 1px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-`;
-
-const Right = styled.div`
-  padding: 4rem 4rem;
-  width: 100%;
-  background-color: #ffffff;
-`;
-
-const Left = styled.div`
-  min-width: 30%;
+  border-radius: 0.6rem;
+  border: 0.1rem solid rgb(232, 232, 232);
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.04);
 `;
 
 const Modal = styled.div`
@@ -61,14 +44,6 @@ const Modal = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-`;
-
-interface IRightWrapper {
-  visible: boolean;
-}
-
-const RightWrapper = styled.div<IRightWrapper>`
-  display: ${(props) => (props.visible ? 'block' : 'none')};
 `;
 
 export function Filters(props: FiltersProps) {
@@ -135,39 +110,54 @@ export function Filters(props: FiltersProps) {
         <>
           <Modal onClick={handleCloseFilter} />
           <Wrapper>
-            <StyledFilterList>
-              <Left>
+            <Container Row>
+              <Container Width="40%" Column>
                 <TabBar
+                  Vertical
                   key={0}
                   Sections={Filters.Order}
                   ActiveSection={Filters.Order.indexOf(category)}
                   ChangeSection={handleChangeCategory}
                 />
-              </Left>
-              <Right>
-                <RightWrapper visible={category === 'Sort'}>
+              </Container>
+              <Container Column Padding="3rem 0rem 3rem 3rem">
+                {{
+                  Sort: (
+                    <SortSection
+                      Filters={
+                        Filters.Category[Filters.Order.indexOf(category)]
+                      }
+                      Active={activeFilters[Filters.Order.indexOf(category)]}
+                      FilterHandler={setFilterHandler}
+                    />
+                  ),
+                  Cuisines: (
+                    <CuisinesSection
+                      Filters={
+                        Filters.Category[Filters.Order.indexOf(category)]
+                      }
+                      Active={activeFilters[Filters.Order.indexOf(category)]}
+                      FilterHandler={setFilterHandler}
+                    />
+                  ),
+                  'More filters': (
+                    <MoreFiltersSection
+                      Filters={
+                        Filters.Category[Filters.Order.indexOf(category)]
+                      }
+                      Active={activeFilters[Filters.Order.indexOf(category)]}
+                      FilterHandler={setFilterHandler}
+                    />
+                  ),
+                }[category] || (
                   <SortSection
                     Filters={Filters.Category[Filters.Order.indexOf(category)]}
                     Active={activeFilters[Filters.Order.indexOf(category)]}
                     FilterHandler={setFilterHandler}
                   />
-                </RightWrapper>
-                <RightWrapper visible={category === 'Cuisines'}>
-                  <CuisinesSection
-                    Filters={Filters.Category[Filters.Order.indexOf(category)]}
-                    Active={activeFilters[Filters.Order.indexOf(category)]}
-                    FilterHandler={setFilterHandler}
-                  />
-                </RightWrapper>
-                <RightWrapper visible={category === 'More filters'}>
-                  <MoreFiltersSection
-                    Filters={Filters.Category[Filters.Order.indexOf(category)]}
-                    Active={activeFilters[Filters.Order.indexOf(category)]}
-                    FilterHandler={setFilterHandler}
-                  />
-                </RightWrapper>
-              </Right>
-            </StyledFilterList>
+                )}
+              </Container>
+            </Container>
           </Wrapper>
         </>
       )}

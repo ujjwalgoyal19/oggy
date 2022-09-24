@@ -7,6 +7,7 @@ export interface HeadingProps {
     weight?: string;
     fontFamily?: string;
   };
+  
   Engraved?: boolean;
   Embossed?: boolean;
   HeadingSize?: string;
@@ -17,7 +18,7 @@ export interface HeadingProps {
   MarginTop?: string;
   MarginBottom?: string;
   TextAlign?: string;
-  children: string | JSX.Element[] | null;
+  children: string | JSX.Element | JSX.Element[] | null;
 }
 
 interface IStyledHeading {
@@ -38,7 +39,7 @@ interface IStyledHeading {
   engraved?: boolean;
 }
 
-const StyledHeading = styled.h1<IStyledHeading>`
+const StyledHeading = styled.p<IStyledHeading>`
   color: ${(props) => props.color || 'inherit'};
   font-size: ${(props) => props.headingSize || props.heading?.size};
   font-weight: ${(props) => props.headingWeight || props.heading?.weight};

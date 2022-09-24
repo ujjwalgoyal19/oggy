@@ -5,28 +5,24 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { useEffect, useRef, useState } from 'react';
 import config from 'app/config';
-import { NONAME } from 'dns';
+import { useDispatch } from 'react-redux';
+import { searchActions } from 'app/store/search/index.slice';
+import Container from 'app/components/atoms/container';
 
 /* eslint-disable-next-line */
 export interface LocalityProps {
-  Content: {
-    name: string;
-    totalRestaurant: string;
-    image: string;
-    url: string;
-  }[];
+  Localities: any;
   Margin: string[];
 }
 
 const StyledLocality = styled.ul`
+  box-sizing: border-box;
   min-height: 100vh;
-  padding: 0;
   color: white;
-  display: flex;
   max-width: 100%;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1.388889vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
 `;
 
@@ -51,21 +47,23 @@ const Locality = (props: LocalityProps) => {
   };
   gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
+    // const ST = ScrollTrigger.create();
     const LocalityTimeline = gsap.timeline({
+      // scrollTrigger: ST.vars,
       scrollTrigger: {
+        id: 'ST',
         trigger: locality.current,
         scrub: true,
         pin: true,
         start: 'top top',
         end: '100% top',
         snap: { snapTo: [1] },
-        markers: true,
       },
-      duration: 6,
+      duration: 10,
     });
     LocalityTimeline.to(locality.current, {
       backgroundColor: 'black',
-      duration: 4,
+      duration: 2,
     })
       .fromTo(
         heading.current,
@@ -73,21 +71,37 @@ const Locality = (props: LocalityProps) => {
           scale: 0.5,
           opacity: 0,
           pointerEvents: 'none',
-          duration: 4,
         },
         {
           scale: 1,
           opacity: 1,
           pointerEvents: 'auto',
           ease: 'power1.out',
-        },
-        '0.3'
+          duration: 6,
+        }
       )
       .to(heading.current, {
         opacity: 0,
       })
-      .fromTo('.locality_item', { opacity: 0 }, { opacity: 1 });
+      .fromTo('.locality_list', { opacity: 0 }, { opacity: 1 });
+
+    return () => {
+      ScrollTrigger.getById('ST')?.kill();
+    };
   }, []);
+
+  const dispatch = useDispatch();
+
+  const getRestaurantLocalityHandler = (locality: any) => {
+    dispatch(
+      searchActions.changeLocation({
+        type: 'Locality',
+        id: locality.locality_id,
+        name: locality.locality_name,
+      })
+    );
+  };
+
   return (
     <StyledLocality ref={locality}>
       <HeadingWrapper>
@@ -103,21 +117,32 @@ const Locality = (props: LocalityProps) => {
           </Heading>
         </HeadingWrapperChild>
       </HeadingWrapper>
-      {props.Content.map((locality, index) => {
-        return (
-          <LinkHoverImage
-            className="locality_item"
-            key={index}
-            text={locality.name}
-            image={locality.image}
-            url={locality.url}
-            subtext={locality.totalRestaurant + ' places'}
-            hoverHandler={hoverHandler}
-            hoverState={overlay}
-            margin={props.Margin[index]}
-          />
-        );
-      })}
+      <Container
+        ClassName="locality_list"
+        Row
+        BG="black"
+        Gap="2rem"
+        Wrap
+        SpaceBetweenMA
+        Height="fit-content"
+      >
+        {Object.values(props.Localities).map((locality: any, index) => {
+          return (
+            <LinkHoverImage
+              key={index}
+              Key={index}
+              text={locality.locality_name}
+              image="assets/images/malviyaNagar.jpg"
+              url="search"
+              subtext={locality.res_count + ' places'}
+              hoverHandler={hoverHandler}
+              hoverState={overlay}
+              clickHandler={() => getRestaurantLocalityHandler(locality)}
+              margin={props.Margin[index]}
+            />
+          );
+        })}
+      </Container>
     </StyledLocality>
   );
 };

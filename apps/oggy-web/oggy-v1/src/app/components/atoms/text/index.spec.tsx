@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Grid from './index';
+import Text from './index';
 
-describe('Grid', () => {
+describe('Text', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Grid />);
+    const { baseElement } = render(<Text />);
     expect(baseElement).toBeTruthy();
   });
 });

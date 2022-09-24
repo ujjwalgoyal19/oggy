@@ -26,6 +26,9 @@ const GlobalStyles = createGlobalStyle`
  */
 html {
   font-family: Raleway;
+  -webkit-font-feature-settings: "lnum";
+  -moz-font-feature-settings: "lnum";
+  font-feature-settings: "lnum";
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
   overflow-x: hidden;

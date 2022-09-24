@@ -16,6 +16,7 @@ export function useIntersectionObserver(
   };
 
   useEffect(() => {
+    console.log(ref.current);
     setElement(ref.current);
   }, [ref]);
 
@@ -39,5 +40,5 @@ export function useIntersectionObserver(
     };
   }, [element, options]);
 
-  return isIntersecting;
+  return { isIntersecting };
 }

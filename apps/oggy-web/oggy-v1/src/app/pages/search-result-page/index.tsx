@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import SearchResultTemplate from 'app/components/templates/search-result-template';
 import { useDispatch } from 'react-redux';
-import { fetchFilters } from './filters.slice';
+import { fetchFilters } from 'app/store/filter/index.slice';
 import { AppDispatch} from 'app/store';
 import { useEffect } from 'react';
 

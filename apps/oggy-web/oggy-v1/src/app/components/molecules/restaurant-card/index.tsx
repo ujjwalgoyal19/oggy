@@ -1,17 +1,20 @@
+import Container from 'app/components/atoms/container';
 import Rating from 'app/components/atoms/rating';
+import Text from 'app/components/atoms/text';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 /* eslint-disable-next-line */
 export interface RestaurantCardProps {
-  Image: string;
-  Link: string;
-  DeliveryRating: any;
-  DiningRating: any;
-  Cuisines: string;
-  Name: string;
-  CostForTwo: number;
+  Id?: number;
+  Image?: string;
+  DeliveryRating?: any;
+  DiningRating?: any;
+  Cuisines?: string;
+  Name?: string;
+  CostForTwo?: string;
   Skeleton?: boolean;
 }
 
@@ -39,69 +42,16 @@ const RatingAggregation = (ratings: Rating[]) => {
 interface IRestaurantShowcase {
   skeleton?: boolean;
 }
-interface IRestaurantName {
-  skeleton?: boolean;
-}
-interface IRestaurantCuisines {
-  skeleton?: boolean;
-}
-interface IRestaurantCostForTwo {
-  skeleton?: boolean;
-}
 interface IRestaurantRating {
   skeleton?: boolean;
 }
 
 const RestaurantShowcase = styled.div<IRestaurantShowcase>`
-  border-radius: 10px;
+  border-radius: 1.5rem;
   overflow: hidden;
   width: 100%;
+  height: 80%;
   min-height: 80%;
-  max-height: 80%;
-`;
-const RestaurantInformation = styled.div`
-  margin-top: 1.4rem;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-`;
-const RestaurantInformationWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const RestaurantName = styled.h4<IRestaurantName>`
-  margin: 0;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 1.8rem;
-`;
-const RestaurantCuisines = styled.p<IRestaurantCuisines>`
-  margin: 0;
-  width: 18rem;
-  display: inline-block;
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: grey;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis; /* give the beautiful '...' effect */
-`;
-const RestaurantCostForTwo = styled.p<IRestaurantCostForTwo>`
-  margin: 0;
-  font-family: Raleway;
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: grey;
-  > span {
-    font-family: Roboto;
-    font-weight: 400;
-  }
 `;
 const RestaurantRating = styled.div<IRestaurantRating>`
   position: absolute;
@@ -119,18 +69,16 @@ const RestaurantImage = styled(motion.img)`
   transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
 `;
 
-interface IRestaurantCard {
-  skeleton?: boolean;
-}
-
-const StyledRestaurantCard = styled.div<IRestaurantCard>`
+const StyledRestaurantCard = styled.div`
   box-sizing: border-box;
   position: relative;
   font-family: Raleway;
   width: 100%;
-  min-height: 40rem;
-  max-height: 40rem;
-  border-radius: 2rem;
+  height: 100%;
+  overflow: hidden;
+  min-height: 35rem;
+  max-height: 35rem;
+  border-radius: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,38 +89,6 @@ const StyledRestaurantCard = styled.div<IRestaurantCard>`
     box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.1);
     border-color: rgb(232, 232, 232);
   }
-  ${(props) =>
-    props.skeleton &&
-    css`
-      & ${RestaurantShowcase} {
-        background: #949494 !important; /* Customizable skeleton loader color */
-        color: rgba(0, 0, 0, 0) !important;
-        border-color: rgba(0, 0, 0, 0) !important;
-        user-select: none;
-        cursor: wait;
-        & * {
-          visibility: hidden !important;
-        }
-        &:empty::after,
-        & *:empty::after {
-          content: '\00a0';
-        }
-      }
-      & ${RestaurantInformationWrapper} {
-        background: #949494 !important; /* Customizable skeleton loader color */
-        color: rgba(0, 0, 0, 0) !important;
-        border-color: rgba(0, 0, 0, 0) !important;
-        user-select: none;
-        cursor: wait;
-        & * {
-          visibility: hidden !important;
-        }
-        &:empty::after,
-        & *:empty::after {
-          content: '\00a0';
-        }
-      }
-    `}
 `;
 
 export function RestaurantCard(props: RestaurantCardProps) {
@@ -186,9 +102,16 @@ export function RestaurantCard(props: RestaurantCardProps) {
     rootMargin: '200px 0px',
   });
   return (
-    <StyledRestaurantCard ref={ref}>
-      <RestaurantShowcase skeleton={props.Skeleton}>
-        {inView ? (
+    <Link
+      to={`/restaurant/${props.Id}`}
+      style={{
+        display: 'block',
+        textDecoration: 'none',
+        color: 'inherit',
+      }}
+    >
+      <StyledRestaurantCard ref={ref}>
+        <RestaurantShowcase>
           <RestaurantImage
             src={imageFile.src}
             initial={{
@@ -200,22 +123,24 @@ export function RestaurantCard(props: RestaurantCardProps) {
               opacity: 1,
             }}
           />
-        ) : null}
-      </RestaurantShowcase>
-      <RestaurantInformation>
-        <RestaurantInformationWrapper>
-          <RestaurantName>{props.Name}</RestaurantName>
-          <Rating Rating={RatingAggregation(props.DeliveryRating)} />
-        </RestaurantInformationWrapper>
-        <RestaurantInformationWrapper>
-          <RestaurantCuisines>{props.Cuisines}</RestaurantCuisines>
-          <RestaurantCostForTwo>
-            <span>{props.CostForTwo}</span> ₹ for two
-          </RestaurantCostForTwo>
-        </RestaurantInformationWrapper>
-      </RestaurantInformation>
-      <RestaurantRating></RestaurantRating>
-    </StyledRestaurantCard>
+        </RestaurantShowcase>
+        <Container Column MarginTop="1.2rem" Gap=".8rem">
+          <Container SpaceBetweenMA Row Gap="3rem">
+            <Text NoWrap={{ Width: '22rem' }} H3 N>
+              {props.Name}
+            </Text>
+            <Rating Small Rating={RatingAggregation(props.DeliveryRating)} />
+          </Container>
+          <Container SpaceBetweenMA Row>
+            <Text NoWrap={{ Width: '18rem' }} H4>
+              {props.Cuisines}
+            </Text>
+            <Text H4>{props.CostForTwo?.replace(/\D/g, '') + '₹ for two'}</Text>
+          </Container>
+        </Container>
+        <RestaurantRating></RestaurantRating>
+      </StyledRestaurantCard>
+    </Link>
   );
 }
 

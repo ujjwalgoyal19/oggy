@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchRestaurant } from './restaurant.slice';
+import { fetchRestaurant } from 'app/store/restaurant/index.slice';
 
 /* eslint-disable-next-line */
 export interface RestaurantPageProps {}
@@ -17,12 +17,14 @@ export function RestaurantPage(props: RestaurantPageProps) {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     if (restaurantId) dispatch(fetchRestaurant(parseInt(restaurantId)));
-  }, []);
+  }, [restaurantId]);
   return (
     <StyledRestaurantPage>
-      <RestaurantPageTemplate
-        Data={restaurantState.entities[restaurantState.ids[0]]}
-      />
+      {restaurantState.loadingStatus === 'loaded' && (
+        <RestaurantPageTemplate
+          Data={restaurantState?.entities[restaurantState.ids[0]]}
+        />
+      )}
     </StyledRestaurantPage>
   );
 }

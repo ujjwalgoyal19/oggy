@@ -80,7 +80,7 @@ export const Home = {
       name: 'Mansarovar',
       totalRestaurant: '1693',
       image: 'assets/images/malviyaNagar.jpg',
-      url: 'http://hello.com/',
+      url: 'http://oggyapi.herokuapp.com/mapi/restaurants?type=locality',
     },
     {
       name: 'Vaishali Nagar',

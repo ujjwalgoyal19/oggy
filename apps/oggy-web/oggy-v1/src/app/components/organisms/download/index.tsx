@@ -1,9 +1,7 @@
 import Heading from 'app/components/atoms/heading';
 import Image from 'app/components/atoms/image';
 import config from 'app/config';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -41,18 +39,6 @@ const CTAWrapper = styled.div`
 
 export function Download(props: DownloadProps) {
   const download = useRef<HTMLDivElement>(null);
-  gsap.registerPlugin(ScrollTrigger);
-  useEffect(() => {
-    const DownloadTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: download.current,
-        scrub: true,
-        start: 'top top',
-        end: 'bottom top',
-        markers: true,
-      },
-    });
-  }, []);
   return (
     <StyledDownload ref={download}>
       <Left>
