@@ -25,6 +25,11 @@ export interface TextProps {
   Lead?: boolean;
   Muted?: boolean;
 
+  // Decorations
+  Underline?: boolean;
+  UnderlineStyle?: string;
+  UnderlineColor?: string;
+
   // Font properties
   NoWrap?: {
     Width: string;
@@ -35,12 +40,14 @@ export interface TextProps {
   Vertical?: boolean;
 
   // Font Colors
-  Color?: string;
-  Primary?: boolean;
-  Secondary?: boolean;
-  Black?: boolean;
-  White?: boolean;
-  Grey?: boolean;
+  Color?:
+    | string
+    | 'Primary'
+    | 'Secondary'
+    | 'Black'
+    | 'White'
+    | 'Grey'
+    | 'LightGrey';
 
   // Font Weight
   EL?: boolean;
@@ -79,6 +86,11 @@ interface IText {
   Lead?: boolean;
   Muted?: boolean;
 
+  // Decorations
+  Underline?: boolean;
+  UnderlineStyle?: string;
+  UnderlineColor?: string;
+
   // Write Direction
   Vertical?: boolean;
 
@@ -88,7 +100,14 @@ interface IText {
   };
 
   // Font Colors
-  Color?: string | 'Primary' | 'Secondary' | 'Black' | 'White' | 'Grey';
+  Color?:
+    | string
+    | 'Primary'
+    | 'Secondary'
+    | 'Black'
+    | 'White'
+    | 'Grey'
+    | 'LightGrey';
 
   // Font Weight
   EL?: boolean;
@@ -99,6 +118,11 @@ interface IText {
 }
 
 const StyledText = styled.span<IText>`
+  // Default Properties
+  font-family: inherit;
+  font-size: inherit;
+  font-color: inherit;
+
   // Font Weight
   --font-EL: 200;
   --font-L: 400;
@@ -108,7 +132,7 @@ const StyledText = styled.span<IText>`
 
   // Font Types
   --font-size-H1: 3.052rem;
-  --font-size-H2: 2.441rem;
+  --font-size-H2: min(5vw, 2.441rem);
   --font-size-H3: 1.953rem;
   --font-size-H4: 1.563rem;
   --font-size-H5: 1.25rem;
@@ -122,8 +146,8 @@ const StyledText = styled.span<IText>`
   --font-size-sub-H6: 0.8rem;
 
   --font-size-D1: 11.642rem;
-  --font-size-D2: 9.313rem;
-  --font-size-D3: 7.451rem;
+  --font-size-D2: min(11vw, 9.313rem);
+  --font-size-D3: min(6vw, 7.451rem);
   --font-size-D4: 5.96rem;
   --font-size-D5: 4.768rem;
   --font-size-D6: 3.815rem;
@@ -139,14 +163,21 @@ const StyledText = styled.span<IText>`
   --font-size-para: 4.8rem;
 
   // Color Type For Text
-  --primary-color: black;
+  --primary-color: #ff9800;
   --secondary-color: black;
-  --white-color: black;
+  --white-color: white;
   --black-color: black;
+  --light-grey-color: rgb(228, 228, 228);
   --grey-color: black;
 
   ${(props) => css`
     color: ${typeof props.Color === 'string' && props.Color};
+    color: ${props.Color === 'Primary' && 'var(--primary-color)'};
+    color: ${props.Color === 'Secondary' && 'var(--secondary-color)'};
+    color: ${props.Color === 'Black' && 'var(--white-color)'};
+    color: ${props.Color === 'White' && 'var(--black-color)'};
+    color: ${props.Color === 'Grey' && 'var(--grey-color)'};
+    color: ${props.Color === 'LightGrey' && 'var(--light-grey-color)'};
     font-weight: ${props.EL && 'var(--font-EL)'};
     font-weight: ${props.L && 'var(--font-L)'};
     font-weight: ${props.N && 'var(--font-N)'};
@@ -176,8 +207,19 @@ const StyledText = styled.span<IText>`
     font-size: ${props.H4 && props.Sub && 'var(--font-size-sub-H4)'};
     font-size: ${props.H5 && props.Sub && 'var(--font-size-sub-H5)'};
     font-size: ${props.H6 && props.Sub && 'var(--font-size-sub-H6)'};
+
+    // Vertical Alignment for Font
     writing-mode: ${props.Vertical && 'vertical-rl'};
     transform: ${props.Vertical && 'rotate(180deg)'};
+
+    // Decoration Underline
+    ${props.Underline &&
+    css`
+      text-decoration: none;
+      padding-bottom: 10px;
+      border-bottom: 8px ${props.UnderlineStyle || 'solid'}
+        ${props.UnderlineColor || 'black'};
+    `};
   `};
 
   ${(props) =>
@@ -217,6 +259,9 @@ export function Text(props: TextProps) {
       Muted={props.Muted}
       Lead={props.Lead}
       Vertical={props.Vertical}
+      Underline={props.Underline}
+      UnderlineColor={props.UnderlineColor}
+      UnderlineStyle={props.UnderlineStyle}
       L={props.L}
       N={props.N}
       B={props.B}

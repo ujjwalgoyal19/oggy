@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+import Text from 'app/components/atoms/text';
 
 /* eslint-disable-next-line */
 export interface LinkHoverImageProps {
@@ -102,23 +103,14 @@ const Image = styled.img`
   width: 100%;
 `;
 
-const Subtext = styled.h5`
+const Subtext = styled.div`
   margin: 0;
-  font-size: 1.8vw;
-  font-weight: 500;
-  color: inherit;
   transform: translateY(100%);
   transition: all 0.4s ease;
 `;
 
 const Wrapper = styled.div`
   overflow: hidden;
-`;
-const Heading = styled.h2`
-  font-size: 5vw;
-  color: inherit;
-  margin: 0;
-  z-index: 100;
 `;
 
 const Content = styled(motion.div)`
@@ -145,7 +137,7 @@ const StyledLinkHoverImage = styled(Link).attrs((props) => ({
   margin-right: ${(props) => props.margin};
 
   &:hover ${Content} {
-    z-index: 10001;
+    // z-index: 101;
   }
 
   &:hover ${Subtext} {
@@ -207,12 +199,16 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
           props.hoverState && !active ? { opacity: 0.2 } : { opacity: 1 }
         }
       >
-        <Heading>{getHeading(props.text)}</Heading>
+        <Text D3 EB>
+          {getHeading(props.text)}
+        </Text>
         <ImageWrapper active={active} clip={getRandomClipPath()}>
           <Image src={props.image} />
         </ImageWrapper>
         <Wrapper>
-          <Subtext>{props.subtext}</Subtext>
+          <Subtext>
+            <Text H2>{props.subtext}</Text>
+          </Subtext>
         </Wrapper>
       </Content>
     </StyledLinkHoverImage>

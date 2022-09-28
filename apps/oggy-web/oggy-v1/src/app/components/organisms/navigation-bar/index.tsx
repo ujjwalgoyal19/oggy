@@ -2,8 +2,9 @@ import styled, { css } from 'styled-components';
 
 import SearchBarHero from 'app/components/molecules/search-bar';
 import Image from 'app/components/atoms/image';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Container from 'app/components/atoms/container';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {
   Logo: {
@@ -15,53 +16,13 @@ export interface NavigationBarProps {
   SearchBar?: boolean;
 }
 
-interface IStyledNavigationBar {
-  type: string;
-  visible?: boolean;
-  width?: string;
-}
-
-const StyledNavigationBar = styled.div<IStyledNavigationBar>`
-  font-family: Raleway;
-  width: ${(props) => props.width || '70%'};
-  margin: auto;
-  margin-bottom: 5rem;
-  padding: 2rem;
-  height: fit-content;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+const StyledNavigationBar = styled.div`
+  width: 100%;
+  height: 10rem;
   z-index: 1000;
-  ${(props) =>
-    props.type === 'hero' &&
-    css`
-      box-sizing: border-box;
-      margin: 0;
-      padding-left: 10%;
-      padding-right: 10%;
-      width: 100%;
-      // background-color: white;
-      position: fixed;
-      top: ${!props.visible ? '-10%' : '0%'};
-      left: 50%;
-      transform: translateX(-50%);
-      transition: all 0.2s ease;
-    `}
-`;
-
-const Left = styled.div`
-  grid-column: 1 / 10;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  column-gap: 5rem;
-`;
-const Right = styled.div`
-  grid-column: 10 / 13;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  column-gap: 5rem;
+  background-color: transparent;
+  position: sticky;
+  top: 0;
 `;
 
 export function NavigationBar(props: NavigationBarProps) {
@@ -85,16 +46,27 @@ export function NavigationBar(props: NavigationBarProps) {
     };
   }, [prevScrollPos]);
   return (
-    // <StyledNavigationBar visible={visible} width={props.Width}>
-    <StyledNavigationBar type={type} visible={visible} width={width}>
-      <Left>
-        <Image Image={props.Logo} />
-        {type === 'normal' ? <SearchBarHero type="combined" /> : null}
-      </Left>
-      <Right>
-        <a>Sign In</a>
-        <a>Register</a>
-      </Right>
+    <StyledNavigationBar>
+      <Container
+        Column
+        CenterCA
+        Padding="2rem"
+        BG="transparent"
+        Position={{ Type: 'absolute', Top: `${visible ? 0 : '-100%'}` }}
+      >
+        <Container Row Width={width} SpaceBetweenMA CenterCA>
+          <Container Row Height="fit-content">
+            <Link to="/">
+              <Image Image={props.Logo} />
+            </Link>
+            {type === 'normal' ? <SearchBarHero type="combined" /> : null}
+          </Container>
+          <Container Row EndMA Gap="5rem" Height="fit-content">
+            <Link to="/login">Sign In</Link>
+            <Link to="/register">Register</Link>
+          </Container>
+        </Container>
+      </Container>
     </StyledNavigationBar>
   );
 }

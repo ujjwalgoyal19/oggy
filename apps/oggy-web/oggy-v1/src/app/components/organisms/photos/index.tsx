@@ -36,7 +36,7 @@ export function Photos(props: PhotosProps) {
               Column
               Shrink
             >
-              <RestaurantImage src={image.url} />
+              <RestaurantImage src={image.url ? image.url : image} />
             </Container>
           );
         })}

@@ -79,12 +79,7 @@ export function Footer(props: FooterProps) {
               <ItemList>
                 <HorizontalList>
                   <ItemList>
-                    <a href="https://github.com/">
-                      <Image Image={config.images.Home.Badge.Apple} />
-                    </a>
-                  </ItemList>
-                  <ItemList>
-                    <a href="https://github.com/">
+                    <a href="https://rb.gy/bqprcb">
                       <Image Image={config.images.Home.Badge.Android} />
                     </a>
                   </ItemList>
@@ -147,16 +142,17 @@ export function Footer(props: FooterProps) {
             </Heading>
             <VerticalList>
               <ItemList>
-                <Link href="https://github.com/">Instagram</Link>
+                <Link href="https://www.instagram.com/oggy_india/?hl=en">
+                  Instagram
+                </Link>
               </ItemList>
               <ItemList>
-                <Link href="https://github.com/">Facebook</Link>
+                <Link href="https://www.facebook.com/team0ggy">Facebook</Link>
               </ItemList>
               <ItemList>
-                <Link href="https://github.com/">Linkedin</Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://github.com/">Twitter</Link>
+                <Link href="https://www.linkedin.com/in/samarth-gupta-5645911aa/">
+                  Linkedin
+                </Link>
               </ItemList>
             </VerticalList>
           </Column>

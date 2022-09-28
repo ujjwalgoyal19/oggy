@@ -161,6 +161,11 @@ export const searchSlice = createSlice({
       state.page = 1;
       state.restart = true;
     },
+    changeQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+      state.page = 1;
+      state.restart = true;
+    },
     changeLocation: (state, action: PayloadAction<LocationEntity>) => {
       state.restart = true;
       state.location = action.payload;

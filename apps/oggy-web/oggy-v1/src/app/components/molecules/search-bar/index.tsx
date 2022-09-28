@@ -40,7 +40,6 @@ export function SearchBarHero(props: SearchBarProps) {
   const dispatch = useDispatch();
 
   const changeLocationHandler = (value: any) => {
-    console.log(value);
     dispatch(
       searchActions.changeLocation({
         type: value.loc_type,
@@ -78,7 +77,7 @@ export function SearchBarHero(props: SearchBarProps) {
             Row
             CenterCA
             Gap=".5rem"
-            Width="30%"
+            Width="40%"
             Position={{ Type: 'relative' }}
           >
             <Image Image={config.images.LocationIcon} />
@@ -98,7 +97,10 @@ export function SearchBarHero(props: SearchBarProps) {
             >
               <LocalitySuggestions
                 Data={locations}
-                ChangeHandler={changeLocationHandler}
+                ChangeHandler={(value) => {
+                  changeLocationHandler(value);
+                  formik.setFieldValue('locality', value);
+                }}
               />
             </Input>
           </Container>

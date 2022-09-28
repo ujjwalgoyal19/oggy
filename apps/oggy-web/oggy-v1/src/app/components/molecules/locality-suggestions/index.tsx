@@ -16,10 +16,15 @@ export function LocalitySuggestions(props: LocalitySuggestionsProps) {
   return (
     <StyledLocalitySuggestions>
       <Container Column Width="100%">
-        {props.Data.map((loc) => {
-          console.log(loc);
+        {props.Data.map((loc, index) => {
           return (
-            <Container Row CenterCA Height="6rem" Hover={{ BG: '#F8F8F8' }}>
+            <Container
+              key={index}
+              Row
+              CenterCA
+              Height="6rem"
+              Hover={{ BG: '#F8F8F8' }}
+            >
               <span
                 onClick={() => props.ChangeHandler(loc)}
                 style={{
