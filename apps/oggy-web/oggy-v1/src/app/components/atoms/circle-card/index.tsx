@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'app/components/atoms/image';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface CircleCardProps {
@@ -10,14 +11,14 @@ export interface CircleCardProps {
   };
   size: string;
   text?: string;
-  link: string;
+  Link?: string;
 }
 
 interface IStyledCircleCardImage {
   size: string;
 }
 
-const StyledCircleCardImage = styled.a<IStyledCircleCardImage>`
+const StyledCircleCardImage = styled(Link)<IStyledCircleCardImage>`
   box-sizing: border-box;
   display: flex;
   margin-top: 1rem;
@@ -35,7 +36,7 @@ const StyledCircleCardImage = styled.a<IStyledCircleCardImage>`
     height: auto;
   }
 `;
-const StyledCircleCardText = styled.a`
+const StyledCircleCardText = styled(Link)`
   display: block;
   text-decoration: none;
   color: #1d1d1b;
@@ -50,11 +51,11 @@ const StyledCircleCard = styled.div`
 export function CircleCard(props: CircleCardProps) {
   return (
     <StyledCircleCard>
-      <StyledCircleCardImage href={props.link} size={props.size}>
+      <StyledCircleCardImage to={props.Link || '/'} size={props.size}>
         {props.image ? <Image Image={props.image} /> : null}
       </StyledCircleCardImage>
       {props.text ? (
-        <StyledCircleCardText href={props.link}>
+        <StyledCircleCardText to={props.Link || '/'}>
           {props.text}
         </StyledCircleCardText>
       ) : null}

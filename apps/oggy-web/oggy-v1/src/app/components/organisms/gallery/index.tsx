@@ -41,7 +41,6 @@ export function Gallery(props: GalleryProps) {
   );
 
   useEffect(() => {
-    console.log(isIntersecting);
     if (isIntersecting) {
       dispatch(fetchSearch(SearchState));
     }
@@ -49,7 +48,7 @@ export function Gallery(props: GalleryProps) {
 
   useEffect(() => {
     dispatch(fetchSearch(SearchState));
-  }, [SearchState.filters]);
+  }, [SearchState.filters, SearchState.searchQuery, SearchState.location]);
 
   return (
     <>

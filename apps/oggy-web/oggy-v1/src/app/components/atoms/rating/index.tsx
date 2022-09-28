@@ -1,6 +1,7 @@
 import config from 'app/config';
 import styled, { css } from 'styled-components';
 import Image from 'app/components/atoms/image';
+import { GetRatingColor } from 'app/utils';
 
 /* eslint-disable-next-line */
 export interface RatingProps {
@@ -50,27 +51,16 @@ const StyledRating = styled.div<IStyledRating>`
 const Text = styled.p`
   font-weight: 600;
   display: inline-block;
-  // padding-top: 0.2rem;
   margin: 0;
 `;
 
 export function Rating(props: RatingProps) {
-  let color: string;
-  if (props.Rating === '-') {
-    color = 'lightgrey';
-  } else if (props.Rating <= 1) {
-    color = '#C21010';
-  } else if (props.Rating <= 2) {
-    color = '#E64848';
-  } else if (props.Rating <= 3) {
-    color = '#FFC54D';
-  } else if (props.Rating <= 4) {
-    color = '#5BB318';
-  } else {
-    color = '#2B7A0B';
-  }
   return (
-    <StyledRating Color={color} Small={props.Small} Large={props.Large}>
+    <StyledRating
+      Color={GetRatingColor(props.Rating)}
+      Small={props.Small}
+      Large={props.Large}
+    >
       <Text>{props.Rating}</Text>
       <Image Image={config.images.StarIcon} />
     </StyledRating>

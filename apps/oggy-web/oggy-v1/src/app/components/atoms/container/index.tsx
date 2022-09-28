@@ -134,7 +134,7 @@ const StyledContainer = styled.div<IContainer>`
   gap: 0;
   padding: 0;
   margin: 0;
-  background-color: white;
+  background-color: inherit;
   transition: all 0.2s ease;
 
   flex-grow: ${(props) => props.Grow && '1'};

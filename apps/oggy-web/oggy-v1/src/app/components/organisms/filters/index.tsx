@@ -14,6 +14,7 @@ import { RootState } from 'app/store';
 import { filtersActions } from 'app/store/filter/index.slice';
 import { searchActions } from 'app/store/search/index.slice';
 import Container from 'app/components/atoms/container';
+import { FiltersAPI } from 'app/service/filters.service';
 
 /* eslint-disable-next-line */
 export interface FiltersProps {}
@@ -34,6 +35,7 @@ const Wrapper = styled.div`
   height: 47rem;
   z-index: 100001;
   border-radius: 0.6rem;
+  background-color: white;
   border: 0.1rem solid rgb(232, 232, 232);
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.04);
 `;
@@ -50,6 +52,13 @@ export function Filters(props: FiltersProps) {
   const Filters = useSelector((state: RootState) => state.filters.all);
   const ActiveFilters = useSelector((state: RootState) => state.filters.active);
   const dispatch = useDispatch();
+  const [filterList, setFilterList] = useState<any[]>([]);
+
+  useEffect(() => {
+    FiltersAPI.getAll().then((filters) => {
+      setFilterList(filters);
+    });
+  }, []);
 
   // Logic for add filter button
   const [showFilterList, setShowFilterList] = useState(false);
@@ -104,7 +113,7 @@ export function Filters(props: FiltersProps) {
         ClickHandler={clickFilterHandler}
       >
         <Image Image={config.images.PlusIcon} MarginRight="1rem" />
-        <span>Add filter</span>
+        {showFilterList ? <span>Apply filters</span> : <span>Add filter</span>}
       </Button>
       {showFilterList && (
         <>

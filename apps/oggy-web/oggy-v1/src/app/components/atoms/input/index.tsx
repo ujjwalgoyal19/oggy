@@ -166,7 +166,7 @@ export function Input(props: InputProps) {
       if (event) {
         props.ChangeHandler(event);
       }
-    }, 1000);
+    }, 200);
     return () => clearTimeout(timer);
   }, [value]);
   const [visible, setVisible] = useState(false);
@@ -223,6 +223,10 @@ export function Input(props: InputProps) {
             }}
             onFocus={() => {
               setVisible(true);
+              setValue('');
+            }}
+            onBlur={() => {
+              setValue(props.Value);
             }}
             autoComplete="off"
             value={value}

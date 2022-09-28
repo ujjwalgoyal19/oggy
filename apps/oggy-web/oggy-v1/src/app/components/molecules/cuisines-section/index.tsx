@@ -18,6 +18,7 @@ const StyledCuisinesSection = styled.div`
 `;
 
 export function CuisinesSection(props: CuisinesSectionProps) {
+  console.log(props.Active);
   const [checkedState, setCheckedState] = useState(
     props.Active ? props.Active : new Array(props.Filters.length).fill(false)
   );
@@ -26,6 +27,7 @@ export function CuisinesSection(props: CuisinesSectionProps) {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
     );
+    checkedState[position] = !checkedState[position]; 
     setCheckedState(updatedCheckedState);
     props.FilterHandler(1, updatedCheckedState);
   };

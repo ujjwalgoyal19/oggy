@@ -12,67 +12,60 @@ export const Home = {
   },
   HeroSectionChainsJaipur: [
     {
-      name: 'Burger King',
+      name: 'Burger Farm',
       image: {
-        src: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
+        src: 'assets/images/burgerFarmL.webp',
         height: '10rem',
         width: '10rem',
       },
-      url: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
     },
     {
-      name: 'Burger King',
+      name: 'Baskin Robins',
       image: {
-        src: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
+        src: 'assets/images/baskinRobinsL.webp',
         height: '10rem',
         width: '10rem',
       },
-      url: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
     },
     {
-      name: 'Burger King',
+      name: 'Cafe Coffee Day',
       image: {
-        src: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
+        src: 'assets/images/cafeCoffeDayL.webp',
         height: '10rem',
         width: '10rem',
       },
-      url: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
     },
     {
-      name: 'Burger King',
+      name: "Domino's Pizza",
       image: {
-        src: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
+        src: 'assets/images/dominosPizzaL.webp',
         height: '10rem',
         width: '10rem',
       },
-      url: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
     },
     {
-      name: 'Burger King',
+      name: 'Kebabs & Curries Company',
       image: {
-        src: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
+        src: 'assets/images/kebabAndCurriesL.webp',
         height: '10rem',
         width: '10rem',
       },
-      url: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
     },
     {
-      name: 'Burger King',
+      name: 'Love Over Coffee',
       image: {
-        src: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
+        src: 'assets/images/loveOverCoffeeL.webp',
         height: '10rem',
         width: '10rem',
       },
-      url: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
     },
     {
-      name: 'Burger King',
+      name: 'Subway',
       image: {
-        src: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
+        src: 'assets/images/subwayL.webp',
         height: '10rem',
         width: '10rem',
       },
-      url: 'https://pngimg.com/uploads/burger_king/burger_king_PNG15.png',
     },
   ],
   HeroSectionLocalitiesJaipur: [
