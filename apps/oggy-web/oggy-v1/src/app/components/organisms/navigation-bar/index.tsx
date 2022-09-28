@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import SearchBarHero from 'app/components/molecules/search-bar';
 import Image from 'app/components/atoms/image';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {
@@ -92,8 +92,8 @@ export function NavigationBar(props: NavigationBarProps) {
         {type === 'normal' ? <SearchBarHero type="combined" /> : null}
       </Left>
       <Right>
-        <a>Sign In</a>
-        <a>Register</a>
+        <Link to="/signin">Sign In</Link>
+        <Link to="/register">Register</Link>
       </Right>
     </StyledNavigationBar>
   );
