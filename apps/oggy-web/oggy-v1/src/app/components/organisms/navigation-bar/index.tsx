@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import SearchBarHero from 'app/components/molecules/search-bar';
 import Image from 'app/components/atoms/image';
@@ -16,18 +16,24 @@ export interface NavigationBarProps {
   SearchBar?: boolean;
 }
 
-const StyledNavigationBar = styled.div`
+interface IStyledNavigationBar {
+  Position?: string;
+}
+
+const StyledNavigationBar = styled.div<IStyledNavigationBar>`
   width: 100%;
   height: 10rem;
   z-index: 1000;
   background-color: transparent;
-  position: sticky;
+  position: ${(props) => props.Position};
   top: 0;
 `;
 
 export function NavigationBar(props: NavigationBarProps) {
   const location = useLocation();
-  const type = location.pathname === '/' ? 'hero' : 'normal';
+  const position = location.pathname === '/' ? 'fixed' : 'static';
+  const autoHide = location.pathname === '/';
+  const showSearchBar = location.pathname !== '/';
   const width = location.pathname === '/' ? '80%' : '70%';
   const [visible, setVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
@@ -46,22 +52,26 @@ export function NavigationBar(props: NavigationBarProps) {
     };
   }, [prevScrollPos]);
   return (
-    <StyledNavigationBar>
+    <StyledNavigationBar Position={position}>
       <Container
         Column
         CenterCA
         Padding="2rem"
         BG="transparent"
-        Position={{ Type: 'absolute', Top: `${visible ? 0 : '-100%'}` }}
+        Position={
+          autoHide
+            ? { Type: 'absolute', Top: `${visible ? 0 : '-100%'}` }
+            : { Type: 'static' }
+        }
       >
         <Container Row Width={width} SpaceBetweenMA CenterCA>
-          <Container Row Height="fit-content">
+          <Container Row Width="70%" Height="fit-content" Gap="5rem">
             <Link to="/">
               <Image Image={props.Logo} />
             </Link>
-            {type === 'normal' ? <SearchBarHero type="combined" /> : null}
+            {showSearchBar ? <SearchBarHero type="combined" /> : null}
           </Container>
-          <Container Row EndMA Gap="5rem" Height="fit-content">
+          <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content">
             <Link to="/login">Sign In</Link>
             <Link to="/register">Register</Link>
           </Container>

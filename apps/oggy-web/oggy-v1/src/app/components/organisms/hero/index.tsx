@@ -12,21 +12,22 @@ const StyledHero = styled.section`
   height: 100%;
   width: 100%;
   display: block;
+  height: fit-content;
 `;
 
 export function Hero(props: HeroProps) {
   return (
     <StyledHero>
-      <Container BG="transparent" Row Height="100%" PaddingTop="10vh">
+      <Container BG="transparent" Row Height="fit-content">
         <Container Column Gap="6vh" Width="100%" Height="fit-content" CenterCA>
           <Text D3 EB style={{ textAlign: 'center' }}>
             <Text>The Best Discounts in</Text>
             <br />
             <Text Color="Primary">Your City</Text>
           </Text>
-          {/* <Text H2 L style={{ textAlign: 'center' }}>
+          <Text H2 L style={{ textAlign: 'center' }}>
             {props.SubHeading}
-          </Text> */}
+          </Text>
           <Container Row Width="65rem">
             <SearchBarHero type="combined" />
           </Container>

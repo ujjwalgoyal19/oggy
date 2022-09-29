@@ -15,6 +15,7 @@ const StyledLocality = styled.div`
   height: fit-content;
   width: 100%;
   color: white;
+  background-color: transparent;
 `;
 const Locality = (props: LocalityProps) => {
   const [overlay, setOverlay] = useState(false);
