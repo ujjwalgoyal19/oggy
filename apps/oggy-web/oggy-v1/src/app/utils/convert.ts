@@ -4,7 +4,7 @@
  * @param {number} ratio [16] - size of 1 rem in px. What is your main font-size in px?
  * @param {'rem' | 'em'} unit
  */
-function pxToEmOrRem(breakpoints: any, ratio = 16, unit: 'rem' | 'em') {
+const pxToEmOrRem = (breakpoints: any, ratio = 16, unit: 'rem' | 'em') => {
   const newBreakpoints: any = {};
 
   for (const key in breakpoints) {
@@ -19,7 +19,7 @@ function pxToEmOrRem(breakpoints: any, ratio = 16, unit: 'rem' | 'em') {
   }
 
   return newBreakpoints;
-}
+};
 
 /**
  * Converts breakpoint units in px to em

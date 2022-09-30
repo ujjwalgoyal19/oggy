@@ -146,7 +146,7 @@ const StyledText = styled.span<IText>`
   --font-size-sub-H6: 0.8rem;
 
   --font-size-D1: 11.642rem;
-  --font-size-D2: min(11vw, 9.313rem);
+  --font-size-D2: min(5vw, 9.313rem);
   --font-size-D3: min(6vw, 7.451rem);
   --font-size-D4: 5.96rem;
   --font-size-D5: 4.768rem;

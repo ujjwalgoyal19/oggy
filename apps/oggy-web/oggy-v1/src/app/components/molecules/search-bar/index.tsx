@@ -4,6 +4,7 @@ import config from 'app/config';
 import { Formik } from 'formik';
 import Container from 'app/components/atoms/container';
 import Input from 'app/components/atoms/input';
+import media from 'app/hooks/styledMediaQuery.hook';
 import Separator from 'app/components/atoms/separator';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
@@ -15,8 +16,8 @@ import LocalitySuggestions from '../locality-suggestions';
 
 /* eslint-disable-next-line */
 export interface SearchBarProps {
-  type: string;
-  size?: string;
+  TypeA?: boolean;
+  TypeB?: boolean;
 }
 
 const StyledSearchBar = styled.div`
@@ -72,111 +73,116 @@ export function SearchBarHero(props: SearchBarProps) {
     >
       {(formik) => (
         <StyledSearchBar>
-          {/* <Container
-            Row
-            CenterCA
-            Gap=".5rem"
-            Width="40%"
-            Position={{ Type: 'relative' }}
-          >
-            <Image Image={config.images.LocationIcon} />
-            <Input
-              Dropdown
-              Key={0}
-              ChangeHandler={(e: any) => {
-                formik.handleChange(e);
-                getSuggestions(e.target.value, 'locality');
-              }}
-              Name="locality"
-              Id="locality"
-              DWidth="25rem"
-              DHeight="20rem"
-              Placeholder={config.content.SearchBarLocationPlaceholder}
-              Value={formik.values.locality}
-            >
-              <LocalitySuggestions
-                Data={locations}
-                ChangeHandler={(value) => {
-                  changeLocationHandler(value);
-                  formik.setFieldValue('locality', value);
-                }}
-              />
-            </Input>
-          </Container>
-          <Container Row Width="5%" CenterCA CenterMA>
-            <Separator Vertical Color="#ffffff" ColorType="light" />
-          </Container>
-          <Container Row CenterCA Gap=".5rem">
-            <Image Image={config.images.SearchIcon} />
-            <Input
-              Dropdown
-              Key={0}
-              ChangeHandler={(e: any) => {
-                formik.handleChange(e);
-                getSuggestions(e.target.value, 'restaurants');
-              }}
-              Name="search"
-              Id="search"
-              DWidth="60rem"
-              DHeight="30rem"
-              Placeholder={config.content.SearchBarRestaurantPlaceholder}
-              Value={formik.values.search}
-            >
-              <RestaurantSuggestions Data={restaurants} />
-            </Input>
-          </Container> */}
-          <Container Column Gap="2vh" Padding="1rem">
-            <Container
-              Row
-              CenterCA
-              Gap=".5rem"
-              Width="40%"
-              Position={{ Type: 'relative' }}
-            >
-              <Image Image={config.images.LocationIcon} />
-              <Input
-                Dropdown
-                Key={0}
-                ChangeHandler={(e: any) => {
-                  formik.handleChange(e);
-                  getSuggestions(e.target.value, 'locality');
-                }}
-                Name="locality"
-                Id="locality"
-                DWidth="25rem"
-                DHeight="20rem"
-                Placeholder={config.content.SearchBarLocationPlaceholder}
-                Value={formik.values.locality}
+          {props.TypeA && (
+            <>
+              <Container
+                Row
+                CenterCA
+                Gap=".5rem"
+                Width="40%"
+                Position={{ Type: 'relative' }}
               >
-                <LocalitySuggestions
-                  Data={locations}
-                  ChangeHandler={(value) => {
-                    changeLocationHandler(value);
-                    formik.setFieldValue('locality', value);
+                <Image Image={config.images.LocationIcon} />
+                <Input
+                  Dropdown
+                  Key={0}
+                  ChangeHandler={(e: any) => {
+                    formik.handleChange(e);
+                    getSuggestions(e.target.value, 'locality');
                   }}
-                />
-              </Input>
-            </Container>
-            <Container Row CenterCA Gap=".5rem">
-              {/* <Image Image={config.images.SearchIcon} /> */}
-              <Input
-                Dropdown
-                Key={0}
-                ChangeHandler={(e: any) => {
-                  formik.handleChange(e);
-                  getSuggestions(e.target.value, 'restaurants');
-                }}
-                Name="search"
-                Id="search"
-                DWidth="60rem"
-                DHeight="30rem"
-                Placeholder={config.content.SearchBarRestaurantPlaceholder}
-                Value={formik.values.search}
+                  Name="locality"
+                  Id="locality"
+                  DWidth="25rem"
+                  DHeight="20rem"
+                  Placeholder={config.content.SearchBarLocationPlaceholder}
+                  Value={formik.values.locality}
+                >
+                  <LocalitySuggestions
+                    Data={locations}
+                    ChangeHandler={(value) => {
+                      changeLocationHandler(value);
+                      formik.setFieldValue('locality', value);
+                    }}
+                  />
+                </Input>
+              </Container>
+              <Container Row Width="5%" CenterCA CenterMA>
+                <Separator Vertical Color="#ffffff" ColorType="light" />
+              </Container>
+              <Container Row CenterCA Gap=".5rem">
+                <Image Image={config.images.SearchIcon} />
+                <Input
+                  Dropdown
+                  Key={0}
+                  ChangeHandler={(e: any) => {
+                    formik.handleChange(e);
+                    getSuggestions(e.target.value, 'restaurants');
+                  }}
+                  Name="search"
+                  Id="search"
+                  DWidth="60rem"
+                  DHeight="30rem"
+                  Placeholder={config.content.SearchBarRestaurantPlaceholder}
+                  Value={formik.values.search}
+                >
+                  <RestaurantSuggestions Data={restaurants} />
+                </Input>
+              </Container>
+            </>
+          )}
+          {props.TypeB && (
+            <Container Column Gap="2vh" Padding="1rem">
+              <Container
+                Row
+                CenterCA
+                Gap=".5rem"
+                Width="40%"
+                Position={{ Type: 'relative' }}
               >
-                <RestaurantSuggestions Data={restaurants} />
-              </Input>
+                <Image Image={config.images.LocationIcon} />
+                <Input
+                  Dropdown
+                  Key={0}
+                  ChangeHandler={(e: any) => {
+                    formik.handleChange(e);
+                    getSuggestions(e.target.value, 'locality');
+                  }}
+                  Name="locality"
+                  Id="locality"
+                  DWidth="25rem"
+                  DHeight="20rem"
+                  Placeholder={config.content.SearchBarLocationPlaceholder}
+                  Value={formik.values.locality}
+                >
+                  <LocalitySuggestions
+                    Data={locations}
+                    ChangeHandler={(value) => {
+                      changeLocationHandler(value);
+                      formik.setFieldValue('locality', value);
+                    }}
+                  />
+                </Input>
+              </Container>
+              <Container Row CenterCA Gap=".5rem">
+                <Input
+                  Dropdown
+                  Key={0}
+                  ChangeHandler={(e: any) => {
+                    formik.handleChange(e);
+                    getSuggestions(e.target.value, 'restaurants');
+                  }}
+                  Name="search"
+                  Id="search"
+                  DWidth="60rem"
+                  DHeight="30rem"
+                  Placeholder={config.content.SearchBarRestaurantPlaceholder}
+                  Value={formik.values.search}
+                >
+                  <RestaurantSuggestions Data={restaurants} />
+                </Input>
+              </Container>
             </Container>
-          </Container>
+          )}
         </StyledSearchBar>
       )}
     </Formik>

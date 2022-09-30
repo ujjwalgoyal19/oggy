@@ -9,40 +9,42 @@ export interface DownloadProps {}
 
 const StyledDownload = styled.section`
   height: 100vh;
-  display: flex;
   background-color: black;
-  flex-direction: row;
   color: white;
-`;
-
-const CTAWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 2vw;
 `;
 
 export function Download(props: DownloadProps) {
   return (
     <StyledDownload>
-      <Container>
+      {/* <Container>
         <Image Image={config.images.Home.Mockup.First} />
-      </Container>
-      <Container>
-        <Text H1>Download our app</Text>
-        <Text H2>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit. Lorem`
-        </Text>
-        <CTAWrapper>
-          <a href="https://github.com/">
+      </Container> */}
+      <Container Column Width="100vw" CenterCA PaddingTop="9%">
+        <Container
+          Width="fit-content"
+          Height="fit-content"
+          PaddingBottom="2.5%"
+        >
+          <Text D2 EB>
+            Download our app
+          </Text>
+        </Container>
+        <Container Row Width="40%" Height="fit-content" PaddingBottom="5%">
+          <Text H2 N Color="LightGrey" style={{ textAlign: 'center' }}>
+            Find the experience of your best restaurant in cheapest prices,
+            never let your wallet stop you from best food in your city.
+          </Text>
+        </Container>
+
+        <Container Row Width="fit-content">
+          {/* <a href="https://github.com/">
             <Image Image={config.images.Home.Badge.Apple} />
-          </a>
+          </a> */}
 
           <a href="https://github.com/">
             <Image Image={config.images.Home.Badge.Android} />
           </a>
-        </CTAWrapper>
+        </Container>
       </Container>
     </StyledDownload>
   );

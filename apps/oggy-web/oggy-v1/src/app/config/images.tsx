@@ -27,7 +27,7 @@ export const Home = {
     },
     Android: {
       src: 'assets/images/google-play-badge.webp',
-      height: 'min(5vh, 5vw)',
+      height: 'min(7vh, 7vw)',
       width: 'auto',
     },
   },
@@ -41,7 +41,7 @@ export const PlusIcon = {
 
 export const LocationIcon = {
   src: 'assets/icons/location-32.webp',
-  height: 'max(1.3vh, 6vw)',
+  height: 'max(1.3vh, 1vw)',
   width: 'auto',
 };
 

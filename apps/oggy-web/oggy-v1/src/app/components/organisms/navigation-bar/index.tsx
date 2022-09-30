@@ -5,6 +5,7 @@ import Image from 'app/components/atoms/image';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Container from 'app/components/atoms/container';
+import media from 'app/hooks/styledMediaQuery.hook';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {
   Logo: {
@@ -64,21 +65,22 @@ export function NavigationBar(props: NavigationBarProps) {
             : { Type: 'static' }
         }
       >
-        <SearchBarHero type="vertical" />
-        {/* <Container Row Width={width} SpaceBetweenMA CenterCA> */}
-        {/* <Container Row Width="100%" SpaceBetweenMA CenterCA> */}
-        {/* <Container Row Width="70%" Height="fit-content" Gap="5rem"> */}
-        {/* <Container Row Width="100%" Height="fit-content" Gap="5rem"> */}
-        {/* <Link to="/">
-              <Image Image={props.Logo} />
-            </Link> */}
-        {/* {showSearchBar ? <SearchBarHero type="combined" /> : null} */}
-        {/* </Container> */}
-        {/* <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content"> */}
-        {/* <Link to="/login">Sign In</Link>
-            <Link to="/register">Register</Link> */}
-        {/* </Container> */}
-        {/* </Container> */}
+        {media.greaterThan('md') ? (
+          <Container Row Width={width} SpaceBetweenMA CenterCA>
+            <Container Row Width="70%" Height="fit-content" Gap="5rem">
+              <Link to="/">
+                <Image Image={props.Logo} />
+              </Link>
+              {showSearchBar ? <SearchBarHero TypeA /> : null}
+            </Container>
+            <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content">
+              <Link to="/login">Sign In</Link>
+              <Link to="/register">Register</Link>
+            </Container>
+          </Container>
+        ) : (
+          <SearchBarHero TypeB />
+        )}
       </Container>
     </StyledNavigationBar>
   );
