@@ -42,7 +42,15 @@ const StyledButton = styled.button<IStyledButton>`
   width: fit-content;
   background-color: transparent;
   cursor: pointer;
-  ${(props) => props.Primary && css``}
+  ${(props) =>
+    props.Primary &&
+    css`
+      padding: 1rem 1.5rem 1rem 1.5rem;
+      border-radius: 0.5rem;
+      background-color: #ff9800;
+      color: white;
+      font-weight: 500;
+    `}
   ${(props) => props.Secondary && css``}
   ${(props) => props.Text && css``}
   ${(props) => props.CTA && css``}

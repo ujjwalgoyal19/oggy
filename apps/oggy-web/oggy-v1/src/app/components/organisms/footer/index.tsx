@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import config from 'app/config';
 import Image from 'app/components/atoms/image';
-import Heading from 'app/components/atoms/heading';
-import Section from 'app/components/atoms/section';
+import Text from 'app/components/atoms/text';
+import { Link } from 'react-router-dom';
+import Separator from 'app/components/atoms/separator';
+import Container from 'app/components/atoms/container';
 
 /* eslint-disable-next-line */
 export interface FooterProps {}
@@ -13,166 +15,71 @@ const StyledFooter = styled.div`
   background-color: #f8f8f8;
 `;
 
-interface IRow {
-  MarginBottom?: string;
-}
-
-const Row = styled.div<IRow>`
-  margin-bottom: ${(props) => props.MarginBottom};
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
-`;
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  text-indent: 0;
-  list-style-type: none;
-  li {
-    margin: 0;
-    padding: 0;
-    text-indent: 0;
-    list-style-type: none;
-  }
-`;
-
-const VerticalList = styled(List)`
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
-`;
-const HorizontalList = styled(List)`
-  display: flex;
-  flex-direction: row;
-  gap: 2vw;
-`;
-
-const ItemList = styled.li``;
-
-const Link = styled.a`
-  text-decoration: none;
-  font-size: 1vw;
-  color: rgba(29, 29, 27, 0.8);
-`;
-const Separator = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.2);
-`;
-
 export function Footer(props: FooterProps) {
   return (
     <StyledFooter>
-      <Section Width="70%">
-        <Row MarginBottom="4vh">
-          <Column>
+      <Container Column CenterCA PaddingBottom="2rem">
+        <Container Column Width="70%" Gap="4rem">
+          <Container Row SpaceBetweenMA>
             <Image Image={config.images.Oggy.Logo} />
-          </Column>
-          <Column>
-            <VerticalList>
-              <ItemList>
-                <HorizontalList>
-                  <ItemList>
-                    <a href="https://rb.gy/bqprcb">
-                      <Image Image={config.images.Home.Badge.Android} />
-                    </a>
-                  </ItemList>
-                </HorizontalList>
-              </ItemList>
-            </VerticalList>
-          </Column>
-        </Row>
-        <Row MarginBottom="4vh">
-          <Column>
-            <Heading
-              HeadingColor="rgba(29, 29, 27, 1)"
-              HeadingSize="1.2vw"
-              HeadingWeight="500"
-            >
-              ABOUT OGGY
-            </Heading>
-            <VerticalList>
-              <ItemList>
-                <Link href="https://github.com/">Who We Are</Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://github.com/">Blog</Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://github.com/">Work With Us</Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://github.com/">Contact Us</Link>
-              </ItemList>
-            </VerticalList>
-          </Column>
-          <Column>
-            <Heading
-              HeadingColor="rgba(29, 29, 27, 1)"
-              HeadingSize="1.2vw"
-              HeadingWeight="500"
-            >
-              LEARN MORE
-            </Heading>
-            <VerticalList>
-              <ItemList>
-                <Link href="https://github.com/">Privacy</Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://github.com/">Security</Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://github.com/">Terms</Link>
-              </ItemList>
-            </VerticalList>
-          </Column>
-          <Column>
-            <Heading
-              HeadingColor="rgba(29, 29, 27, 1)"
-              HeadingSize="1.2vw"
-              HeadingWeight="500"
-            >
-              SOCIALS
-            </Heading>
-            <VerticalList>
-              <ItemList>
-                <Link href="https://www.instagram.com/oggy_india/?hl=en">
+            <a href="https://rb.gy/bqprcb">
+              <Image Image={config.images.Home.Badge.Android} />
+            </a>
+          </Container>
+          <Container Row SpaceBetweenMA>
+            <Container Column Width="fit-content" Gap="2rem">
+              <Container Column>
+                <Text H3 N>
+                  ABOUT OGGY
+                </Text>
+              </Container>
+              <Container Column Gap="1rem">
+                <a href="https://github.com/">Who We Are</a>
+                <a href="https://github.com/">Blog</a>
+                <a href="https://github.com/">Work With Us</a>
+                <a href="https://github.com/">Contact Us</a>
+              </Container>
+            </Container>
+            <Container Column Width="fit-content" Gap="2rem">
+              <Container Column>
+                <Text H3 N>
+                  LEARN MORE
+                </Text>
+              </Container>
+              <Container Column Gap="1rem">
+                <a href="https://github.com/">Privacy</a>
+                <a href="https://github.com/">Security</a>
+                <a href="https://github.com/">Terms</a>
+              </Container>
+            </Container>
+            <Container Column Width="fit-content" Gap="2rem">
+              <Container Column>
+                <Text H3 N>
+                  SOCIALS
+                </Text>
+              </Container>
+              <Container Column Gap="1rem">
+                <a href="https://www.instagram.com/oggy_india/?hl=en">
                   Instagram
-                </Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://www.facebook.com/team0ggy">Facebook</Link>
-              </ItemList>
-              <ItemList>
-                <Link href="https://www.linkedin.com/in/samarth-gupta-5645911aa/">
+                </a>
+                <a href="https://www.facebook.com/team0ggy">Facebook</a>
+                <a href="https://www.linkedin.com/in/samarth-gupta-5645911aa/">
                   Linkedin
-                </Link>
-              </ItemList>
-            </VerticalList>
-          </Column>
-        </Row>
-        <Row>
-          <Separator />
-        </Row>
-        <Row>
-          <HorizontalList>
-            <ItemList>
-              <p>
-                By continuing past this page, you agree to our Terms of Service,
-                Cookie Policy, Privacy Policy and Content Policies. All
-                trademarks are properties of their respective owners. 2021-2022
-                © Oggy™ Ltd. All rights reserved.
-              </p>
-            </ItemList>
-          </HorizontalList>
-        </Row>
-      </Section>
+                </a>
+              </Container>
+            </Container>
+          </Container>
+          <Container Column Gap="1.5rem">
+            <Separator Color="#F8F8F8" ColorType="light" Horizontal />
+            <Text style={{ textAlign: 'center' }}>
+              By continuing past this page, you agree to our Terms of Service,
+              Cookie Policy, Privacy Policy and Content Policies. All trademarks
+              are properties of their respective owners. 2021-2022 © Oggy™ Ltd.
+              All rights reserved.
+            </Text>
+          </Container>
+        </Container>
+      </Container>
     </StyledFooter>
   );
 }

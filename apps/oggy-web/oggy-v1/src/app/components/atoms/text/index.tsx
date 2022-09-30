@@ -168,7 +168,7 @@ const StyledText = styled.span<IText>`
   --white-color: white;
   --black-color: black;
   --light-grey-color: rgb(228, 228, 228);
-  --grey-color: black;
+  --grey-color: #393e46;
 
   ${(props) => css`
     color: ${typeof props.Color === 'string' && props.Color};

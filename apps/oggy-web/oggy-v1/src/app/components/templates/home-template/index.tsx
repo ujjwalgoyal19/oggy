@@ -186,13 +186,6 @@ const HomeTemplate = (props: HomeProps) => {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
       gsap.to(window, { scrollTo: { y: 0 } });
-      // gsap.set('body', { clearProps: true });
-      // gsap.set(locality.current, { clearProps: true });
-      // gsap.set(hero.current, { clearProps: true });
-      // gsap.set(heroChild.current, { clearProps: true });
-      // gsap.set(heroTransition.current, { clearProps: true });
-      // gsap.set(heroImage.current, { clearProps: true });
-      // gsap.set(chains.current, { clearProps: true });
     };
   }, []);
   return (
@@ -228,16 +221,12 @@ const HomeTemplate = (props: HomeProps) => {
         </Container>
         <Container ClassName="panel chains" Height="100vh" Column CenterCA>
           <Container Width="80%" CenterMA>
-            {/* <div ref={chains} style={{ width: '100%' }}> */}
             <Container PaddingTop="10vh">
-              {/* <div ref={chainsChild} style={{ width: '100%' }}> */}
               <Chain
                 Content={props.HomeContent.HeroSectionChainsJaipur}
                 Heading="Top Chain in Jaipur"
               />
-              {/* </div> */}
             </Container>
-            {/* </div> */}
           </Container>
         </Container>
         <Container ClassName="panel locality" Height="100vh" Column>
@@ -250,7 +239,7 @@ const HomeTemplate = (props: HomeProps) => {
             />
           </Container>
         </Container>
-        <Container ClassName="panel" Height="100vh">
+        <Container ClassName="panel download" Height="100vh">
           <Download />
         </Container>
       </Container>

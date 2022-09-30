@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Heading from './index';
+import Map from './index';
 
-describe('Heading', () => {
+describe('Map', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Heading />);
+    const { baseElement } = render(<Map />);
     expect(baseElement).toBeTruthy();
   });
 });

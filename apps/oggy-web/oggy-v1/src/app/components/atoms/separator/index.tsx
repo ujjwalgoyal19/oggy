@@ -26,7 +26,7 @@ const StyledSeparator = styled.div<IStyledSeparator>`
     props.horizontal &&
     css`
       min-width: 85%;
-      height: 1rem;
+      height: 2px;
     `}
 `;
 

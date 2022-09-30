@@ -1,3 +1,6 @@
+import Image from 'app/components/atoms/image';
+import config from 'app/config';
+
 interface RatingEntity {
   rating: string | null;
   reviewCount: string | null;
@@ -132,8 +135,14 @@ export const GetVendorImage = (vendor: string) => {
   const v = vendor.toLowerCase();
   switch (v) {
     case 'zomato':
+      return <Image Image={config.images.zomato} />;
     case 'swiggy':
+      return <Image Image={config.images.swiggy} />;
     case 'dineout':
+      return <Image Image={config.images.dineout} />;
     case 'eazydiner':
+      return <Image Image={config.images.eazydiner} />;
+    default:
+      return null;
   }
 };

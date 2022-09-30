@@ -10,7 +10,6 @@ import { RootState } from 'app/store';
 import { searchActions } from 'app/store/search/index.slice';
 import { AutocompleteAPI } from 'app/service/autocomplete.service';
 import { useState } from 'react';
-import Text from 'app/components/atoms/text';
 import RestaurantSuggestions from 'app/components/molecules/restaurant-suggestions';
 import LocalitySuggestions from '../locality-suggestions';
 
@@ -73,7 +72,7 @@ export function SearchBarHero(props: SearchBarProps) {
     >
       {(formik) => (
         <StyledSearchBar>
-          <Container
+          {/* <Container
             Row
             CenterCA
             Gap=".5rem"
@@ -125,6 +124,58 @@ export function SearchBarHero(props: SearchBarProps) {
             >
               <RestaurantSuggestions Data={restaurants} />
             </Input>
+          </Container> */}
+          <Container Column Gap="2vh" Padding="1rem">
+            <Container
+              Row
+              CenterCA
+              Gap=".5rem"
+              Width="40%"
+              Position={{ Type: 'relative' }}
+            >
+              <Image Image={config.images.LocationIcon} />
+              <Input
+                Dropdown
+                Key={0}
+                ChangeHandler={(e: any) => {
+                  formik.handleChange(e);
+                  getSuggestions(e.target.value, 'locality');
+                }}
+                Name="locality"
+                Id="locality"
+                DWidth="25rem"
+                DHeight="20rem"
+                Placeholder={config.content.SearchBarLocationPlaceholder}
+                Value={formik.values.locality}
+              >
+                <LocalitySuggestions
+                  Data={locations}
+                  ChangeHandler={(value) => {
+                    changeLocationHandler(value);
+                    formik.setFieldValue('locality', value);
+                  }}
+                />
+              </Input>
+            </Container>
+            <Container Row CenterCA Gap=".5rem">
+              {/* <Image Image={config.images.SearchIcon} /> */}
+              <Input
+                Dropdown
+                Key={0}
+                ChangeHandler={(e: any) => {
+                  formik.handleChange(e);
+                  getSuggestions(e.target.value, 'restaurants');
+                }}
+                Name="search"
+                Id="search"
+                DWidth="60rem"
+                DHeight="30rem"
+                Placeholder={config.content.SearchBarRestaurantPlaceholder}
+                Value={formik.values.search}
+              >
+                <RestaurantSuggestions Data={restaurants} />
+              </Input>
+            </Container>
           </Container>
         </StyledSearchBar>
       )}

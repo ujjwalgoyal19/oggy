@@ -157,16 +157,17 @@ export const searchSlice = createSlice({
   initialState: initialSearchState,
   reducers: {
     addFilters: (state, action: PayloadAction<FilterEntity[]>) => {
-      state.filters = action.payload;
-      state.page = 1;
+      state.page = 0;
       state.restart = true;
+      state.filters = action.payload;
     },
     changeQuery: (state, action: PayloadAction<string>) => {
-      state.searchQuery = action.payload;
-      state.page = 1;
+      state.page = 0;
       state.restart = true;
+      state.searchQuery = action.payload;
     },
     changeLocation: (state, action: PayloadAction<LocationEntity>) => {
+      state.page = 0;
       state.restart = true;
       state.location = action.payload;
       if (state.location.type === 'city') {
@@ -175,7 +176,6 @@ export const searchSlice = createSlice({
       } else {
         state.locality = action.payload.name;
       }
-      state.page = 1;
     },
   },
   extraReducers: (builder) => {

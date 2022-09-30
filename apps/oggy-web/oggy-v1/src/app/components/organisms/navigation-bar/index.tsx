@@ -56,7 +56,7 @@ export function NavigationBar(props: NavigationBarProps) {
       <Container
         Column
         CenterCA
-        Padding="2rem"
+        // Padding="2rem"
         BG="transparent"
         Position={
           autoHide
@@ -64,18 +64,21 @@ export function NavigationBar(props: NavigationBarProps) {
             : { Type: 'static' }
         }
       >
-        <Container Row Width={width} SpaceBetweenMA CenterCA>
-          <Container Row Width="70%" Height="fit-content" Gap="5rem">
-            <Link to="/">
+        <SearchBarHero type="vertical" />
+        {/* <Container Row Width={width} SpaceBetweenMA CenterCA> */}
+        {/* <Container Row Width="100%" SpaceBetweenMA CenterCA> */}
+        {/* <Container Row Width="70%" Height="fit-content" Gap="5rem"> */}
+        {/* <Container Row Width="100%" Height="fit-content" Gap="5rem"> */}
+        {/* <Link to="/">
               <Image Image={props.Logo} />
-            </Link>
-            {showSearchBar ? <SearchBarHero type="combined" /> : null}
-          </Container>
-          <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content">
-            <Link to="/login">Sign In</Link>
-            <Link to="/register">Register</Link>
-          </Container>
-        </Container>
+            </Link> */}
+        {/* {showSearchBar ? <SearchBarHero type="combined" /> : null} */}
+        {/* </Container> */}
+        {/* <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content"> */}
+        {/* <Link to="/login">Sign In</Link>
+            <Link to="/register">Register</Link> */}
+        {/* </Container> */}
+        {/* </Container> */}
       </Container>
     </StyledNavigationBar>
   );

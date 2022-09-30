@@ -1,7 +1,7 @@
-import Heading from 'app/components/atoms/heading';
+import Container from 'app/components/atoms/container';
 import Image from 'app/components/atoms/image';
+import Text from 'app/components/atoms/text';
 import config from 'app/config';
-import { useRef } from 'react';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -15,21 +15,6 @@ const StyledDownload = styled.section`
   color: white;
 `;
 
-const Children = styled.div`
-  flex-basis: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const Left = styled(Children)``;
-const Right = styled(Children)`
-  box-sizing: border-box;
-  align-items: flex-start;
-  padding-right: 15vw;
-`;
-
 const CTAWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -38,29 +23,17 @@ const CTAWrapper = styled.div`
 `;
 
 export function Download(props: DownloadProps) {
-  const download = useRef<HTMLDivElement>(null);
   return (
-    <StyledDownload ref={download}>
-      <Left>
+    <StyledDownload>
+      <Container>
         <Image Image={config.images.Home.Mockup.First} />
-      </Left>
-      <Right>
-        <Heading
-          Heading={config.components.heading.primary}
-          HeadingColor="white"
-          HeadingSize="3vw"
-          MarginBottom="6vh"
-        >
-          Download our app
-        </Heading>
-        <Heading
-          Heading={config.components.heading.secondary}
-          HeadingColor="white"
-          MarginBottom="6vh"
-        >
+      </Container>
+      <Container>
+        <Text H1>Download our app</Text>
+        <Text H2>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
           dolor sit amet, consectetur adipiscing elit. Lorem`
-        </Heading>
+        </Text>
         <CTAWrapper>
           <a href="https://github.com/">
             <Image Image={config.images.Home.Badge.Apple} />
@@ -70,7 +43,7 @@ export function Download(props: DownloadProps) {
             <Image Image={config.images.Home.Badge.Android} />
           </a>
         </CTAWrapper>
-      </Right>
+      </Container>
     </StyledDownload>
   );
 }

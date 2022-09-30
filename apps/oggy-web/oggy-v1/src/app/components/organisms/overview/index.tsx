@@ -1,6 +1,9 @@
+import Button from 'app/components/atoms/button';
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
+import Map from 'app/components/molecules/map';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -17,11 +20,10 @@ const FeatureCard = styled.div`
 `;
 
 export function Overview(props: OverviewProps) {
-  const [showMore, setShowMore] = useState(false);
   return (
     <StyledOverview>
       <Container Row MarginTop="3rem">
-        <Container Width="70%" Column Gap="4rem">
+        <Container Width="60%" Column Gap="4rem">
           <Text H2 N>
             About this place
           </Text>
@@ -90,8 +92,53 @@ export function Overview(props: OverviewProps) {
             </Container>
           </Container>
         </Container>
-        <Container Width="30%" Column>
-          Goyal
+        <Container Width="40%" Column Gap="3rem" Padding="3rem">
+          <Container Column Gap="2rem">
+            <Text H2 N>
+              Call
+            </Text>
+            <Container Column Gap="1rem" style={{ cursor: 'pointer' }}>
+              {props.Data.contact_details.map((contact: string) => {
+                return (
+                  <Text H3 Color="Primary">
+                    <span
+                      onClick={() => {
+                        navigator.clipboard.writeText(contact);
+                      }}
+                    >
+                      {contact}
+                    </span>
+                  </Text>
+                );
+              })}
+            </Container>
+          </Container>
+          <Container
+            style={{ overflow: 'hidden', zIndex: '0' }}
+            Height="25vh"
+            Width="100%"
+          >
+            <Map
+              Location={[
+                parseFloat(props.Data.location.latitude),
+                parseFloat(props.Data.location.longitude),
+              ]}
+              ZoomLevel={15}
+              Text={props.Data.name}
+            />
+          </Container>
+          <Container Column Gap="2rem">
+            <Text H4>{props.Data.location.address}</Text>
+            <Button Primary>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${props.Data.location.latitude},${props.Data.location.longitude}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Directions
+              </a>
+            </Button>
+          </Container>
         </Container>
       </Container>
     </StyledOverview>

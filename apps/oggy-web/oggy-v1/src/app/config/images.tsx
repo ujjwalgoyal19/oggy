@@ -41,7 +41,7 @@ export const PlusIcon = {
 
 export const LocationIcon = {
   src: 'assets/icons/location-32.webp',
-  height: 'max(1.3vh, 1vw)',
+  height: 'max(1.3vh, 6vw)',
   width: 'auto',
 };
 
@@ -73,4 +73,28 @@ export const StarIcon = {
   src: 'assets/images/star-16.webp',
   width: '.9rem',
   height: '.9rem',
+};
+
+export const zomato = {
+  src: 'assets/images/zomato.webp',
+  width: 'auto',
+  height: '2.5vh',
+};
+
+export const swiggy = {
+  src: 'assets/images/swiggy.webp',
+  width: 'auto',
+  height: '2.5vh',
+};
+
+export const dineout = {
+  src: 'assets/images/dineout.webp',
+  width: 'auto',
+  height: '3vh',
+};
+
+export const eazydiner = {
+  src: 'assets/images/eazydiner.webp',
+  width: 'auto',
+  height: '2.5vh',
 };
