@@ -10,7 +10,7 @@ export interface RestaurantSuggestionsProps {
 }
 
 const StyledRestaurantSuggestions = styled.div`
-  padding: 2rem 0;
+  padding: 1rem 0;
 `;
 
 const RestaurantImage = styled(motion.img)`
@@ -53,8 +53,8 @@ export function RestaurantSuggestions(props: RestaurantSuggestionsProps) {
                 color: 'inherit',
               }}
             >
-              <Container Row CenterCA Padding="2rem" Hover={{ BG: '#F8F8F8' }}>
-                <Container Row Width="11rem" Height="9rem" BG="transparent">
+              <Container Row CenterCA Padding="1rem" Hover={{ BG: '#EEEEEE' }}>
+                <Container Row Width="9rem" Height="6rem" BG="transparent">
                   <RestaurantImage
                     src={getImage(res.images.indexImage)}
                     initial={{
@@ -70,15 +70,15 @@ export function RestaurantSuggestions(props: RestaurantSuggestionsProps) {
                 <Container
                   Column
                   StartCA
-                  Padding="3rem"
+                  Padding="2rem"
                   Gap="0.6rem"
                   BG="transparent"
                 >
-                  <Text H2 N>
+                  <Text H3 N>
                     {res.name}
                   </Text>
                   <Text
-                    H4
+                    H5
                     Muted
                   >{`${res.location.locality}, ${res.location.city}`}</Text>
                 </Container>

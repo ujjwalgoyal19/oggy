@@ -23,15 +23,12 @@ export interface SearchBarProps {
 const StyledSearchBar = styled.div`
   color: black;
   background-color: white;
-  height: 3.5vh;
-  padding: 1vh 0.5vw 1vh 0.5vw;
+  height: 5.5rem;
+  // padding: 1vh 0.5vw 1vh 0.5vw;
   width: 100%;
   text-align: center;
   border-radius: 0.6rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: 0.1rem solid rgb(232, 232, 232);
+  border: 0.2rem solid rgb(232, 232, 232);
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.04);
 `;
 
@@ -74,7 +71,7 @@ export function SearchBarHero(props: SearchBarProps) {
       {(formik) => (
         <StyledSearchBar>
           {props.TypeA && (
-            <>
+            <Container Padding="1rem 1rem 1rem 1rem">
               <Container
                 Row
                 CenterCA
@@ -128,7 +125,7 @@ export function SearchBarHero(props: SearchBarProps) {
                   <RestaurantSuggestions Data={restaurants} />
                 </Input>
               </Container>
-            </>
+            </Container>
           )}
           {props.TypeB && (
             <Container Column Gap="2vh" Padding="1rem">

@@ -16,7 +16,7 @@ export function Map(props: MapProps) {
   console.log(props.Location);
   return (
     <MapContainer
-      style={{ height: '100vh', width: '100vw' }}
+      style={{ height: '100%', width: '100%' }}
       center={props.Location}
       zoom={props.ZoomLevel}
       scrollWheelZoom={true}

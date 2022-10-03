@@ -42,7 +42,7 @@ export function Chain(props: ChainProps) {
           </Text>
         </Container>
         <Container Height="fit-content">
-          <Slider childSize={170}>
+          <Container Row Gap="4vw" ScrollX ScrollStyle="Hide">
             {props.Content.map((chain, index) => {
               return (
                 <div
@@ -60,7 +60,7 @@ export function Chain(props: ChainProps) {
                 </div>
               );
             })}
-          </Slider>
+          </Container>
         </Container>
       </Container>
     </StyledChain>

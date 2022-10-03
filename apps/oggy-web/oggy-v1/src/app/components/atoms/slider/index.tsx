@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'app/components/atoms/image';
+import Container from 'app/components/atoms/container';
 import config from 'app/config';
 import { useEffect, useRef, useState } from 'react';
 /* eslint-disable-next-line */
@@ -40,7 +41,7 @@ const RightSliderButton = styled(SliderButton)`
 
 interface ISliderContent {
   gap: number;
-  shift: number;
+  // shift: number;
 }
 
 const SliderContentWrapper = styled.div`
@@ -54,16 +55,18 @@ const SliderContent = styled.div<ISliderContent>`
   justify-content: space-between;
   flex-wrap: nowrap;
   column-gap: ${(props) => props.gap}px;
-  transform: translateX(${(props) => props.shift}px);
   transition: transform 0.45s ease-in-out 0s;
   padding: 1rem;
 `;
+
+// transform: translateX(${(props) => props.shift}px);
 
 export function Slider(props: SliderProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [gap, setGap] = useState<number>(0);
   const [shift, setShift] = useState<number>(0);
   const [maxShift, setMaxShift] = useState<number>(0);
+
   const Slide = (direction: string) => {
     if (direction === 'left') {
       setShift(shift - 1);
@@ -71,6 +74,7 @@ export function Slider(props: SliderProps) {
       setShift(shift + 1);
     }
   };
+
   const getGap = (widthDiv: number) => {
     let childrenNumber = 0;
     let widthTemp = widthDiv;
@@ -83,6 +87,7 @@ export function Slider(props: SliderProps) {
     setMaxShift(props.children.length - childrenNumber);
     return (widthDiv - props.childSize * childrenNumber) / (childrenNumber - 1);
   };
+
   useEffect(() => {
     const handleResize = () => {
       if (ref.current) {
@@ -104,9 +109,14 @@ export function Slider(props: SliderProps) {
   return (
     <StyledSlider ref={ref}>
       <SliderContentWrapper>
-        <SliderContent gap={gap} shift={-(shift * (props.childSize + gap))}>
-          {props.children}
-        </SliderContent>
+        <Container
+          style={{
+            transform: `translateX${-(shift * (props.childSize + gap))}px`,
+            overflowX: 'visible',
+          }}
+        >
+          <SliderContent gap={gap}>{props.children}</SliderContent>
+        </Container>
       </SliderContentWrapper>
       {shift !== 0 ? (
         <LeftSliderButton

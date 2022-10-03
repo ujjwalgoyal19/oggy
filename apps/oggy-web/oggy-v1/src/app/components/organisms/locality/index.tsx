@@ -45,6 +45,7 @@ const Locality = (props: LocalityProps) => {
         Wrap
         SpaceBetweenMA
         Height="fit-content"
+        MaxHeight="80vh"
       >
         {Object.values(props.Localities).map((locality: any, index) => {
           return (

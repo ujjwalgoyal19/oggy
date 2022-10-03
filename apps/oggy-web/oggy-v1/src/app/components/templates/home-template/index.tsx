@@ -38,19 +38,6 @@ const getRandomMargin = (length: number) => {
 const HomeTemplate = (props: HomeProps) => {
   gsap.registerPlugin(ScrollTrigger);
   gsap.registerPlugin(ScrollToPlugin);
-  // Hero
-  // const hero = useRef(null);
-  // const heroChild = useRef(null);
-  // const heroTransition = useRef(null);
-  // const heroImage = useRef(null);
-
-  // Chains
-  // const chains = useRef(null);
-  // const chainsChild = useRef(null);
-  // const blackWrapper = useRef(null);
-
-  // Locality
-  // const locality = useRef(null);
   useEffect(() => {
     const sections = gsap.utils.toArray('.panel');
 
@@ -113,75 +100,30 @@ const HomeTemplate = (props: HomeProps) => {
     // const HeroTimeline = gsap.timeline({
     //   scrollTrigger: {
     //     id: 'hero',
-    //     trigger: hero.current,
+    //     trigger: '.hero',
     //     pin: true,
     //     pinSpacing: false,
     //     markers: true,
-    //     scrub: 0.5,
+    //     scrub: 1,
     //     start: 'top top',
     //     end: 'bottom top',
     //     snap: { snapTo: 1 },
     //     toggleActions: 'play complete reverse pause',
     //   },
     // });
-    // HeroTimeline.to(heroChild.current, {
+    // HeroTimeline.to('.hero__child', {
     //   scale: '0.6',
     //   opacity: '0',
     // })
     //   .to(
-    //     heroTransition.current,
+    //     '.hero__transition',
     //     {
-    //       y: '-80%',
-    //     },
-    //     0
-    //   )
-    //   .to(
-    //     heroImage.current,
-    //     {
-    //       scale: '1.3',
+    //       y: '-100%',
     //       rotate: '90deg',
     //     },
     //     0
     //   )
-    //   .to(hero.current, { scale: '0.8', opacity: '0' });
-
-    // const ChainTimeline = gsap.timeline({
-    //   scrollTrigger: {
-    //     id: 'chain',
-    //     trigger: chainsChild.current,
-    //     start: 'top top',
-    //     end: '105% top',
-    //     snap: { snapTo: 1 },
-    //     toggleActions: 'play complete reverse pause',
-    //     // markers: true,
-    //   },
-    //   paused: true,
-    // });
-
-    // ChainTimeline.to(chainsChild.current, {
-    //   scale: '0.4',
-    //   opacity: '0',
-    // }).fromTo(
-    //   blackWrapper.current,
-    //   {
-    //     backgroundColor: 'white',
-    //   },
-    //   {
-    //     backgroundColor: 'black',
-    //   },
-    //   0
-    // );
-    // const LocalityTimeline = gsap.timeline({
-    //   scrollTrigger: {
-    //     id: 'locality',
-    //     trigger: locality.current,
-    //     start: '25% top',
-    //     end: 'bottom top',
-    //     snap: { snapTo: 1 },
-    //     toggleActions: 'play complete reverse pause',
-    //   },
-    // });
-    // LocalityTimeline.to(locality.current, { pointerEvents: 'auto' });
+    //   .to('.hero__image', { opacity: '0' });
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
@@ -209,7 +151,7 @@ const HomeTemplate = (props: HomeProps) => {
             ClassName="hero__transition"
             Margin="0"
             CenterMA
-            Height="40%"
+            Height="fit-content"
             Width="100%"
             BG="transparent"
             style={{ borderRadius: '50%' }}

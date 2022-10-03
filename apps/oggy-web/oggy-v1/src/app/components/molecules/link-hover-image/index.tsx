@@ -199,7 +199,7 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
           props.hoverState && !active ? { opacity: 0.2 } : { opacity: 1 }
         }
       >
-        <Text D3 EB>
+        <Text D5 EB>
           {getHeading(props.text)}
         </Text>
         <ImageWrapper active={active} clip={getRandomClipPath()}>

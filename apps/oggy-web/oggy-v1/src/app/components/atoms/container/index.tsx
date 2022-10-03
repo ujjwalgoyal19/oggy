@@ -57,9 +57,16 @@ export interface ContainerProps {
 
   // Extra Styles
   style?: React.CSSProperties;
+  Elevation?: number; // Levels 0, 1, 2, 3
+  Border?: {
+    Elegant?: boolean;
+    Dotted?: boolean;
+    Size: number;
+  };
 
   Color?: string;
   ClassName?: string;
+  ScrollStyle?: 'Hide';
   ScrollX?: boolean;
   ScrollY?: boolean;
   children?: string | JSX.Element | JSX.Element[] | any | null;
@@ -119,8 +126,12 @@ interface IContainer {
   MaxHeight?: string;
   MinHeight?: string;
 
+  // ExtraStyles
+  Elevation?: number; // Levels 0, 1, 2, 3
+
   // Container Properties
   BG?: string;
+  ScrollStyle?: 'Hide';
   ScrollX?: boolean;
   ScrollY?: boolean;
 }
@@ -137,19 +148,20 @@ const StyledContainer = styled.div<IContainer>`
   background-color: inherit;
   transition: all 0.2s ease;
 
-  flex-grow: ${(props) => props.Grow && '1'};
-  flex-shrink: ${(props) => props.Shrink && '0'};
-  flex-basis: ${(props) => props.Basis};
-
   ${(props) =>
     props.Hover &&
     css`
-      background-color: ${props.Hover.BG};
+      &:hover {
+        background-color: ${props.Hover.BG};
+      }
     `}
 
   ${(props) =>
     css`
       // Flex Properties
+      flex-grow: ${props.Grow && '1'};
+      flex-shrink: ${props.Shrink && '0'};
+      flex-basis: ${props.Basis};
       flex-direction: ${props.Row && 'row'};
       flex-direction: ${props.Column && 'column'};
       flex-wrap: ${props.Wrap && 'wrap'};
@@ -199,6 +211,18 @@ const StyledContainer = styled.div<IContainer>`
         right: ${props.Position.Right};
       `}
     `}
+  
+  ${(props) =>
+    props.ScrollStyle &&
+    {
+      Hide: css`
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      `,
+    }[props.ScrollStyle]};
 `;
 
 export function Container(props: ContainerProps) {
@@ -238,12 +262,14 @@ export function Container(props: ContainerProps) {
       BG={props.BG}
       Wrap={props.Wrap}
       Position={props.Position}
+      ScrollStyle={props.ScrollStyle}
       ScrollX={props.ScrollX}
       ScrollY={props.ScrollY}
       EndMA={props.EndMA}
-      onMouseEnter={() => setHover(props.Hover ? true : false)}
-      onMouseLeave={() => setHover(false)}
-      Hover={hover ? props.Hover : undefined}
+      // onMouseEnter={() => setHover(props.Hover ? true : false)}
+      // onMouseLeave={() => setHover(false)}
+      // Hover={hover ? props.Hover : undefined}
+      Hover={props.Hover}
       className={props.ClassName}
     >
       {props.children}

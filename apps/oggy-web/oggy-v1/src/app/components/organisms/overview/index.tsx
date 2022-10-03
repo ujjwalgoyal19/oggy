@@ -2,8 +2,6 @@ import Button from 'app/components/atoms/button';
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
 import Map from 'app/components/molecules/map';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */

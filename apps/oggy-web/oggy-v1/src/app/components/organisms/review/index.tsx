@@ -17,33 +17,25 @@ export function Review(props: ReviewProps) {
     <StyledReview>
       <Container Column Height="fit-content" Gap="10vh">
         {props.Reviews.delivery.length > 0 && (
-          <Container Row CenterCA Height="fit-content">
+          <Container Row CenterCA Height="15rem">
             <Container Row Width="fit-content" MarginRight="6rem" CenterCA>
               <Text Color="LightGrey" D5 EB Vertical>
                 Delivery
               </Text>
             </Container>
-            <Container Row MinHeight="100%" CenterCA Gap="15%">
+            <Container Row Height="100%" CenterCA Gap="15%">
               {props.Reviews.delivery.map((review: any) => {
                 return (
-                  <Container Column EndMA Width="fit-content">
+                  <Container Column Height="100%" EndMA Width="fit-content" >
                     <Container Column Gap=".5rem">
                       <Container Height="fit-content" Row CenterCA Gap="1rem">
-                        {(review.rating && (
-                          <Text
-                            D5
-                            EB
-                            Color={
-                              review.rating && GetRatingColor(review.rating)
-                            }
-                          >
-                            {review.rating}
-                          </Text>
-                        )) || (
-                          <Text D5 Color="Grey">
-                            -
-                          </Text>
-                        )}
+                        <Text
+                          D5
+                          EB
+                          Color={review.rating && GetRatingColor(review.rating)}
+                        >
+                          {review.rating ? review.rating : '-'}
+                        </Text>
                         {review.rating && (
                           <Star
                             Fill={
@@ -69,7 +61,7 @@ export function Review(props: ReviewProps) {
         )}
         {props.Reviews.dining.length > 0 && (
           <Container Row CenterCA Height="15rem">
-            <Container Row Width="fit-content" MarginRight="6rem" CenterMA>
+            <Container Row Width="fit-content" MarginRight="6rem" CenterCA>
               <Text Color="LightGrey" D5 EB Vertical>
                 Dining
               </Text>

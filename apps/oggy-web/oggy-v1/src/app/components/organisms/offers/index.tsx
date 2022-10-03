@@ -56,6 +56,8 @@ export function Offers(props: OffersProps) {
               MarginTop="5rem"
               CenterCA
               Position={{ Type: 'relative' }}
+              ScrollX
+              ScrollStyle="Hide"
             >
               <Container Width="fit-content" MarginRight="3rem">
                 <Text D5 EB Vertical Color="rgb(228,228,228)">
