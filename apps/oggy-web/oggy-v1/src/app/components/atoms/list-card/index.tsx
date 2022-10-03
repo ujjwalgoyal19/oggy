@@ -53,7 +53,7 @@ const StyledListCardIcon = styled.div`
 export function ListCard(props: ListCardProps) {
   return (
     <StyledListCard
-      href={props.url}
+      href={props.url || "/"}
       padding={props.padding}
       width={props.width}
     >
