@@ -57,11 +57,14 @@ export interface ContainerProps {
 
   // Extra Styles
   style?: React.CSSProperties;
-  Elevation?: number; // Levels 0, 1, 2, 3
+  Elevation?: {
+    Elegant?: boolean;
+    Level: number;
+  }; // Levels 0, 1, 2, 3
   Border?: {
     Elegant?: boolean;
     Dotted?: boolean;
-    Size: number;
+    Level: number;
   };
 
   Color?: string;
@@ -127,7 +130,16 @@ interface IContainer {
   MinHeight?: string;
 
   // ExtraStyles
-  Elevation?: number; // Levels 0, 1, 2, 3
+  Elevation?: {
+    Elegant?: boolean;
+    Level: number;
+  }; // Levels 0, 1, 2, 3
+
+  Border?: {
+    Elegant?: boolean;
+    Dotted?: boolean;
+    Level: number;
+  };
 
   // Container Properties
   BG?: string;
@@ -156,9 +168,13 @@ const StyledContainer = styled.div<IContainer>`
       }
     `}
 
+  // Styles
+  ${(props) => props.Elevation && css``}
+  
+
   ${(props) =>
     css`
-      // Flex Properties
+      //* Flex Properties
       flex-grow: ${props.Grow && '1'};
       flex-shrink: ${props.Shrink && '0'};
       flex-basis: ${props.Basis};
@@ -175,7 +191,7 @@ const StyledContainer = styled.div<IContainer>`
       align-items: ${props.StartCA && 'flex-start'};
       gap: ${props.Gap};
 
-      // Dimensions
+      //* Dimensions
       width: ${props.Width};
       height: ${props.Height};
       max-width: ${props.MaxWidth};
@@ -183,7 +199,7 @@ const StyledContainer = styled.div<IContainer>`
       min-width: ${props.MinWidth};
       min-height: ${props.MinHeight};
 
-      //Padding and Margins
+      //* Padding and Margins
       padding-top: ${props.PaddingTop};
       padding-bottom: ${props.PaddingBottom};
       padding-left: ${props.PaddingLeft};
@@ -195,13 +211,20 @@ const StyledContainer = styled.div<IContainer>`
       margin-right: ${props.MarginRight};
       margin: ${props.Margin};
 
-      // BackgroundColor
+      //* BackgroundColor
       background-color: ${props.BG};
 
       overflow-x: ${props.ScrollX && 'auto'};
       overflow-y: ${props.ScrollY && 'auto'};
 
-      // Position Properties
+      //* Styles
+      border-radius: ${props.Border?.Elegant && '0.5rem'};
+      border: ${props.Border &&
+      {
+        1: '1.5px solid #eeeeee',
+      }[props.Border.Level]};
+
+      //* Position Properties
       ${props.Position &&
       css`
         position: ${props.Position.Type};
@@ -209,7 +232,7 @@ const StyledContainer = styled.div<IContainer>`
         bottom: ${props.Position.Bottom};
         left: ${props.Position.Left};
         right: ${props.Position.Right};
-      `}
+      `};
     `}
   
   ${(props) =>
@@ -226,7 +249,6 @@ const StyledContainer = styled.div<IContainer>`
 `;
 
 export function Container(props: ContainerProps) {
-  const [hover, setHover] = useState(false);
   return (
     <StyledContainer
       style={props.style}
@@ -265,10 +287,9 @@ export function Container(props: ContainerProps) {
       ScrollStyle={props.ScrollStyle}
       ScrollX={props.ScrollX}
       ScrollY={props.ScrollY}
+      Elevation={props.Elevation}
+      Border={props.Border}
       EndMA={props.EndMA}
-      // onMouseEnter={() => setHover(props.Hover ? true : false)}
-      // onMouseLeave={() => setHover(false)}
-      // Hover={hover ? props.Hover : undefined}
       Hover={props.Hover}
       className={props.ClassName}
     >

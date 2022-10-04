@@ -4,7 +4,6 @@ import config from 'app/config';
 import { Formik } from 'formik';
 import Container from 'app/components/atoms/container';
 import Input from 'app/components/atoms/input';
-import media from 'app/hooks/styledMediaQuery.hook';
 import Separator from 'app/components/atoms/separator';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
@@ -21,15 +20,8 @@ export interface SearchBarProps {
 }
 
 const StyledSearchBar = styled.div`
-  color: black;
-  background-color: white;
-  height: 5.5rem;
-  // padding: 1vh 0.5vw 1vh 0.5vw;
+  height: 100%;
   width: 100%;
-  text-align: center;
-  border-radius: 0.6rem;
-  border: 0.2rem solid rgb(232, 232, 232);
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.04);
 `;
 
 export function SearchBarHero(props: SearchBarProps) {
@@ -71,7 +63,10 @@ export function SearchBarHero(props: SearchBarProps) {
       {(formik) => (
         <StyledSearchBar>
           {props.TypeA && (
-            <Container Padding="1rem 1rem 1rem 1rem">
+            <Container
+              Padding="1rem 1rem 1rem 1rem"
+              Border={{ Elegant: true, Level: 1 }}
+            >
               <Container
                 Row
                 CenterCA

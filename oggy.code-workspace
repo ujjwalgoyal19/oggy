@@ -1,0 +1,61 @@
+{
+  "folders": [
+		{
+			"name": "oggy",
+			"path": "."
+		},
+		{
+			"name": "atoms",
+			"path": "apps/oggy-web/oggy-v1/src/app/components/atoms"
+		},
+		{
+			"name": "molecules",
+			"path": "apps/oggy-web/oggy-v1/src/app/components/molecules"
+		},
+		{
+			"name": "organisms",
+			"path": "apps/oggy-web/oggy-v1/src/app/components/organisms"
+		},
+		{
+			"name": "templates",
+			"path": "apps/oggy-web/oggy-v1/src/app/components/templates"
+		},
+		{
+			"name": "pages",
+			"path": "apps/oggy-web/oggy-v1/src/app/pages"
+		},
+		{
+			"name": "store",
+			"path": "apps/oggy-web/oggy-v1/src/app/store"
+		},
+		{
+			"name": "hooks",
+			"path": "apps/oggy-web/oggy-v1/src/app/hooks"
+		},
+		{
+			"name": "service",
+			"path": "apps/oggy-web/oggy-v1/src/app/service"
+		},
+		{
+			"name": "utils",
+			"path": "apps/oggy-web/oggy-v1/src/app/utils"
+		},
+		{
+			"name": "graphics",
+			"path": "apps/oggy-web/oggy-v1/src/app/graphics"
+		},
+		{
+			"name": "assets",
+			"path": "apps/oggy-web/oggy-v1/src/assets"
+		},
+		{
+			"path": "apps/oggy-web/oggy-v1"
+		}
+	],
+  "settings": {
+    "files.autoSave": "afterDelay",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "cSpell.ignoreWords": ["reduxjs"],
+    "cSpell.words": ["localilty", "zomato"]
+  }
+}

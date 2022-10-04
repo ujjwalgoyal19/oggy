@@ -97,33 +97,33 @@ const HomeTemplate = (props: HomeProps) => {
       { opacity: 1, pointerEvents: 'auto' },
       0
     );
-    // const HeroTimeline = gsap.timeline({
-    //   scrollTrigger: {
-    //     id: 'hero',
-    //     trigger: '.hero',
-    //     pin: true,
-    //     pinSpacing: false,
-    //     markers: true,
-    //     scrub: 1,
-    //     start: 'top top',
-    //     end: 'bottom top',
-    //     snap: { snapTo: 1 },
-    //     toggleActions: 'play complete reverse pause',
-    //   },
-    // });
-    // HeroTimeline.to('.hero__child', {
-    //   scale: '0.6',
-    //   opacity: '0',
-    // })
-    //   .to(
-    //     '.hero__transition',
-    //     {
-    //       y: '-100%',
-    //       rotate: '90deg',
-    //     },
-    //     0
-    //   )
-    //   .to('.hero__image', { opacity: '0' });
+    const HeroTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: 'hero',
+        trigger: '.hero',
+        pin: true,
+        pinSpacing: false,
+        markers: true,
+        scrub: 1,
+        start: 'top top',
+        end: 'bottom top',
+        snap: { snapTo: 1 },
+        toggleActions: 'play complete reverse pause',
+      },
+    });
+    HeroTimeline.to('.hero__child', {
+      scale: '0.6',
+      opacity: '0',
+    })
+      .to(
+        '.hero__transition',
+        {
+          y: '-100%',
+          rotate: '90deg',
+        },
+        0
+      )
+      .to('.hero__image', { opacity: '0' });
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
