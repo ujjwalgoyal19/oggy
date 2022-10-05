@@ -60,7 +60,7 @@ export function Offers(props: OffersProps) {
                       SpaceBetweenMA
                       Column
                       Padding="1rem"
-                      Border={{ Elegant: true, Level: 3 }}
+                      // Border={{ Elegant: true, Level: 3 }}
                       BG={GetVendorColor(vendor)}
                     >
                       {OfferCard(offer.code, offer.title, offer.subtitle)}

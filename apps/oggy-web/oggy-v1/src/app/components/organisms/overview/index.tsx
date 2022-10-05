@@ -11,6 +11,7 @@ export interface OverviewProps {
   PeopleLiked?: string[];
   TopTags?: string[];
   TopDishes?: string[];
+  CFT?: string;
 }
 
 const StyledOverview = styled.div``;
@@ -90,16 +91,24 @@ export function Overview(props: OverviewProps) {
                 Top Dishes from the restaurant
               </Text>
               <Container Width="90%" Row Wrap Gap="1.5rem">
-                {props.TopDishes.map((cuisine: any) => {
+                {props.TopDishes.map((dish: string) => {
                   return (
                     <FeatureCard>
                       <Text H4 L>
-                        {cuisine.cuisine_name}
+                        {dish}
                       </Text>
                     </FeatureCard>
                   );
                 })}
               </Container>
+            </Container>
+          )}
+          {props.CFT && (
+            <Container Column Gap="2rem">
+              <Text H3 N>
+                Average Cost
+              </Text>
+              <Text>{`₹${props.CFT} for two people (approx.)`}</Text>
             </Container>
           )}
         </Container>

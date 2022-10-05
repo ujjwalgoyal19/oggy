@@ -228,6 +228,10 @@ export function Input(props: InputProps) {
             onBlur={() => {
               setValue(props.Value);
             }}
+            onKeyUp={(e) => {
+              // if(e.key === 'Enter'){
+              // }
+            }}
             autoComplete="off"
             value={value}
           />

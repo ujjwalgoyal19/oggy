@@ -64,8 +64,9 @@ export interface ContainerProps {
   Border?: {
     Elegant?: boolean;
     Dotted?: boolean;
-    Level: number;
+    Level?: number;
   };
+  Shape?: 'CS1' | 'CS2' | 'CS3' | 'Circle';
 
   Color?: string;
   ClassName?: string;
@@ -138,7 +139,7 @@ interface IContainer {
   Border?: {
     Elegant?: boolean;
     Dotted?: boolean;
-    Level: number;
+    Level?: number;
   };
 
   // Container Properties
@@ -220,6 +221,7 @@ const StyledContainer = styled.div<IContainer>`
       //* Styles
       border-radius: ${props.Border?.Elegant && '0.5rem'};
       border: ${props.Border &&
+      props.Border.Level &&
       {
         1: '1.5px solid #eeeeee',
       }[props.Border.Level]};

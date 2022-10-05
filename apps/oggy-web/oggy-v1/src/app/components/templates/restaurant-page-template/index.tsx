@@ -128,6 +128,7 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
                 props.Data.about.top_dishes.length > 0 &&
                 props.Data.about.top_dishes
               }
+              CFT={props.Data.cft && props.Data.cft}
             />
           ),
           1: <Offers Offers={props.Data.offer_details} />,
