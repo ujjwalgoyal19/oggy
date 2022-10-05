@@ -5,7 +5,7 @@ import Chain from 'app/components/organisms/chain';
 import Locality from 'app/components/organisms/locality';
 import Download from 'app/components/organisms/download';
 import gsap from 'gsap';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { ScrollToPlugin, ScrollTrigger } from 'gsap/all';
 import Image from 'app/components/atoms/image';
 import Container from 'app/components/atoms/container';
@@ -101,10 +101,9 @@ const HomeTemplate = (props: HomeProps) => {
       scrollTrigger: {
         id: 'hero',
         trigger: '.hero',
-        pin: true,
-        pinSpacing: false,
-        markers: true,
-        scrub: 1,
+        // pin: true,
+        // pinSpacing: false,
+        scrub: 0.4,
         start: 'top top',
         end: 'bottom top',
         snap: { snapTo: 1 },
@@ -133,7 +132,7 @@ const HomeTemplate = (props: HomeProps) => {
   return (
     <StyledHome>
       <Container Column CenterCA>
-        <Container ClassName="panel hero" Height="200vh" Width="100%" Column>
+        <Container ClassName="panel hero" Height="100%" Width="100%" Column>
           <Container
             ClassName="hero__child"
             Row

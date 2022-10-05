@@ -1,5 +1,6 @@
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
+import { GetVendorColor } from 'app/utils';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -10,13 +11,7 @@ export interface OffersProps {
 const StyledOffers = styled.div``;
 
 const StyledOfferCard = styled.div`
-  width: 40rem;
-  height: 17rem;
-  box-shadow: 0 0 2rem 0.1rem rgba(0, 0, 0, 0.05);
-  border: 1px solid;
-  border-color: rgb(232, 232, 232);
-  border-radius: 10px;
-  overflow: hidden;
+  width: 100%;
 `;
 
 const OfferCard = (
@@ -26,16 +21,18 @@ const OfferCard = (
 ) => {
   return (
     <StyledOfferCard>
-      <Container Column SpaceBetweenMA Padding="2rem">
-        <Container Column SpaceBetweenMA Height="fit-content" Gap="1rem">
-          <Text H2 N>
+      <Container Column SpaceBetweenMA Padding="2rem" Gap="3rem">
+        <Container Row>
+          <Text H2 EB Color="white">
+            {code}
+          </Text>
+        </Container>
+        <Container Column Gap="1rem">
+          <Text H4 B Color="white">
             {title}
           </Text>
-          <Text H4>{subtitle}</Text>
-        </Container>
-        <Container Row Height="fit-content">
-          <Text H4 N>
-            {code}
+          <Text H4 N Color="white">
+            {subtitle}
           </Text>
         </Container>
       </Container>
@@ -51,22 +48,27 @@ export function Offers(props: OffersProps) {
         const offers = props.Offers[`${vendor}_offer`];
         if (offers && offers.length > 0) {
           return (
-            <Container
-              Row
-              MarginTop="5rem"
-              CenterCA
-              Position={{ Type: 'relative' }}
-              ScrollX
-              ScrollStyle="Hide"
-            >
-              <Container Width="fit-content" MarginRight="3rem">
-                <Text D5 EB Vertical Color="rgb(228,228,228)">
-                  {vendor}
-                </Text>
-              </Container>
-              <Container Row Gap="5rem">
+            <Container Row MarginBottom="7vh" CenterCA Height="30rem">
+              <Container Row Gap="5rem" ScrollX ScrollStyle="Hide">
                 {offers.map((offer: any) => {
-                  return OfferCard(offer.code, offer.title, offer.subtitle);
+                  return (
+                    <Container
+                      Width="30rem"
+                      MinWidth="30rem"
+                      MarginRight="2rem"
+                      EndCA
+                      SpaceBetweenMA
+                      Column
+                      Padding="1rem"
+                      Border={{ Elegant: true, Level: 3 }}
+                      BG={GetVendorColor(vendor)}
+                    >
+                      {OfferCard(offer.code, offer.title, offer.subtitle)}
+                      <Text H3 EB Color="white">
+                        {vendor}
+                      </Text>
+                    </Container>
+                  );
                 })}
               </Container>
             </Container>

@@ -7,6 +7,10 @@ import styled from 'styled-components';
 /* eslint-disable-next-line */
 export interface OverviewProps {
   Data: any;
+  Features?: string[];
+  PeopleLiked?: string[];
+  TopTags?: string[];
+  TopDishes?: string[];
 }
 
 const StyledOverview = styled.div``;
@@ -18,6 +22,7 @@ const FeatureCard = styled.div`
 `;
 
 export function Overview(props: OverviewProps) {
+  console.log(props.Data.about.features);
   return (
     <StyledOverview>
       <Container Row MarginTop="3rem">
@@ -25,70 +30,78 @@ export function Overview(props: OverviewProps) {
           <Text H2 N>
             About this place
           </Text>
-          <Container Column Gap="2rem">
-            <Text H3 N>
-              Features
-            </Text>
-            <Container Width="90%" Row Wrap Gap="1.5rem">
-              {props.Data.about.features.map((feature: string) => {
-                return (
-                  <FeatureCard>
-                    <Text H4 L>
-                      {feature}
-                    </Text>
-                  </FeatureCard>
-                );
-              })}
+          {props.Features && (
+            <Container Column Gap="2rem">
+              <Text H3 N>
+                Features
+              </Text>
+              <Container Width="90%" Row Wrap Gap="1.5rem">
+                {props.Features.map((feature: string) => {
+                  return (
+                    <FeatureCard>
+                      <Text H4 L>
+                        {feature}
+                      </Text>
+                    </FeatureCard>
+                  );
+                })}
+              </Container>
             </Container>
-          </Container>
-          <Container Column Gap="2rem">
-            <Text H3 N>
-              What people say about this place
-            </Text>
-            <Container Width="90%" Row Wrap Gap="1.5rem">
-              {props.Data.about.people_liked.map((feature: string) => {
-                return (
-                  <FeatureCard>
-                    <Text H4 L>
-                      {feature}
-                    </Text>
-                  </FeatureCard>
-                );
-              })}
+          )}
+          {props.PeopleLiked && (
+            <Container Column Gap="2rem">
+              <Text H3 N>
+                What people say about this place
+              </Text>
+              <Container Width="90%" Row Wrap Gap="1.5rem">
+                {props.PeopleLiked.map((feature: string) => {
+                  return (
+                    <FeatureCard>
+                      <Text H4 L>
+                        {feature}
+                      </Text>
+                    </FeatureCard>
+                  );
+                })}
+              </Container>
             </Container>
-          </Container>
-          <Container Column Gap="2rem">
-            <Text H3 N>
-              Top Tags
-            </Text>
-            <Container Width="90%" Row Wrap Gap="1.5rem">
-              {props.Data.about.top_tags.map((feature: string) => {
-                return (
-                  <FeatureCard>
-                    <Text H4 L>
-                      {feature}
-                    </Text>
-                  </FeatureCard>
-                );
-              })}
+          )}
+          {props.TopTags && (
+            <Container Column Gap="2rem">
+              <Text H3 N>
+                Top Tags
+              </Text>
+              <Container Width="90%" Row Wrap Gap="1.5rem">
+                {props.TopTags.map((feature: string) => {
+                  return (
+                    <FeatureCard>
+                      <Text H4 L>
+                        {feature}
+                      </Text>
+                    </FeatureCard>
+                  );
+                })}
+              </Container>
             </Container>
-          </Container>
-          <Container Column Gap="2rem">
-            <Text H3 N>
-              Cuisines
-            </Text>
-            <Container Width="90%" Row Wrap Gap="1.5rem">
-              {props.Data.cuisines.map((cuisine: any) => {
-                return (
-                  <FeatureCard>
-                    <Text H4 L>
-                      {cuisine.cuisine_name}
-                    </Text>
-                  </FeatureCard>
-                );
-              })}
+          )}
+          {props.TopDishes && (
+            <Container Column Gap="2rem">
+              <Text H3 N>
+                Top Dishes from the restaurant
+              </Text>
+              <Container Width="90%" Row Wrap Gap="1.5rem">
+                {props.TopDishes.map((cuisine: any) => {
+                  return (
+                    <FeatureCard>
+                      <Text H4 L>
+                        {cuisine.cuisine_name}
+                      </Text>
+                    </FeatureCard>
+                  );
+                })}
+              </Container>
             </Container>
-          </Container>
+          )}
         </Container>
         <Container Width="40%" Column Gap="3rem" Padding="3rem">
           <Container Column Gap="2rem">

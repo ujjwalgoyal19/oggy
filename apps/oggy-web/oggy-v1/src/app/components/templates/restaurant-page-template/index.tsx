@@ -8,7 +8,7 @@ import Offers from 'app/components/organisms/offers';
 import Overview from 'app/components/organisms/overview';
 import Photos from 'app/components/organisms/photos';
 import Text from 'app/components/atoms/text';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   RatingAggregation,
   RatingArrayCreate,
@@ -32,7 +32,9 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
   const changeSectionHandler = (index: number) => {
     setActiveSection(index);
   };
-  console.log(props.Data);
+  useEffect(() => {
+    console.log(props.Data);
+  }, []);
   return (
     <StyledRestaurantPageTemplate>
       <Section Width="100%" Sticky BackgroundColor="white">
@@ -107,7 +109,27 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
       </Section>
       <Section Width="70%" MarginBottom="20rem" MarginTop="5rem">
         {{
-          0: <Overview Data={props.Data} />,
+          0: (
+            <Overview
+              Data={props.Data}
+              Features={
+                props.Data.about.features.length > 0 &&
+                props.Data.about.features
+              }
+              PeopleLiked={
+                props.Data.about.people_liked.length > 0 &&
+                props.Data.about.people_liked
+              }
+              TopTags={
+                props.Data.about.top_tags.length > 0 &&
+                props.Data.about.top_tags
+              }
+              TopDishes={
+                props.Data.about.top_dishes.length > 0 &&
+                props.Data.about.top_dishes
+              }
+            />
+          ),
           1: <Offers Offers={props.Data.offer_details} />,
           2: (
             <Review

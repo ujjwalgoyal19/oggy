@@ -2,6 +2,7 @@ import config from 'app/config';
 import styled, { css } from 'styled-components';
 import Image from 'app/components/atoms/image';
 import { GetRatingColor } from 'app/utils';
+import Text from '../text';
 
 /* eslint-disable-next-line */
 export interface RatingProps {
@@ -40,18 +41,10 @@ const StyledRating = styled.div<IStyledRating>`
       gap: 0.7rem;
     `}
 
-  font-family: Roboto;
-  font-weight: 600;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Text = styled.p`
-  font-weight: 600;
-  display: inline-block;
-  margin: 0;
 `;
 
 export function Rating(props: RatingProps) {
@@ -61,7 +54,9 @@ export function Rating(props: RatingProps) {
       Small={props.Small}
       Large={props.Large}
     >
-      <Text>{props.Rating}</Text>
+      <Text EB H4>
+        {props.Rating.toString()}
+      </Text>
       <Image Image={config.images.StarIcon} />
     </StyledRating>
   );

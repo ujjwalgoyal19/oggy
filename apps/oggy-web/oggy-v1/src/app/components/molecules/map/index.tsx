@@ -1,6 +1,5 @@
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import styled from 'styled-components';
 import Text from 'app/components/atoms/text';
 
 /* eslint-disable-next-line */
@@ -10,10 +9,7 @@ export interface MapProps {
   Text: string;
 }
 
-const StyledMap = styled.div``;
-
 export function Map(props: MapProps) {
-  console.log(props.Location);
   return (
     <MapContainer
       style={{ height: '100%', width: '100%' }}

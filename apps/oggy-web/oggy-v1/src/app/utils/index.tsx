@@ -125,10 +125,20 @@ export const GetRatingColor = (rating: number | string): string => {
 };
 
 export const GetVendorColor = (vendor: string) => {
-  if (vendor === 'Zomato') {
-    return '#E33745';
+  const v = vendor.toLowerCase();
+  console.log(v);
+  switch (v) {
+    case 'zomato':
+      return '#E33745';
+    case 'swiggy':
+      return '#F47B29';
+    case 'dineout':
+      return '#F16458';
+    case 'eazydiner':
+      return '#FF4B18';
+    default:
+      return 'black';
   }
-  return 'hello';
 };
 
 export const GetVendorImage = (vendor: string) => {

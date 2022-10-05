@@ -1,26 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
-
-/**
- * Fonts Imports
- * * Raleway Variable
- * * Nothing
- */
-@font-face {
-  font-family: Raleway;
-  src: url('./assets/fonts/Raleway/Raleway-VF.woff2') format('woff2-variations');
-  font-weight: 100 1000;
-  font-stretch: 25% 151%;
-}
-
-@font-face {
-  font-family: Roboto;
-  src: url('./assets/fonts/RobotoFlex.ttf');
-  font-weight: 100 1000;
-  font-stretch: 25% 151%;
-}
-
 /**
   * * Style Reset
  */
