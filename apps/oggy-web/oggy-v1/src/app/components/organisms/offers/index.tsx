@@ -80,7 +80,9 @@ export function Offers(props: OffersProps) {
       })}
       {i === 4 && (
         <Container Column CenterCA CenterMA Width="100%">
-          <Text D6>No offers available</Text>
+          <Text H1 EB Color="LightGrey">
+            No offers available
+          </Text>
         </Container>
       )}
     </StyledOffers>
