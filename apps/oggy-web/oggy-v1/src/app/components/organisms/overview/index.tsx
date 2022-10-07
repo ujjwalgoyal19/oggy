@@ -2,6 +2,7 @@ import Button from 'app/components/atoms/button';
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
 import Map from 'app/components/molecules/map';
+import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -28,9 +29,22 @@ export function Overview(props: OverviewProps) {
     <StyledOverview>
       <Container Row MarginTop="3rem">
         <Container Width="60%" Column Gap="4rem">
-          <Text H2 N>
-            About this place
-          </Text>
+          {!props.Features &&
+            !props.PeopleLiked &&
+            !props.TopTags &&
+            !props.TopDishes &&
+            !props.CFT &&
+            ((
+              <Container>
+                <Text H2 N>
+                  Nothing to show here please check out offers
+                </Text>
+              </Container>
+            ) || (
+              <Text H2 N>
+                About this place
+              </Text>
+            ))}
           {props.Features && (
             <Container Column Gap="2rem">
               <Text H3 N>

@@ -28,7 +28,7 @@ const OfferCard = (
           </Text>
         </Container>
         <Container Column Gap="1rem">
-          <Text H4 B Color="white">
+          <Text H4 EB Color="white">
             {title}
           </Text>
           <Text H4 N Color="white">
@@ -48,20 +48,28 @@ export function Offers(props: OffersProps) {
         const offers = props.Offers[`${vendor}_offer`];
         if (offers && offers.length > 0) {
           return (
-            <Container Row MarginBottom="7vh" CenterCA Height="30rem">
-              <Container Row Gap="5rem" ScrollX ScrollStyle="Hide">
+            <Container Row MarginBottom="7vh" CenterCA>
+              <Container
+                Row
+                Gap="5rem"
+                ScrollX
+                ScrollStyle="Hide"
+                PaddingBottom="30px"
+              >
                 {offers.map((offer: any) => {
                   return (
                     <Container
                       Width="30rem"
-                      MinWidth="30rem"
+                      MinWidth="min(30rem, 90%)"
                       MarginRight="2rem"
                       EndCA
                       SpaceBetweenMA
                       Column
                       Padding="1rem"
-                      // Border={{ Elegant: true, Level: 3 }}
+                      Elevation={{ Tint: true, L2: true }}
+                      Shape="CS1"
                       BG={GetVendorColor(vendor)}
+                      Height="30rem"
                     >
                       {OfferCard(offer.code, offer.title, offer.subtitle)}
                       <Text H3 EB Color="white">

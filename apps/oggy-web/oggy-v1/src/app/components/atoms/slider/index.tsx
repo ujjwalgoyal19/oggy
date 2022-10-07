@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import Image from 'app/components/atoms/image';
 import Container from 'app/components/atoms/container';
 import config from 'app/config';
+import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 /* eslint-disable-next-line */
 export interface SliderProps {
   children: JSX.Element[];
-  childSize: number;
 }
 
 const StyledSlider = styled.div`
@@ -66,6 +66,7 @@ export function Slider(props: SliderProps) {
   const [gap, setGap] = useState<number>(0);
   const [shift, setShift] = useState<number>(0);
   const [maxShift, setMaxShift] = useState<number>(0);
+  const [childSize, setChildSize] = useState<number>(0);
 
   const Slide = (direction: string) => {
     if (direction === 'left') {
@@ -79,26 +80,24 @@ export function Slider(props: SliderProps) {
     let childrenNumber = 0;
     let widthTemp = widthDiv;
     while (widthTemp > 0 && childrenNumber <= props.children.length) {
-      if (props.childSize + 40 > widthTemp && props.childSize > widthTemp)
-        break;
-      widthTemp = widthTemp - props.childSize - 40;
+      if (childSize + 40 > widthTemp && childSize > widthTemp) break;
+      widthTemp = widthTemp - childSize - 40;
       childrenNumber++;
     }
     setMaxShift(props.children.length - childrenNumber);
-    return (widthDiv - props.childSize * childrenNumber) / (childrenNumber - 1);
+    return (widthDiv - childSize * childrenNumber) / (childrenNumber - 1);
   };
 
   useEffect(() => {
     const handleResize = () => {
+      const child = gsap.utils.toArray('.slider__child')[0];
       if (ref.current) {
         setGap(getGap(ref.current.offsetWidth - 20));
+        setChildSize((child as Element).getBoundingClientRect().width);
       }
     };
 
-    if (ref.current) {
-      setGap(getGap(ref.current.offsetWidth - 20));
-    }
-
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -111,11 +110,15 @@ export function Slider(props: SliderProps) {
       <SliderContentWrapper>
         <Container
           style={{
-            transform: `translateX${-(shift * (props.childSize + gap))}px`,
+            transform: `translateX${-(shift * (childSize + gap))}px`,
             overflowX: 'visible',
           }}
         >
-          <SliderContent gap={gap}>{props.children}</SliderContent>
+          <Container SpaceBetweenMA Gap={`${gap}px`} ClassName="slider__parent">
+            {props.children.map((child) => {
+              return <Container ClassName="slider__child">{child}</Container>;
+            })}
+          </Container>
         </Container>
       </SliderContentWrapper>
       {shift !== 0 ? (

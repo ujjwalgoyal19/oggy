@@ -21,7 +21,9 @@ export function Footer(props: FooterProps) {
       <Container Column CenterCA PaddingBottom="2rem">
         <Container Column Width="70%" Gap="4rem">
           <Container Row SpaceBetweenMA>
-            <Image Image={config.images.Oggy.Logo} />
+            <Link to="/">
+              <Image Image={config.images.Oggy.Logo} />
+            </Link>
             <a href="https://rb.gy/bqprcb">
               <Image Image={config.images.Home.Badge.Android} />
             </a>
@@ -34,10 +36,10 @@ export function Footer(props: FooterProps) {
                 </Text>
               </Container>
               <Container Column Gap="1rem">
-                <a href="https://github.com/">Who We Are</a>
-                <a href="https://github.com/">Blog</a>
-                <a href="https://github.com/">Work With Us</a>
-                <a href="https://github.com/">Contact Us</a>
+                <Link to="/about">Who We Are</Link>
+                <Link to="/blog">Blog</Link>
+                <Link to="/workWithUs">Work With Us</Link>
+                <Link to="/contactUs">Contact Us</Link>
               </Container>
             </Container>
             <Container Column Width="fit-content" Gap="2rem">
@@ -47,9 +49,8 @@ export function Footer(props: FooterProps) {
                 </Text>
               </Container>
               <Container Column Gap="1rem">
-                <a href="https://github.com/">Privacy</a>
-                <a href="https://github.com/">Security</a>
-                <a href="https://github.com/">Terms</a>
+                <Link to="/privacyPolicy">Privacy</Link>
+                <Link to="/termsAndConditions">Terms</Link>
               </Container>
             </Container>
             <Container Column Width="fit-content" Gap="2rem">
@@ -73,9 +74,9 @@ export function Footer(props: FooterProps) {
             <Separator Color="#F8F8F8" ColorType="light" Horizontal />
             <Text style={{ textAlign: 'center' }}>
               By continuing past this page, you agree to our Terms of Service,
-              Cookie Policy, Privacy Policy and Content Policies. All trademarks
-              are properties of their respective owners. 2021-2022 © Oggy™ Ltd.
-              All rights reserved.
+              Privacy Policy and Content Policies. All trademarks are properties
+              of their respective owners. 2021-2022 © Oggy™ Ltd. All rights
+              reserved.
             </Text>
           </Container>
         </Container>

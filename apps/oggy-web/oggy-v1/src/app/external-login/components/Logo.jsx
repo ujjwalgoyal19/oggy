@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { Box } from "@mui/material";
+import Image from "app/components/atoms/image";
+import config from "app/config";
+import Container from "app/components/atoms/container";
 
 const Logo = () => {
   return (
-    <Box>
+    <Container CenterCA CenterMA PaddingBottom="2rem">
       <Link to="/">
-        <Box component="img" src="/app/assets/oggyLogo.webp" alt="logo" />
+        <Image Image={config.images.Oggy.Logo}  alt="logo" />
       </Link>
-    </Box>
+    </Container>
   );
 };
 

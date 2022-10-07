@@ -25,8 +25,8 @@ export function App() {
         <Router basename="/">
           <NavigationBar Logo={config.images.Oggy.Logo} />
           <Switch />
+          <Footer />
         </Router>
-        <Footer />
       </StyledApp>
     </ThemeProvider>
   );

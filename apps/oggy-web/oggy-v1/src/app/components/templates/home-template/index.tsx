@@ -61,7 +61,7 @@ const HomeTemplate = (props: HomeProps) => {
       });
     };
     ScrollTrigger.defaults({
-      // markers: true,
+      markers: true,
     });
 
     sections.forEach((eachPanel, i) => {

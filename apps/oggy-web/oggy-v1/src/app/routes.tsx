@@ -6,6 +6,7 @@ import Page404 from 'app/pages/page404';
 import LoginRegistrationPage from './pages/login-registration-page';
 import Login from './external-login/pages/Login.js';
 import Signup from './external-login/pages/Signup.js';
+import PDFEmbed from './components/atoms/pdfembed';
 
 const Switch = () => {
   return (
@@ -18,6 +19,18 @@ const Switch = () => {
       <Route path="/error" element={<Page404 />} />
       <Route path="/login" element={<Login setAuth="false" />} />
       <Route path="/signup" element={<Signup setAuth="false" />} />
+      <Route
+        path="/privacyPolicy"
+        element={
+          <PDFEmbed File="https://cdn.oggy.co.in/documents/privacyPolicy.pdf" />
+        }
+      />
+      <Route
+        path="/termsAndConditions"
+        element={
+          <PDFEmbed File="https://cdn.oggy.co.in/documents/termsOfUse.pdf" />
+        }
+      />
     </Routes>
   );
 };

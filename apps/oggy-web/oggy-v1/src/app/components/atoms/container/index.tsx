@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import styled, { css } from 'styled-components';
+import convert from 'color-convert';
 
 /* eslint-disable-next-line */
 export interface ContainerProps {
@@ -58,9 +58,12 @@ export interface ContainerProps {
   // Extra Styles
   style?: React.CSSProperties;
   Elevation?: {
-    Elegant?: boolean;
-    Level: number;
-  }; // Levels 0, 1, 2, 3
+    Tint?: boolean;
+    Color?: string;
+    L1?: boolean;
+    L2?: boolean;
+    L3?: boolean;
+  };
   Border?: {
     Elegant?: boolean;
     Dotted?: boolean;
@@ -73,7 +76,7 @@ export interface ContainerProps {
   ScrollStyle?: 'Hide';
   ScrollX?: boolean;
   ScrollY?: boolean;
-  children?: string | JSX.Element | JSX.Element[] | any | null;
+  children?: string | JSX.Element | JSX.Element[] | null | any;
 }
 
 interface IContainer {
@@ -132,15 +135,18 @@ interface IContainer {
 
   // ExtraStyles
   Elevation?: {
-    Elegant?: boolean;
-    Level: number;
+    Tint?: boolean;
+    Color?: string;
+    L1?: boolean;
+    L2?: boolean;
+    L3?: boolean;
   }; // Levels 0, 1, 2, 3
-
   Border?: {
     Elegant?: boolean;
     Dotted?: boolean;
     Level?: number;
   };
+  Shape?: 'CS1' | 'CS2' | 'CS3' | 'Circle';
 
   // Container Properties
   BG?: string;
@@ -148,6 +154,12 @@ interface IContainer {
   ScrollX?: boolean;
   ScrollY?: boolean;
 }
+
+const getHSL = (value: string) => {
+  const hsl = convert.hex.hsl(value);
+  console.log(`${hsl[0]}deg ${hsl[1]}% ${hsl[2]}%`);
+  return `${hsl[0]}deg ${hsl[1]}% ${hsl[2]}%`;
+};
 
 const StyledContainer = styled.div<IContainer>`
   // Default Properties
@@ -160,6 +172,75 @@ const StyledContainer = styled.div<IContainer>`
   margin: 0;
   background-color: inherit;
   transition: all 0.2s ease;
+
+  ${(props) =>
+    props.Shape &&
+    {
+      CS1: css`
+        border-radius: 1rem;
+      `,
+      CS2: css`
+        border-radius: 2rem;
+      `,
+      CS3: css`
+        border-radius: 3rem;
+      `,
+      Circle: css`
+        border-radius: 50%;
+      `,
+    }[props.Shape]};
+
+  ${(props) =>
+    props.Elevation &&
+    css`
+      --low-transparency: ${(props.Elevation.Tint && 0.34) || 0.1};
+      --medium-transparency: ${(props.Elevation.Tint && 0.29) || 0.09};
+      --high-transparency: ${(props.Elevation.Tint && 0.27) || 0.08};
+
+      --shadow-color: ${(props.Elevation.Tint &&
+        (props.Elevation.Color
+          ? getHSL(props.Elevation.Color)
+          : props.BG && getHSL(props.BG))) ||
+      '0deg 0% 0%'};
+      --shadow-elevation-low: 0.6px 0.7px 1px
+          hsl(var(--shadow-color) / var(--low-transparency)),
+        1px 1.2px 1.8px -1.2px hsl(var(--shadow-color) / var(--low-transparency)),
+        2.3px 3px 4.3px -2.5px hsl(var(--shadow-color) / var(--low-transparency));
+      --shadow-elevation-medium: 0.6px 0.7px 1px
+          hsl(var(--shadow-color) / var(--medium-transparency)),
+        1.5px 2px 2.8px -0.6px hsl(var(--shadow-color) /
+              var(--medium-transparency)),
+        3px 3.9px 5.5px -1.2px hsl(var(--shadow-color) /
+              var(--medium-transparency)),
+        6px 7.8px 11.1px -1.9px hsl(var(--shadow-color) /
+              var(--medium-transparency)),
+        11.6px 15px 21.3px -2.5px hsl(var(--shadow-color) /
+              var(--medium-transparency));
+      --shadow-elevation-high: 0.6px 0.7px 1px
+          hsl(var(--shadow-color) / var(--high-transparency)),
+        2.8px 3.6px 5.1px -0.3px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        4.9px 6.4px 9.1px -0.6px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        7.5px 9.7px 13.8px -0.8px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        10.9px 14.1px 20px -1.1px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        15.7px 20.4px 29px -1.4px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        22.4px 28.9px 41.1px -1.7px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        31.3px 40.5px 57.6px -1.9px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        43px 55.6px 79.1px -2.2px hsl(var(--shadow-color) /
+              var(--high-transparency)),
+        58px 75px 106.7px -2.5px hsl(var(--shadow-color) /
+              var(--high-transparency));
+
+      box-shadow: ${props.Elevation.L1 && 'var(--shadow-elevation-low)'};
+      box-shadow: ${props.Elevation.L2 && 'var(--shadow-elevation-medium)'};
+      box-shadow: ${props.Elevation.L3 && 'var(--shadow-elevation-high)'};
+    `}
 
   ${(props) =>
     props.Hover &&
@@ -215,11 +296,12 @@ const StyledContainer = styled.div<IContainer>`
       //* BackgroundColor
       background-color: ${props.BG};
 
+      overflow-y: initial;
+      overflow-x: initial;
       overflow-x: ${props.ScrollX && 'auto'};
       overflow-y: ${props.ScrollY && 'auto'};
 
       //* Styles
-      border-radius: ${props.Border?.Elegant && '0.5rem'};
       border: ${props.Border &&
       props.Border.Level &&
       {
@@ -287,6 +369,7 @@ export function Container(props: ContainerProps) {
       Wrap={props.Wrap}
       Position={props.Position}
       ScrollStyle={props.ScrollStyle}
+      Shape={props.Shape}
       ScrollX={props.ScrollX}
       ScrollY={props.ScrollY}
       Elevation={props.Elevation}

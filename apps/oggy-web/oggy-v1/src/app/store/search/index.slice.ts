@@ -170,6 +170,7 @@ export const searchSlice = createSlice({
       state.page = 0;
       state.restart = true;
       state.location = action.payload;
+      state.searchQuery = '';
       if (state.location.type === 'city') {
         state.city = action.payload.name;
         state.locality = null;

@@ -5,6 +5,7 @@ import Text from 'app/components/atoms/text';
 import Container from 'app/components/atoms/container';
 import { useDispatch } from 'react-redux';
 import { searchActions } from 'app/store/search/index.slice';
+import ChainCard from 'app/components/molecules/chain-card';
 
 /* eslint-disable-next-line */
 export interface ChainProps {
@@ -42,25 +43,19 @@ export function Chain(props: ChainProps) {
           </Text>
         </Container>
         <Container Height="fit-content">
-          <Container Row Gap="4vw" ScrollX ScrollStyle="Hide">
+          {/* <Container Row Gap="4vw" ScrollX ScrollStyle="Hide"> */}
+          <Slider>
             {props.Content.map((chain, index) => {
               return (
-                <div
-                  onClick={() => {
-                    localityClickHandler(chain.name);
-                  }}
-                >
-                  <CircleCard
-                    key={index}
-                    image={chain.image}
-                    text={chain.name}
-                    Link="/search"
-                    size="17rem"
-                  />
-                </div>
+                <ChainCard
+                  key={index}
+                  Image={chain.image}
+                  Name={chain.name}
+                  Link="/search"
+                />
               );
             })}
-          </Container>
+          </Slider>
         </Container>
       </Container>
     </StyledChain>
