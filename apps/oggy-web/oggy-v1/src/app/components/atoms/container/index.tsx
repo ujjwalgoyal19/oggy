@@ -3,17 +3,17 @@ import convert from 'color-convert';
 
 /* eslint-disable-next-line */
 export interface ContainerProps {
-  // Flex Properties
-  //// Type of Container
+  //* Flex Properties
+  //* Type of Container
   Row?: boolean;
   Column?: boolean;
   Wrap?: boolean;
   Gap?: string;
-  //// Flex Grow Shrink Basis
+  //* Flex Grow Shrink Basis
   Grow?: boolean;
   Shrink?: boolean;
   Basis?: string;
-  //// Flex Cross Axis Main Axis Alignments
+  //* Flex Cross Axis Main Axis Alignments
   SpaceBetweenMA?: boolean;
   CenterMA?: boolean;
   EndMA?: boolean;
@@ -23,20 +23,22 @@ export interface ContainerProps {
   StartCA?: boolean;
   StartMA?: boolean;
 
-  // Container Properties
-  //// Padding
+  //* Container Properties
+  //* Padding
   PaddingBottom?: string;
   PaddingTop?: string;
   PaddingLeft?: string;
   PaddingRight?: string;
   Padding?: string;
-  //// Margin
+
+  //* Margin
   MarginBottom?: string;
   MarginTop?: string;
   MarginLeft?: string;
   MarginRight?: string;
   Margin?: string;
-  //// Dimensions
+
+  //* Dimensions
   Width?: string;
   MaxWidth?: string;
   MinWidth?: string;
@@ -55,7 +57,7 @@ export interface ContainerProps {
     Right?: string;
   };
 
-  // Extra Styles
+  //* Extra Styles
   style?: React.CSSProperties;
   Elevation?: {
     Tint?: boolean;
@@ -67,7 +69,9 @@ export interface ContainerProps {
   Border?: {
     Elegant?: boolean;
     Dotted?: boolean;
-    Level?: number;
+    L1?: boolean;
+    L2?: boolean;
+    L3?: boolean;
   };
   Shape?: 'CS1' | 'CS2' | 'CS3' | 'Circle';
 
@@ -80,18 +84,18 @@ export interface ContainerProps {
 }
 
 interface IContainer {
-  // Type of container
+  //* Type of container
   Row?: boolean;
   Column?: boolean;
   Gap?: string;
 
-  // Flex Properties
+  //* Flex Properties
   Grow?: boolean;
   Shrink?: boolean;
   Basis?: string;
   Wrap?: boolean;
 
-  // Type of spacing
+  //* Type of spacing
   StartCA?: boolean;
   StartMA?: boolean;
   CenterMA?: boolean;
@@ -101,10 +105,10 @@ interface IContainer {
   SpaceBetweenCA?: boolean;
   EndCA?: boolean;
 
-  // Transition Properties
+  //* Transition Properties
   Hover?: { BG?: string };
 
-  // Position Properties
+  //* Position Properties
   Position?: {
     Type?: string;
     Top?: string;
@@ -113,7 +117,7 @@ interface IContainer {
     Right?: string;
   };
 
-  // Padding, Margin, and Border properties
+  //* Padding, Margin, and Border properties
   PaddingBottom?: string;
   PaddingTop?: string;
   PaddingLeft?: string;
@@ -125,7 +129,7 @@ interface IContainer {
   MarginLeft?: string;
   MarginRight?: string;
 
-  // Dimensions
+  //* Dimensions
   Width?: string;
   MaxWidth?: string;
   MinWidth?: string;
@@ -133,7 +137,7 @@ interface IContainer {
   MaxHeight?: string;
   MinHeight?: string;
 
-  // ExtraStyles
+  //* ExtraStyles
   Elevation?: {
     Tint?: boolean;
     Color?: string;
@@ -144,11 +148,13 @@ interface IContainer {
   Border?: {
     Elegant?: boolean;
     Dotted?: boolean;
-    Level?: number;
+    L1?: boolean;
+    L2?: boolean;
+    L3?: boolean;
   };
   Shape?: 'CS1' | 'CS2' | 'CS3' | 'Circle';
 
-  // Container Properties
+  //* Container Properties
   BG?: string;
   ScrollStyle?: 'Hide';
   ScrollX?: boolean;
@@ -302,11 +308,10 @@ const StyledContainer = styled.div<IContainer>`
       overflow-y: ${props.ScrollY && 'auto'};
 
       //* Styles
-      border: ${props.Border &&
-      props.Border.Level &&
-      {
-        1: '1.5px solid #eeeeee',
-      }[props.Border.Level]};
+      ${props.Border &&
+      css`
+        border: '1.5px solid #eeeeee';
+      `};
 
       //* Position Properties
       ${props.Position &&

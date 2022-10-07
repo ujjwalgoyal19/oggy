@@ -15,6 +15,7 @@ const StyledGallery = styled.div`
   z-index: 100;
   display: grid;
   grid-template-columns: repeat(3, 33%);
+  grid-template-columns: 1fr;
   gap: 2.5rem;
 `;
 
@@ -53,7 +54,7 @@ export function Gallery(props: GalleryProps) {
   return (
     <>
       <Container Row MarginBottom="3rem">
-        <Text H1 N>
+        <Text H2 B>
           {SearchState.location.type === 'City'
             ? `Restaurants in ${SearchState.city}`
             : `${SearchState.locality} Restaurants, ${SearchState.city}`}
@@ -63,7 +64,7 @@ export function Gallery(props: GalleryProps) {
         {SearchState.ids.map((id, index) => {
           return (
             <RestaurantCard
-              key={index}
+              key={SearchState.entities[id]!.id}
               Id={SearchState.entities[id]!.id}
               Name={SearchState.entities[id]!.name}
               CostForTwo={SearchState.entities[id]!.cft}
@@ -75,7 +76,7 @@ export function Gallery(props: GalleryProps) {
           );
         })}
       </StyledGallery>
-      <div ref={ref}>Madhur</div>
+      <div ref={ref} />
     </>
   );
 }

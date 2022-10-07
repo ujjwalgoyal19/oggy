@@ -65,7 +65,7 @@ export function SearchBarHero(props: SearchBarProps) {
           {props.TypeA && (
             <Container
               Padding="1rem 1rem 1rem 1rem"
-              Border={{ Elegant: true, Level: 1 }}
+              Border={{ Elegant: true, L1: true }}
             >
               <Container
                 Row
@@ -76,7 +76,12 @@ export function SearchBarHero(props: SearchBarProps) {
               >
                 <Image Image={config.images.LocationIcon} />
                 <Input
-                  Dropdown
+                  Dropdown={{
+                    Modal: {
+                      Width: '25rem',
+                      Height: '20rem',
+                    },
+                  }}
                   Key={0}
                   ChangeHandler={(e: any) => {
                     formik.handleChange(e);
@@ -84,8 +89,6 @@ export function SearchBarHero(props: SearchBarProps) {
                   }}
                   Name="locality"
                   Id="locality"
-                  DWidth="25rem"
-                  DHeight="20rem"
                   Placeholder={config.content.SearchBarLocationPlaceholder}
                   Value={formik.values.locality}
                 >
@@ -104,7 +107,12 @@ export function SearchBarHero(props: SearchBarProps) {
               <Container Row CenterCA Gap=".5rem">
                 <Image Image={config.images.SearchIcon} />
                 <Input
-                  Dropdown
+                  Dropdown={{
+                    Modal: {
+                      Width: '60rem',
+                      Height: '30rem',
+                    },
+                  }}
                   Key={0}
                   ChangeHandler={(e: any) => {
                     formik.handleChange(e);
@@ -112,8 +120,6 @@ export function SearchBarHero(props: SearchBarProps) {
                   }}
                   Name="search"
                   Id="search"
-                  DWidth="60rem"
-                  DHeight="30rem"
                   Placeholder={config.content.SearchBarRestaurantPlaceholder}
                   Value={formik.values.search}
                 >
@@ -133,7 +139,12 @@ export function SearchBarHero(props: SearchBarProps) {
               >
                 <Image Image={config.images.LocationIcon} />
                 <Input
-                  Dropdown
+                  Dropdown={{
+                    Modal: {
+                      Width: '25rem',
+                      Height: '20rem',
+                    },
+                  }}
                   Key={0}
                   ChangeHandler={(e: any) => {
                     formik.handleChange(e);
@@ -141,8 +152,6 @@ export function SearchBarHero(props: SearchBarProps) {
                   }}
                   Name="locality"
                   Id="locality"
-                  DWidth="25rem"
-                  DHeight="20rem"
                   Placeholder={config.content.SearchBarLocationPlaceholder}
                   Value={formik.values.locality}
                 >
@@ -155,9 +164,9 @@ export function SearchBarHero(props: SearchBarProps) {
                   />
                 </Input>
               </Container>
-              <Container Row CenterCA Gap=".5rem">
+              <Container Row CenterCA BG="#f6f6f6" Padding="1rem">
                 <Input
-                  Dropdown
+                  Dropdown={{}}
                   Key={0}
                   ChangeHandler={(e: any) => {
                     formik.handleChange(e);
@@ -165,8 +174,6 @@ export function SearchBarHero(props: SearchBarProps) {
                   }}
                   Name="search"
                   Id="search"
-                  DWidth="60rem"
-                  DHeight="30rem"
                   Placeholder={config.content.SearchBarRestaurantPlaceholder}
                   Value={formik.values.search}
                 >

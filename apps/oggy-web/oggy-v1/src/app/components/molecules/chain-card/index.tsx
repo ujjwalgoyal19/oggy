@@ -26,7 +26,7 @@ export function ChainCard(props: ChainCardProps) {
           <Container
             Row
             Elevation={{ L2: true }}
-            Border={{ Elegant: true, Level: 1 }}
+            Border={{ Elegant: true, L1: true }}
             Shape="Circle"
             Width="20rem"
             Height="20rem"

@@ -18,33 +18,44 @@ export interface InputProps {
   Radio?: boolean;
   Text?: boolean;
   Password?: boolean;
-  Dropdown?: boolean;
-  DWidth?: string;
-  DHeight?: string;
+  Dropdown?: {
+    Modal?: {
+      Width: string;
+      Height: string;
+    };
+    Screen?: boolean;
+  };
   ChangeHandler: any;
   children?: JSX.Element | JSX.Element[];
 }
 
 export interface IInput {
+  //* Type of Input
+  Checkbox?: boolean;
+  Radio?: boolean;
+  Text?: boolean;
+  Password?: boolean;
+  Dropdown?: {
+    Modal?: {
+      Width: string;
+      Height: string;
+    };
+    Screen?: boolean;
+  };
+
   Small?: boolean;
   Medium?: boolean;
   Large?: boolean;
   Placeholder?: string;
   Label?: string;
   Active?: boolean;
-  Checkbox?: boolean;
-  Radio?: boolean;
-  Text?: boolean;
-  Password?: boolean;
-  Dropdown?: boolean;
-  DWidth?: string;
-  DHeight?: string;
 }
 
 const StyledInput = styled.div<IInput>`
   color: black;
   font-size: 1.7rem;
   width: 100%;
+  background-color: inherit;
 
   ${(props) =>
     props.Dropdown &&
@@ -122,8 +133,8 @@ const StyledInput = styled.div<IInput>`
 
 interface IDropList {
   Visible?: boolean;
-  DWidth?: string;
-  DHeight?: string;
+  Width?: string;
+  Height?: string;
 }
 
 const DropList = styled.div<IDropList>`
@@ -133,8 +144,8 @@ const DropList = styled.div<IDropList>`
   border: 0.1rem solid rgb(232, 232, 232);
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.04);
   height: fit-content;
-  width: ${(props) => props.DWidth};
-  max-height: ${(props) => props.DHeight};
+  width: ${(props) => props.Width};
+  max-height: ${(props) => props.Height};
   position: absolute;
   margin-top: 3rem;
   top: 100%;
@@ -210,7 +221,7 @@ export function Input(props: InputProps) {
           value={props.Value}
         />
       )}
-      {props.Dropdown && props.children && (
+      {props.Dropdown && props.Dropdown.Modal && props.children && (
         <>
           <input
             type="text"
@@ -228,18 +239,14 @@ export function Input(props: InputProps) {
             onBlur={() => {
               setValue(props.Value);
             }}
-            onKeyUp={(e) => {
-              // if(e.key === 'Enter'){
-              // }
-            }}
             autoComplete="off"
             value={value}
           />
           {visible && <Modal onClick={() => setVisible(false)}></Modal>}
           <DropList
             Visible={visible}
-            DWidth={props.DWidth}
-            DHeight={props.DHeight}
+            Width={props.Dropdown.Modal.Width}
+            Height={props.Dropdown.Modal.Height}
             onClick={() => setVisible(false)}
           >
             {props.children}

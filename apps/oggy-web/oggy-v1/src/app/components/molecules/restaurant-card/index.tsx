@@ -110,7 +110,47 @@ export function RestaurantCard(props: RestaurantCardProps) {
         color: 'inherit',
       }}
     >
-      <StyledRestaurantCard ref={ref}>
+      {
+        <Container
+          Column
+          BG="white"
+          Elevation={{ L1: true }}
+          style={{ overflow: 'hidden' }}
+          Border={{ Elegant: true, L2: true }}
+          Shape="CS3"
+        >
+          <Container Height="25vh">
+            <RestaurantImage
+              src={imageFile.src}
+              initial={{
+                scale: 0,
+                opacity: 0,
+              }}
+              animate={{
+                scale: 1,
+                opacity: 1,
+              }}
+            />
+          </Container>
+          <Container Column Padding="2rem" Gap=".4rem">
+            <Container SpaceBetweenMA Row>
+              <Text NoWrap={{ Width: '22rem' }} H3 N>
+                {props.Name}
+              </Text>
+              <Rating Small Rating={RatingAggregation(props.DeliveryRating)} />
+            </Container>
+            <Container SpaceBetweenMA Row>
+              <Text NoWrap={{ Width: '18rem' }} H4>
+                {props.Cuisines}
+              </Text>
+              <Text H4>
+                {props.CostForTwo?.replace(/\D/g, '') + '₹ for two'}
+              </Text>
+            </Container>
+          </Container>
+        </Container>
+      }
+      {/* <StyledRestaurantCard ref={ref}>
         <RestaurantShowcase>
           <RestaurantImage
             src={imageFile.src}
@@ -139,7 +179,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
           </Container>
         </Container>
         <RestaurantRating></RestaurantRating>
-      </StyledRestaurantCard>
+      </StyledRestaurantCard> */}
     </Link>
   );
 }

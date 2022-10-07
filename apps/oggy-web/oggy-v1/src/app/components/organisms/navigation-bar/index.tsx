@@ -52,6 +52,7 @@ export function NavigationBar(props: NavigationBarProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [prevScrollPos]);
+  const Desktop = false;
   return (
     <StyledNavigationBar Position={position}>
       <Container
@@ -65,7 +66,7 @@ export function NavigationBar(props: NavigationBarProps) {
             : { Type: 'static' }
         }
       >
-        {media.greaterThan('md') ? (
+        {Desktop ? (
           <Container Row Width={width} SpaceBetweenMA CenterCA>
             <Container Row Width="70%" Height="fit-content" Gap="5rem">
               <Link to="/">
