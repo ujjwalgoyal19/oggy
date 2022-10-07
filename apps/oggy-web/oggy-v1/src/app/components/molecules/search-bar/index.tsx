@@ -20,6 +20,7 @@ export interface SearchBarProps {
 }
 
 const StyledSearchBar = styled.div`
+  background-color: white;
   height: 100%;
   width: 100%;
 `;
@@ -64,8 +65,9 @@ export function SearchBarHero(props: SearchBarProps) {
         <StyledSearchBar>
           {props.TypeA && (
             <Container
-              Padding="1rem 1rem 1rem 1rem"
-              Border={{ Elegant: true, L1: true }}
+              Padding="1rem"
+              Border={{ Style: 'Solid', L2: true }}
+              Shape="CS0"
             >
               <Container
                 Row
@@ -101,7 +103,7 @@ export function SearchBarHero(props: SearchBarProps) {
                   />
                 </Input>
               </Container>
-              <Container Row Width="5%" CenterCA CenterMA>
+              <Container Row Width="5%" Height="2rem" CenterCA CenterMA>
                 <Separator Vertical Color="#ffffff" ColorType="light" />
               </Container>
               <Container Row CenterCA Gap=".5rem">

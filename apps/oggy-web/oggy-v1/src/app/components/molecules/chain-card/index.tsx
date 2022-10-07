@@ -14,19 +14,20 @@ export interface ChainCardProps {
   };
   Name: string;
   Link: string;
+  ClickHandler: (chain: string) => void;
 }
 
 const StyledChainCard = styled.div``;
 
 export function ChainCard(props: ChainCardProps) {
   return (
-    <StyledChainCard>
+    <StyledChainCard onClick={() => props.ClickHandler(props.Name)}>
       <Container Column Gap="2rem">
         <Link to={props.Link}>
           <Container
             Row
             Elevation={{ L2: true }}
-            Border={{ Elegant: true, L1: true }}
+            Border={{ Style: 'Solid', L1: true }}
             Shape="Circle"
             Width="20rem"
             Height="20rem"

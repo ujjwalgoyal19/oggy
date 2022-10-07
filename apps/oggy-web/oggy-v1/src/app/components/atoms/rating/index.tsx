@@ -23,10 +23,10 @@ const StyledRating = styled.div<IStyledRating>`
   ${(props) =>
     props.Small &&
     css`
-      padding: 0.5rem;
+      padding: 0.8rem;
       border-radius: 0.4rem;
-      width: 4rem;
-      height: 2.3rem;
+      width: 4.8rem;
+      height: 2.5rem;
       font-size: 1.3rem;
       gap: 0.4rem;
     `}

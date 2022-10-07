@@ -7,16 +7,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Text from 'app/components/atoms/text';
 import Container from 'app/components/atoms/container';
+import media from 'app/hooks/styledMediaQuery.hook';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface GalleryProps {}
 
 const StyledGallery = styled.div`
-  z-index: 100;
-  display: grid;
-  grid-template-columns: repeat(3, 33%);
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
+  width: 90%;
+  ${media.greaterThan('md')`
+    width: 70%;
+  `}
+`;
+
+const StyledGalleryGrid = styled.div`
+  ${media.lessThan('md')`
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  `}
+  ${media.greaterThan('md')`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  `}
+  ${media.greaterThan('lg')`
+    grid-template-columns: repeat(3, 33%);
+    gap: 2.5rem;
+  `}
 `;
 
 const getImage = (image: string | undefined) => {
@@ -41,6 +59,8 @@ export function Gallery(props: GalleryProps) {
     false
   );
 
+  const Desktop = useDeviceType().greaterThan('md');
+
   useEffect(() => {
     if (isIntersecting) {
       dispatch(fetchSearch(SearchState));
@@ -52,15 +72,15 @@ export function Gallery(props: GalleryProps) {
   }, [SearchState.filters, SearchState.searchQuery, SearchState.location]);
 
   return (
-    <>
+    <StyledGallery>
       <Container Row MarginBottom="3rem">
-        <Text H2 B>
+        <Text H2={!Desktop} D6={Desktop} B>
           {SearchState.location.type === 'City'
             ? `Restaurants in ${SearchState.city}`
             : `${SearchState.locality} Restaurants, ${SearchState.city}`}
         </Text>
       </Container>
-      <StyledGallery>
+      <StyledGalleryGrid>
         {SearchState.ids.map((id, index) => {
           return (
             <RestaurantCard
@@ -75,9 +95,9 @@ export function Gallery(props: GalleryProps) {
             />
           );
         })}
-      </StyledGallery>
+      </StyledGalleryGrid>
       <div ref={ref} />
-    </>
+    </StyledGallery>
   );
 }
 

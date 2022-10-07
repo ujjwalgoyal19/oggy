@@ -3,6 +3,7 @@ import SearchBarHero from 'app/components/molecules/search-bar';
 import Text from 'app/components/atoms/text';
 import Container from 'app/components/atoms/container';
 import media from 'app/hooks/styledMediaQuery.hook';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 /* eslint-disable-next-line */
 export interface HeroProps {
   Heading: string;
@@ -18,12 +19,18 @@ const StyledHero = styled.section`
 `;
 
 export function Hero(props: HeroProps) {
+  const device = useDeviceType();
   return (
     <StyledHero>
       <Container BG="transparent" Row Height="fit-content">
         <Container Column Gap="6vh" Width="100%" Height="fit-content" CenterCA>
           <Container Row Width="fit-content">
-            <Text D2 EB style={{ textAlign: 'center' }}>
+            <Text
+              D2={device.greaterThan('md')}
+              D5={!device.greaterThan('md')}
+              EB
+              style={{ textAlign: 'center' }}
+            >
               <Text>The Best Discounts in</Text>
               <br />
               <Text Color="Primary">Your City</Text>
@@ -36,7 +43,7 @@ export function Hero(props: HeroProps) {
           </Container>
 
           <Container Row Width="65rem">
-            {media.greaterThan('md') && <SearchBarHero TypeA />}
+            {device.greaterThan('md') && <SearchBarHero TypeA />}
           </Container>
         </Container>
       </Container>

@@ -39,7 +39,7 @@ const HomeTemplate = (props: HomeProps) => {
   gsap.registerPlugin(ScrollTrigger);
   gsap.registerPlugin(ScrollToPlugin);
   useEffect(() => {
-    const sections = gsap.utils.toArray('.panel');
+    const sections = gsap.utils.toArray('.snap');
 
     let height = 0;
     const heights = sections.map((eachPanel) => {
@@ -47,10 +47,8 @@ const HomeTemplate = (props: HomeProps) => {
       height += h;
       return height - h;
     });
-    console.log(heights);
 
     const goToSection = (i: number) => {
-      console.log(i);
       gsap.to(window, {
         scrollTo: {
           y: i,
@@ -61,23 +59,34 @@ const HomeTemplate = (props: HomeProps) => {
       });
     };
     ScrollTrigger.defaults({
-      markers: true,
+      // markers: true,
     });
 
     sections.forEach((eachPanel, i) => {
-      ScrollTrigger.create({
-        trigger: eachPanel as gsap.DOMTarget,
-        start: '1% bottom',
-        end: '1% top',
-        onEnter: () => goToSection(heights[i] - 1),
-      });
-      ScrollTrigger.create({
-        trigger: eachPanel as gsap.DOMTarget,
-        start: '99% bottom',
-        end: '99% top',
-        onEnterBack: () => goToSection(heights[i] + 1),
-      });
+      const panel = eachPanel as Element;
+      if (panel.classList.contains('enter')) {
+        ScrollTrigger.create({
+          id: 'enter',
+          trigger: eachPanel as gsap.DOMTarget,
+          start: '1vh bottom',
+          end: '1vh top',
+          onEnter: () => goToSection(heights[i] - 1),
+        });
+      }
+      if (panel.classList.contains('enterBack')) {
+        ScrollTrigger.create({
+          id: 'enterBack',
+          trigger: eachPanel as gsap.DOMTarget,
+          start: '99% bottom',
+          end: '99% top',
+          onEnterBack: () => goToSection(heights[i] + 1),
+        });
+      }
     });
+
+    //* Custom Timelines for creating animation
+
+    //* Locality Timeline */
     const LocalityTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: '.locality',
@@ -97,32 +106,36 @@ const HomeTemplate = (props: HomeProps) => {
       { opacity: 1, pointerEvents: 'auto' },
       0
     );
+
+    //* Hero Timeline */
     const HeroTimeline = gsap.timeline({
       scrollTrigger: {
         id: 'hero',
+        pin: true,
+        pinSpacing: false,
         trigger: '.hero',
-        // pin: true,
-        // pinSpacing: false,
-        scrub: 0.4,
+        scrub: 1,
         start: 'top top',
-        end: 'bottom top',
+        end: '100% top',
         snap: { snapTo: 1 },
+        // markers: true,
         toggleActions: 'play complete reverse pause',
       },
     });
     HeroTimeline.to('.hero__child', {
-      scale: '0.6',
+      scale: 0.8,
       opacity: '0',
     })
       .to(
         '.hero__transition',
         {
           y: '-100%',
-          rotate: '90deg',
+          scale: '1.2',
         },
         0
       )
-      .to('.hero__image', { opacity: '0' });
+      .to('.hero__image', { rotate: '180deg' }, 0)
+      .to('.hero__image', { opacity: '0', scale: '0.5' });
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
@@ -132,14 +145,19 @@ const HomeTemplate = (props: HomeProps) => {
   return (
     <StyledHome>
       <Container Column CenterCA>
-        <Container ClassName="panel hero" Height="100%" Width="100%" Column>
+        <Container
+          ClassName="snap hero"
+          Height="200vh"
+          Width="100%"
+          Column
+          Position={{ Type: 'relative' }}
+        >
           <Container
             ClassName="hero__child"
             Row
-            Height="75vh"
+            Height="100vh"
             Width="100%"
-            MarginBottom="3rem"
-            CenterCA
+            PaddingTop="15vh"
           >
             <Hero
               Heading={props.HomeContent.Hero.Heading}
@@ -153,14 +171,25 @@ const HomeTemplate = (props: HomeProps) => {
             Height="fit-content"
             Width="100%"
             BG="transparent"
-            style={{ borderRadius: '50%' }}
+            Padding="1rem"
+            Position={{ Type: 'absolute', Top: '39%' }}
           >
-            <Container ClassName="hero__image" Width="fit-content">
+            <Container
+              ClassName="hero__image"
+              Width="fit-content"
+              Shape="Circle"
+            >
               <Image Image={props.HomeImages.FoodPlate} />
             </Container>
           </Container>
         </Container>
-        <Container ClassName="panel chains" Height="100vh" Column CenterCA>
+        <Container
+          ClassName="snap enterBack chains"
+          Height="100vh"
+          Column
+          CenterCA
+          BG="white"
+        >
           <Container Width="80%" CenterMA>
             <Container PaddingTop="10vh">
               <Chain
@@ -170,7 +199,11 @@ const HomeTemplate = (props: HomeProps) => {
             </Container>
           </Container>
         </Container>
-        <Container ClassName="panel locality" Height="100vh" Column>
+        <Container
+          ClassName="snap enter enterBack locality"
+          Height="100vh"
+          Column
+        >
           <Container ClassName="locality__child" BG="transparent" CenterCA>
             <Locality
               Localities={props.Localities}
@@ -180,7 +213,7 @@ const HomeTemplate = (props: HomeProps) => {
             />
           </Container>
         </Container>
-        <Container ClassName="panel download" Height="100vh">
+        <Container ClassName="snap enter enterBack download" Height="100vh">
           <Download />
         </Container>
       </Container>

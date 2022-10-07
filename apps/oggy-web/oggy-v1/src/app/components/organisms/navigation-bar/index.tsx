@@ -5,7 +5,7 @@ import Image from 'app/components/atoms/image';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Container from 'app/components/atoms/container';
-import media from 'app/hooks/styledMediaQuery.hook';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {
   Logo: {
@@ -31,6 +31,8 @@ const StyledNavigationBar = styled.div<IStyledNavigationBar>`
 `;
 
 export function NavigationBar(props: NavigationBarProps) {
+  const device = useDeviceType();
+
   const location = useLocation();
   const position = location.pathname === '/' ? 'fixed' : 'static';
   const autoHide = location.pathname === '/';
@@ -52,7 +54,6 @@ export function NavigationBar(props: NavigationBarProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [prevScrollPos]);
-  const Desktop = false;
   return (
     <StyledNavigationBar Position={position}>
       <Container
@@ -66,7 +67,7 @@ export function NavigationBar(props: NavigationBarProps) {
             : { Type: 'static' }
         }
       >
-        {Desktop ? (
+        {device.greaterThan('md') ? (
           <Container Row Width={width} SpaceBetweenMA CenterCA>
             <Container Row Width="70%" Height="fit-content" Gap="5rem">
               <Link to="/">

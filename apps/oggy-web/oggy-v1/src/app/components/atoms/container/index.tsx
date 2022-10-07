@@ -67,13 +67,16 @@ export interface ContainerProps {
     L3?: boolean;
   };
   Border?: {
-    Elegant?: boolean;
-    Dotted?: boolean;
+    Style: 'Solid' | 'Dotted';
+    Color?: string;
     L1?: boolean;
     L2?: boolean;
     L3?: boolean;
   };
-  Shape?: 'CS1' | 'CS2' | 'CS3' | 'Circle';
+  Shape?: 'CS0' | 'CS1' | 'CS2' | 'CS3' | 'Circle';
+
+  //* ZIndex
+  Index?: number;
 
   Color?: string;
   ClassName?: string;
@@ -146,13 +149,16 @@ interface IContainer {
     L3?: boolean;
   }; // Levels 0, 1, 2, 3
   Border?: {
-    Elegant?: boolean;
-    Dotted?: boolean;
+    Style: 'Solid' | 'Dotted';
+    Color?: string;
     L1?: boolean;
     L2?: boolean;
     L3?: boolean;
   };
-  Shape?: 'CS1' | 'CS2' | 'CS3' | 'Circle';
+  Shape?: 'CS0' | 'CS1' | 'CS2' | 'CS3' | 'Circle';
+
+  //* ZIndex
+  Index?: number;
 
   //* Container Properties
   BG?: string;
@@ -182,6 +188,9 @@ const StyledContainer = styled.div<IContainer>`
   ${(props) =>
     props.Shape &&
     {
+      CS0: css`
+        border-radius: 0.5rem;
+      `,
       CS1: css`
         border-radius: 1rem;
       `,
@@ -308,9 +317,19 @@ const StyledContainer = styled.div<IContainer>`
       overflow-y: ${props.ScrollY && 'auto'};
 
       //* Styles
+
+      //* Border Properties
       ${props.Border &&
       css`
-        border: '1.5px solid #eeeeee';
+        --border-type: ${{ Solid: 'solid', Dotted: 'dotted' }[
+          props.Border.Style
+        ]};
+        --border-color: ${props.Border.Color || '#eeeeee'};
+        --border-size: ${props.Border.L1 && '1.5px'};
+        --border-size: ${props.Border.L2 && '2.0px'};
+        --border-size: ${props.Border.L3 && '3.5px'};
+
+        border: var(--border-size) var(--border-type) var(--border-color);
       `};
 
       //* Position Properties
@@ -322,6 +341,8 @@ const StyledContainer = styled.div<IContainer>`
         left: ${props.Position.Left};
         right: ${props.Position.Right};
       `};
+
+      z-index: ${props.Index};
     `}
   
   ${(props) =>
@@ -381,6 +402,7 @@ export function Container(props: ContainerProps) {
       Border={props.Border}
       EndMA={props.EndMA}
       Hover={props.Hover}
+      Index={props.Index}
       className={props.ClassName}
     >
       {props.children}

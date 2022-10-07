@@ -3,10 +3,11 @@ import styled from 'styled-components';
 //* Service
 
 // * Imports
-import Section from 'app/components/atoms/section';
 import Filters from 'app/components/organisms/filters';
 import Gallery from 'app/components/organisms/gallery';
 import Container from 'app/components/atoms/container';
+import media from 'app/hooks/styledMediaQuery.hook';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface SearchResultTemplateProps {
@@ -16,28 +17,35 @@ export interface SearchResultTemplateProps {
 const StyledSearchResultTemplate = styled.div`
   min-height: 100vh;
   margin-bottom: 20vh;
-  background-color: inherit;
   background-color: #f6f6f6;
+  ${media.greaterThan('md')`
+    background-color: white;
+  `}
 `;
 
 export function SearchResultTemplate(props: SearchResultTemplateProps) {
+  const device = useDeviceType();
   return (
     <StyledSearchResultTemplate>
       <Container
         Width="100%"
-        Position={{ Type: 'sticky' }}
-        PaddingBottom="1rem"
-        // Padding="3rem 0rem 3rem 0rem"
-        MarginBottom="2rem"
+        Position={{ Type: 'sticky', Top: '0' }}
+        Padding={
+          device.greaterThan('md')
+            ? '3rem 0rem 3rem 0rem'
+            : '1rem 0rem 1rem 0rem'
+        }
+        CenterMA
         BG="White"
+        Index={100}
       >
-        <Section Width="95%">
+        <Container Width={device.greaterThan('md') ? '70%' : '97%'}>
           <Filters />
-        </Section>
+        </Container>
       </Container>
-      <Section Width="90%" Index={99}>
+      <Container Column CenterCA Index={99} MarginTop="2rem">
         <Gallery />
-      </Section>
+      </Container>
     </StyledSearchResultTemplate>
   );
 }

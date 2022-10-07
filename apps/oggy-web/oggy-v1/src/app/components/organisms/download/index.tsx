@@ -2,6 +2,7 @@ import Container from 'app/components/atoms/container';
 import Image from 'app/components/atoms/image';
 import Text from 'app/components/atoms/text';
 import config from 'app/config';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -14,34 +15,43 @@ const StyledDownload = styled.section`
 `;
 
 export function Download(props: DownloadProps) {
+  const device = useDeviceType();
   return (
     <StyledDownload>
-      {/* <Container>
-        <Image Image={config.images.Home.Mockup.First} />
-      </Container> */}
-      <Container Column Width="100vw" CenterCA PaddingTop="9%">
+      <Container
+        Column
+        Width="100vw"
+        CenterCA
+        PaddingTop="9vh"
+        PaddingBottom="9vh"
+        SpaceBetweenMA={device.lessThan('md')}
+      >
         <Container
-          Width="fit-content"
+          Column
+          CenterCA
+          Width={device.greaterThan('md') ? 'fit-content' : '90%'}
           Height="fit-content"
-          PaddingBottom="2.5%"
+          Gap="3rem"
+          MarginBottom="10rem"
         >
-          <Text D2 EB>
-            Download our app
-          </Text>
+          {device.greaterThan('md') ? (
+            <Text D2 EB>
+              Download our app
+            </Text>
+          ) : (
+            <Text D6 EB>
+              Download our app
+            </Text>
+          )}
+          <Container Width={device.greaterThan('md') && '40%'}>
+            <Text H2 N Color="LightGrey" style={{ textAlign: 'center' }}>
+              Find the experience of your best restaurant in cheapest prices,
+              never let your wallet stop you from best food in your city.
+            </Text>
+          </Container>
         </Container>
-        <Container Row Width="40%" Height="fit-content" PaddingBottom="5%">
-          <Text H2 N Color="LightGrey" style={{ textAlign: 'center' }}>
-            Find the experience of your best restaurant in cheapest prices,
-            never let your wallet stop you from best food in your city.
-          </Text>
-        </Container>
-
-        <Container Row Width="fit-content">
-          {/* <a href="https://github.com/">
-            <Image Image={config.images.Home.Badge.Apple} />
-          </a> */}
-
-          <a href="https://github.com/">
+        <Container Row Width="fit-content" Height="fit-content">
+          <a href="https://rb.gy/bqprcb">
             <Image Image={config.images.Home.Badge.Android} />
           </a>
         </Container>
