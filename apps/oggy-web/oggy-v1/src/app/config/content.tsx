@@ -20,7 +20,7 @@ export const Home = {
       },
     },
     {
-      name: 'Baskin Robins',
+      name: 'Baskin Robbins',
       image: {
         src: 'assets/images/baskinRobinsL.webp',
         height: '10rem',

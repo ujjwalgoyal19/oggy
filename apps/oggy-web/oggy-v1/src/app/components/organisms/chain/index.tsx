@@ -22,7 +22,7 @@ export interface ChainProps {
 }
 
 const StyledChain = styled.div`
-  max-width: 100%;
+  width: 100%;
 `;
 
 export function Chain(props: ChainProps) {

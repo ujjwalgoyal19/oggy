@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 /* eslint-disable-next-line */
 export interface SliderProps {
   children: JSX.Element[];
+  Gap?: string;
 }
 
 const StyledSlider = styled.div`
@@ -39,28 +40,6 @@ const RightSliderButton = styled(SliderButton)`
   transform: translateX(50%) !important;
 `;
 
-interface ISliderContent {
-  gap: number;
-  // shift: number;
-}
-
-const SliderContentWrapper = styled.div`
-  overflow: hidden;
-`;
-
-const SliderContent = styled.div<ISliderContent>`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  column-gap: ${(props) => props.gap}px;
-  transition: transform 0.45s ease-in-out 0s;
-  padding: 1rem;
-`;
-
-// transform: translateX(${(props) => props.shift}px);
-
 export function Slider(props: SliderProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [gap, setGap] = useState<number>(0);
@@ -75,10 +54,10 @@ export function Slider(props: SliderProps) {
       setShift(shift + 1);
     }
   };
-
   const getGap = (widthDiv: number) => {
     let childrenNumber = 0;
     let widthTemp = widthDiv;
+    childrenNumber = widthTemp / (childSize + 40);
     while (widthTemp > 0 && childrenNumber <= props.children.length) {
       if (childSize + 40 > widthTemp && childSize > widthTemp) break;
       widthTemp = widthTemp - childSize - 40;
@@ -88,39 +67,53 @@ export function Slider(props: SliderProps) {
     return (widthDiv - childSize * childrenNumber) / (childrenNumber - 1);
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      const child = gsap.utils.toArray('.slider__child')[0];
-      if (ref.current) {
-        setGap(getGap(ref.current.offsetWidth - 20));
-        setChildSize((child as Element).getBoundingClientRect().width);
-      }
-    };
+  // const handleResize = useCallback(() => {
+  //   const child = gsap.utils.toArray('.slider__child')[0];
+  //   if (ref.current) {
+  //     setChildSize((child as Element).getBoundingClientRect().width);
+  //     setGap(getGap(ref.current.offsetWidth - 20));
+  //   }
+  // }, []);
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
+  // useEffect(() => {
+  //   handleResize();
+  // }, []);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [ref.current, getGap]);
+  // useEffect(() => {
+  //   window.addEventListener('resize', handleResize);
+
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, [handleResize]);
 
   return (
     <StyledSlider ref={ref}>
-      <SliderContentWrapper>
+      <Container>
         <Container
           style={{
             transform: `translateX${-(shift * (childSize + gap))}px`,
-            overflowX: 'visible',
           }}
         >
-          <Container SpaceBetweenMA Gap={`${gap}px`} ClassName="slider__parent">
+          <Container
+            SpaceBetweenMA
+            ClassName="slider__parent"
+            ScrollStyle="Hide"
+            ScrollX
+          >
             {props.children.map((child) => {
-              return <Container ClassName="slider__child">{child}</Container>;
+              return (
+                <Container
+                  ClassName="slider__child"
+                  MarginRight={props.Gap || '50px'}
+                >
+                  {child}
+                </Container>
+              );
             })}
           </Container>
         </Container>
-      </SliderContentWrapper>
+      </Container>
       {shift !== 0 ? (
         <LeftSliderButton
           onClick={() => {
