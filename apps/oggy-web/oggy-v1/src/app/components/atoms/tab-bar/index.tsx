@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import Container from '../container';
 import Text from 'app/components/atoms/text';
+import { rootShouldForwardProp } from '@mui/material/styles/styled';
 
 /* eslint-disable-next-line */
 export interface TabBarProps {
@@ -22,6 +23,11 @@ const StyledTabBar = styled.div<ITabBar>`
   height: 100%;
   flex-direction: column-reverse;
   align-items: center;
+  ${(props) =>
+    props.Vertical &&
+    css`
+      border-right: 2px solid #efefef;
+    `};
   & > hr {
     height: 0.1px;
     width: 100%;
@@ -45,9 +51,15 @@ const StyledTab = styled.div<IStyledTab>`
   font: inherit;
   cursor: pointer;
   height: 100%;
+  transition: all 0.2s ease;
   ${(props) =>
     props.Vertical &&
     css`
+      height: fit-content;
+      padding: 3rem 2rem 3rem 2rem;
+      &:hover {
+        background-color: #f6f6f6;
+      }
       & > hr {
         display: none;
       }
@@ -89,7 +101,7 @@ const StyledTab = styled.div<IStyledTab>`
 
 export function TabBar(props: TabBarProps) {
   return (
-    <StyledTabBar>
+    <StyledTabBar Vertical={props.Vertical} Horizontal={props.Horizontal}>
       <hr />
       <Container
         MarginBottom="-2px"
@@ -107,7 +119,14 @@ export function TabBar(props: TabBarProps) {
               }}
               Active={index === props.ActiveSection}
             >
-              <Container Row CenterCA CenterMA>
+              <Container
+                Row
+                CenterCA
+                CenterMA
+                Width="fit-content"
+                Height="fit-content"
+                BG="transparent"
+              >
                 <Text
                   Color={
                     index === props.ActiveSection

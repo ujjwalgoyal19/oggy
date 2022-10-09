@@ -52,9 +52,12 @@ export function useDeviceType() {
   };
 
   useEffect(() => {
-    window.addEventListener('resize', setDimensions);
+    const timer = setTimeout(() => {
+      window.addEventListener('resize', setDimensions);
+    }, 200);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('resize', setDimensions);
     };
   }, [screenSize]);

@@ -13,11 +13,7 @@ export interface ChainProps {
   Heading: string;
   Content: {
     name: string;
-    image: {
-      src: string;
-      height: string;
-      width: string;
-    };
+    image: string;
     url: string;
   }[];
 }
@@ -38,7 +34,13 @@ export function Chain(props: ChainProps) {
   return (
     <StyledChain>
       <Container Column Gap="12vh">
-        <Container Height="fit-content" Column Gap=".7rem">
+        <Container
+          Height="fit-content"
+          Column
+          Gap=".7rem"
+          PaddingLeft="2rem"
+          PaddingRight="2rem"
+        >
           {device.greaterThan('md') ? (
             <>
               <Text D6 EB>
@@ -62,7 +64,6 @@ export function Chain(props: ChainProps) {
           )}
         </Container>
         <Container Height="fit-content">
-          {/* <Container Row Gap="4vw" ScrollX ScrollStyle="Hide"> */}
           <Slider>
             {props.Content.map((chain, index) => {
               return (

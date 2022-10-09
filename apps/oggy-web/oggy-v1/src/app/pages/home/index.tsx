@@ -16,7 +16,6 @@ export function Home(props: HomeProps) {
   }, []);
   return (
     <HomeTemplate
-      HomeImages={config.images.Home}
       HomeContent={config.content.Home}
       Localities={Localities.entities}
     />

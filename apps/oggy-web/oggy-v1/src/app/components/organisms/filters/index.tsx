@@ -8,13 +8,13 @@ import CuisinesSection from 'app/components/molecules/cuisines-section';
 import MoreFiltersSection from 'app/components/molecules/more-filters-section';
 import SortSection from 'app/components/molecules/sort-section';
 import TabBar from 'app/components/atoms/tab-bar';
-import config from 'app/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import { filtersActions } from 'app/store/filter/index.slice';
 import { searchActions } from 'app/store/search/index.slice';
 import Container from 'app/components/atoms/container';
 import { FiltersAPI } from 'app/service/filters.service';
+import Images from 'app/constants/images';
 
 /* eslint-disable-next-line */
 export interface FiltersProps {}
@@ -49,6 +49,12 @@ const Modal = styled.div`
 `;
 
 export function Filters(props: FiltersProps) {
+  /*
+   * Redux State
+   * Filter List
+   * Active Filters
+   */
+
   const Filters = useSelector((state: RootState) => state.filters.all);
   const ActiveFilters = useSelector((state: RootState) => state.filters.active);
   const dispatch = useDispatch();
@@ -60,13 +66,13 @@ export function Filters(props: FiltersProps) {
     });
   }, []);
 
-  // Logic for add filter button
+  //* Click Handler for Filter Button
   const [showFilterList, setShowFilterList] = useState(false);
   const clickFilterHandler = () => {
     setShowFilterList(true);
   };
 
-  // Maintaining state for tabs in Filter Menu
+  //* Switch Handler for Filer Categories
   const [category, setCategory] = useState(Filters.Order[0]);
   const handleChangeCategory = (section: number) => {
     setCategory(Filters.Order[section]);
@@ -83,6 +89,7 @@ export function Filters(props: FiltersProps) {
     activeFilters[category] = filter;
   };
 
+  //* Handler for applying filter to redux state
   const handleCloseFilter = () => {
     dispatch(filtersActions.changeFilter(activeFilters));
     const filterSearch = new Array<{
@@ -112,8 +119,14 @@ export function Filters(props: FiltersProps) {
         Color={'rgb(26, 27, 28)'}
         ClickHandler={clickFilterHandler}
       >
-        <Image Image={config.images.PlusIcon} MarginRight="1rem" />
-        {showFilterList ? <span>Apply filters</span> : <span>Add filter</span>}
+        <Container Row CenterCA Gap="1rem">
+          <Image Src={Images.Icons.Plus} />
+          {showFilterList ? (
+            <span>Apply filters</span>
+          ) : (
+            <span>Add filter</span>
+          )}
+        </Container>
       </Button>
       {showFilterList && (
         <>

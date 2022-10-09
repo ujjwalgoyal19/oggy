@@ -9,12 +9,13 @@ import { useEffect } from 'react';
 import { ScrollToPlugin, ScrollTrigger } from 'gsap/all';
 import Image from 'app/components/atoms/image';
 import Container from 'app/components/atoms/container';
+import Images from 'app/constants/images';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface HomeProps {
   Localities: any;
   HomeContent: any;
-  HomeImages: any;
 }
 
 const StyledHome = styled.div`
@@ -36,6 +37,7 @@ const getRandomMargin = (length: number) => {
 };
 
 const HomeTemplate = (props: HomeProps) => {
+  const device = useDeviceType();
   gsap.registerPlugin(ScrollTrigger);
   gsap.registerPlugin(ScrollToPlugin);
   useEffect(() => {
@@ -59,7 +61,7 @@ const HomeTemplate = (props: HomeProps) => {
       });
     };
     ScrollTrigger.defaults({
-      // markers: true,
+      markers: true,
     });
 
     sections.forEach((eachPanel, i) => {
@@ -114,11 +116,10 @@ const HomeTemplate = (props: HomeProps) => {
         pin: true,
         pinSpacing: false,
         trigger: '.hero',
-        scrub: 1,
+        scrub: 0.6,
         start: 'top top',
         end: '100% top',
         snap: { snapTo: 1 },
-        // markers: true,
         toggleActions: 'play complete reverse pause',
       },
     });
@@ -129,13 +130,12 @@ const HomeTemplate = (props: HomeProps) => {
       .to(
         '.hero__transition',
         {
-          y: '-100%',
-          scale: '1.2',
+          y: '-80%',
         },
         0
       )
-      .to('.hero__image', { rotate: '180deg' }, 0)
-      .to('.hero__image', { opacity: '0', scale: '0.5' });
+      .to('.hero__image', { rotate: '90deg' }, 0)
+      .to('.hero__image', { opacity: '0', scale: '0.5' }, 0.5);
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
@@ -151,13 +151,14 @@ const HomeTemplate = (props: HomeProps) => {
           Width="100%"
           Column
           Position={{ Type: 'relative' }}
+          Index={1}
         >
           <Container
             ClassName="hero__child"
             Row
             Height="100vh"
             Width="100%"
-            PaddingTop="15vh"
+            PaddingTop={(device.greaterThan('md') && '8%') || '35%'}
           >
             <Hero
               Heading={props.HomeContent.Hero.Heading}
@@ -178,8 +179,9 @@ const HomeTemplate = (props: HomeProps) => {
               ClassName="hero__image"
               Width="fit-content"
               Shape="Circle"
+              Height="70vw"
             >
-              <Image Image={props.HomeImages.FoodPlate} />
+              <Image Src={Images.HomePage.FoodPlate} />
             </Container>
           </Container>
         </Container>
@@ -189,14 +191,17 @@ const HomeTemplate = (props: HomeProps) => {
           Column
           CenterCA
           BG="white"
+          Index={2}
         >
-          <Container Width="80%" CenterMA>
-            <Container PaddingTop="10vh">
-              <Chain
-                Content={props.HomeContent.HeroSectionChainsJaipur}
-                Heading="Top Chain in Jaipur"
-              />
-            </Container>
+          <Container
+            Width={(device.greaterThan('md') && '80%') || '100%'}
+            PaddingTop="20%"
+            CenterMA
+          >
+            <Chain
+              Content={props.HomeContent.HeroSectionChainsJaipur}
+              Heading="Top Chain in Jaipur"
+            />
           </Container>
         </Container>
         <Container

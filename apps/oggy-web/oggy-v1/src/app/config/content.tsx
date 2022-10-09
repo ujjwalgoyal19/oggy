@@ -13,59 +13,31 @@ export const Home = {
   HeroSectionChainsJaipur: [
     {
       name: 'Burger Farm',
-      image: {
-        src: 'assets/images/burgerFarmL.webp',
-        height: '10rem',
-        width: '10rem',
-      },
+      image: 'assets/images/burgerFarmL.webp',
     },
     {
       name: 'Baskin Robbins',
-      image: {
-        src: 'assets/images/baskinRobinsL.webp',
-        height: '10rem',
-        width: '10rem',
-      },
+      image: 'assets/images/baskinRobinsL.webp',
     },
     {
       name: 'Cafe Coffee Day',
-      image: {
-        src: 'assets/images/cafeCoffeDayL.webp',
-        height: '10rem',
-        width: '10rem',
-      },
+      image: 'assets/images/cafeCoffeDayL.webp',
     },
     {
       name: "Domino's Pizza",
-      image: {
-        src: 'assets/images/dominosPizzaL.webp',
-        height: '10rem',
-        width: '10rem',
-      },
+      image: 'assets/images/dominosPizzaL.webp',
     },
     {
       name: 'Kebabs & Curries Company',
-      image: {
-        src: 'assets/images/kebabAndCurriesL.webp',
-        height: '10rem',
-        width: '10rem',
-      },
+      image: 'assets/images/kebabAndCurriesL.webp',
     },
     {
       name: 'Love Over Coffee',
-      image: {
-        src: 'assets/images/loveOverCoffeeL.webp',
-        height: '10rem',
-        width: '10rem',
-      },
+      image: 'assets/images/loveOverCoffeeL.webp',
     },
     {
       name: 'Subway',
-      image: {
-        src: 'assets/images/subwayL.webp',
-        height: '10rem',
-        width: '10rem',
-      },
+      image: 'assets/images/subwayL.webp',
     },
   ],
   HeroSectionLocalitiesJaipur: [

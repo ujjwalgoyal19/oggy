@@ -2,6 +2,7 @@ import Container from 'app/components/atoms/container';
 import Image from 'app/components/atoms/image';
 import Text from 'app/components/atoms/text';
 import config from 'app/config';
+import Images from 'app/constants/images';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import styled from 'styled-components';
 
@@ -52,7 +53,9 @@ export function Download(props: DownloadProps) {
         </Container>
         <Container Row Width="fit-content" Height="fit-content">
           <a href="https://rb.gy/bqprcb">
-            <Image Image={config.images.Home.Badge.Android} />
+            <Container Height="max(4vw, 6vh)">
+              <Image Src={Images.HomePage.AndroidStoreBadge} />
+            </Container>
           </a>
         </Container>
       </Container>

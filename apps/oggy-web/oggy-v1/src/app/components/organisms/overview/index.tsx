@@ -2,6 +2,7 @@ import Button from 'app/components/atoms/button';
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
 import Map from 'app/components/molecules/map';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 import styled from 'styled-components';
 
@@ -24,11 +25,15 @@ const FeatureCard = styled.div`
 `;
 
 export function Overview(props: OverviewProps) {
-  console.log(props.Data.about.features);
+  const device = useDeviceType();
   return (
     <StyledOverview>
       <Container Row MarginTop="3rem">
-        <Container Width="60%" Column Gap="4rem">
+        <Container
+          Width={(device.greaterThan('md') && '60%') || '100%'}
+          Column
+          Gap="4rem"
+        >
           {!props.Features &&
             !props.PeopleLiked &&
             !props.TopTags &&
@@ -126,54 +131,56 @@ export function Overview(props: OverviewProps) {
             </Container>
           )}
         </Container>
-        <Container Width="40%" Column Gap="3rem" Padding="3rem">
-          <Container Column Gap="2rem">
-            <Text H2 N>
-              Call
-            </Text>
-            <Container Column Gap="1rem" style={{ cursor: 'pointer' }}>
-              {props.Data.contact_details.map((contact: string) => {
-                return (
-                  <Text H3 Color="Primary">
-                    <span
-                      onClick={() => {
-                        navigator.clipboard.writeText(contact);
-                      }}
-                    >
-                      {contact}
-                    </span>
-                  </Text>
-                );
-              })}
+        {device.greaterThan('md') && (
+          <Container Width="40%" Column Gap="3rem" Padding="3rem">
+            <Container Column Gap="2rem">
+              <Text H2 N>
+                Call
+              </Text>
+              <Container Column Gap="1rem" style={{ cursor: 'pointer' }}>
+                {props.Data.contact_details.map((contact: string) => {
+                  return (
+                    <Text H3 Color="Primary">
+                      <span
+                        onClick={() => {
+                          navigator.clipboard.writeText(contact);
+                        }}
+                      >
+                        {contact}
+                      </span>
+                    </Text>
+                  );
+                })}
+              </Container>
+            </Container>
+            <Container
+              style={{ overflow: 'hidden', zIndex: '0' }}
+              Height="25vh"
+              Width="100%"
+            >
+              <Map
+                Location={[
+                  parseFloat(props.Data.location.latitude),
+                  parseFloat(props.Data.location.longitude),
+                ]}
+                ZoomLevel={15}
+                Text={props.Data.name}
+              />
+            </Container>
+            <Container Column Gap="2rem">
+              <Text H4>{props.Data.location.address}</Text>
+              <Button Primary>
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${props.Data.location.latitude},${props.Data.location.longitude}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Directions
+                </a>
+              </Button>
             </Container>
           </Container>
-          <Container
-            style={{ overflow: 'hidden', zIndex: '0' }}
-            Height="25vh"
-            Width="100%"
-          >
-            <Map
-              Location={[
-                parseFloat(props.Data.location.latitude),
-                parseFloat(props.Data.location.longitude),
-              ]}
-              ZoomLevel={15}
-              Text={props.Data.name}
-            />
-          </Container>
-          <Container Column Gap="2rem">
-            <Text H4>{props.Data.location.address}</Text>
-            <Button Primary>
-              <a
-                href={`https://www.google.com/maps/dir/?api=1&destination=${props.Data.location.latitude},${props.Data.location.longitude}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Directions
-              </a>
-            </Button>
-          </Container>
-        </Container>
+        )}
       </Container>
     </StyledOverview>
   );

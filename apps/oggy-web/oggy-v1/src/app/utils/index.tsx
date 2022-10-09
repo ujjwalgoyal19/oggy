@@ -1,5 +1,6 @@
 import Image from 'app/components/atoms/image';
 import config from 'app/config';
+import Images from 'app/constants/images';
 
 interface RatingEntity {
   rating: string | null;
@@ -145,13 +146,13 @@ export const GetVendorImage = (vendor: string) => {
   const v = vendor.toLowerCase();
   switch (v) {
     case 'zomato':
-      return <Image Image={config.images.zomato} />;
+      return <Image Src={Images.Logo.Zomato} />;
     case 'swiggy':
-      return <Image Image={config.images.swiggy} />;
+      return <Image Src={Images.Logo.Swiggy} />;
     case 'dineout':
-      return <Image Image={config.images.dineout} />;
+      return <Image Src={Images.Logo.Dineout} />;
     case 'eazydiner':
-      return <Image Image={config.images.eazydiner} />;
+      return <Image Src={Images.Logo.Eazydiner} />;
     default:
       return null;
   }

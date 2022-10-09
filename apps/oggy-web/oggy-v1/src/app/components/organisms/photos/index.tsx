@@ -1,4 +1,5 @@
 import Container from 'app/components/atoms/container';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -24,13 +25,14 @@ const RestaurantImage = styled(motion.img)`
 `;
 
 export function Photos(props: PhotosProps) {
+  const device = useDeviceType();
   return (
     <StyledPhotos>
-      <Container Row Wrap Gap="1%">
+      <Container Row Wrap Gap="1%" SpaceBetweenMA>
         {props.Image.map((image) => {
           return (
             <Container
-              MaxWidth="19%"
+              MaxWidth={(device.greaterThan('md') && '19%') || '99%'}
               MarginBottom="1rem"
               Height="20rem"
               Column

@@ -20,7 +20,8 @@ const StyledSeparator = styled.div<IStyledSeparator>`
     props.vertical &&
     css`
       min-height: 65%;
-      width: 1.2px;
+      height: 100%;
+      width: 2px;
     `}
   ${(props) =>
     props.horizontal &&

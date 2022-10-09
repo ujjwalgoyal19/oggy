@@ -5,6 +5,7 @@ import Text from 'app/components/atoms/text';
 import { Link } from 'react-router-dom';
 import Separator from 'app/components/atoms/separator';
 import Container from 'app/components/atoms/container';
+import Images from 'app/constants/images';
 
 /* eslint-disable-next-line */
 export interface FooterProps {}
@@ -22,10 +23,14 @@ export function Footer(props: FooterProps) {
         <Container Column Width="70%" Gap="4rem">
           <Container Row SpaceBetweenMA>
             <Link to="/">
-              <Image Image={config.images.Oggy.Logo} />
+              <Container Width="fit-content" Height="3vw">
+                <Image Src={Images.Logo.Oggy} />
+              </Container>
             </Link>
             <a href="https://rb.gy/bqprcb">
-              <Image Image={config.images.Home.Badge.Android} />
+              <Container Height="3vw">
+                <Image Src={Images.HomePage.AndroidStoreBadge} />
+              </Container>
             </a>
           </Container>
           <Container Row SpaceBetweenMA>

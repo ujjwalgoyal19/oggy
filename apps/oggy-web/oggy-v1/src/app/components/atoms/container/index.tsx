@@ -3,16 +3,22 @@ import convert from 'color-convert';
 
 /* eslint-disable-next-line */
 export interface ContainerProps {
-  //* Flex Properties
-  //* Type of Container
+  /*
+   * Flex Properties
+   * * Type of Container -> Row | Column
+   * * Wrap Properties
+   * * NoWrap
+   * * Gap
+   * * Flex Properties -> Grow | Shrink | Basis
+   */
   Row?: boolean;
   Column?: boolean;
   Wrap?: boolean;
   Gap?: string;
-  //* Flex Grow Shrink Basis
   Grow?: boolean;
   Shrink?: boolean;
   Basis?: string;
+
   //* Flex Cross Axis Main Axis Alignments
   SpaceBetweenMA?: boolean;
   CenterMA?: boolean;
@@ -22,6 +28,8 @@ export interface ContainerProps {
   EndCA?: boolean;
   StartCA?: boolean;
   StartMA?: boolean;
+  StretchCA?: boolean;
+  StretchMA?: boolean;
 
   //* Container Properties
   //* Padding
@@ -58,7 +66,30 @@ export interface ContainerProps {
   };
 
   //* Extra Styles
+
+  //* ZIndex
+  Index?: number;
+
+  /*
+   * Behavior
+   * * Overflow
+   **/
+  OverflowHide?: boolean;
+  OverflowHideX?: boolean;
+  OverflowHideY?: boolean;
+  ScrollX?: boolean;
+  ScrollY?: boolean;
+
+  /*
+   * Styles
+   * * Inline Styles
+   * * Scroll Bar Styles -> Hide
+   * * Elevation Styles -> Tint || L1 | L2 | L3
+   * * Border Styles -> Solid | Dotted || L1 | L2 | L3
+   * * Shape Styles -> CS0 | CS1 | CS2 | CS3 | Circle
+   **/
   style?: React.CSSProperties;
+  ScrollStyle?: 'Hide';
   Elevation?: {
     Tint?: boolean;
     Color?: string;
@@ -75,30 +106,20 @@ export interface ContainerProps {
   };
   Shape?: 'CS0' | 'CS1' | 'CS2' | 'CS3' | 'Circle';
 
-  //* ZIndex
-  Index?: number;
-
   Color?: string;
+
   ClassName?: string;
-  ScrollStyle?: 'Hide';
-  ScrollX?: boolean;
-  ScrollY?: boolean;
   children?: string | JSX.Element | JSX.Element[] | null | any;
 }
 
 interface IContainer {
-  //* Type of container
   Row?: boolean;
   Column?: boolean;
   Gap?: string;
-
-  //* Flex Properties
   Grow?: boolean;
   Shrink?: boolean;
   Basis?: string;
   Wrap?: boolean;
-
-  //* Type of spacing
   StartCA?: boolean;
   StartMA?: boolean;
   CenterMA?: boolean;
@@ -107,11 +128,9 @@ interface IContainer {
   CenterCA?: boolean;
   SpaceBetweenCA?: boolean;
   EndCA?: boolean;
-
-  //* Transition Properties
+  StretchCA?: boolean;
+  StretchMA?: boolean;
   Hover?: { BG?: string };
-
-  //* Position Properties
   Position?: {
     Type?: string;
     Top?: string;
@@ -119,8 +138,6 @@ interface IContainer {
     Left?: string;
     Right?: string;
   };
-
-  //* Padding, Margin, and Border properties
   PaddingBottom?: string;
   PaddingTop?: string;
   PaddingLeft?: string;
@@ -131,16 +148,12 @@ interface IContainer {
   MarginTop?: string;
   MarginLeft?: string;
   MarginRight?: string;
-
-  //* Dimensions
   Width?: string;
   MaxWidth?: string;
   MinWidth?: string;
   Height?: string;
   MaxHeight?: string;
   MinHeight?: string;
-
-  //* ExtraStyles
   Elevation?: {
     Tint?: boolean;
     Color?: string;
@@ -156,13 +169,16 @@ interface IContainer {
     L3?: boolean;
   };
   Shape?: 'CS0' | 'CS1' | 'CS2' | 'CS3' | 'Circle';
-
-  //* ZIndex
   Index?: number;
-
-  //* Container Properties
   BG?: string;
   ScrollStyle?: 'Hide';
+  /*
+   * Behavior
+   * * Overflow
+   **/
+  OverflowHide?: boolean;
+  OverflowHideX?: boolean;
+  OverflowHideY?: boolean;
   ScrollX?: boolean;
   ScrollY?: boolean;
 }
@@ -185,26 +201,7 @@ const StyledContainer = styled.div<IContainer>`
   background-color: inherit;
   transition: all 0.2s ease;
 
-  ${(props) =>
-    props.Shape &&
-    {
-      CS0: css`
-        border-radius: 0.5rem;
-      `,
-      CS1: css`
-        border-radius: 1rem;
-      `,
-      CS2: css`
-        border-radius: 2rem;
-      `,
-      CS3: css`
-        border-radius: 3rem;
-      `,
-      Circle: css`
-        border-radius: 50%;
-      `,
-    }[props.Shape]};
-
+  //* Container Elevation
   ${(props) =>
     props.Elevation &&
     css`
@@ -258,18 +255,6 @@ const StyledContainer = styled.div<IContainer>`
     `}
 
   ${(props) =>
-    props.Hover &&
-    css`
-      &:hover {
-        background-color: ${props.Hover.BG};
-      }
-    `}
-
-  // Styles
-  ${(props) => props.Elevation && css``}
-  
-
-  ${(props) =>
     css`
       //* Flex Properties
       flex-grow: ${props.Grow && '1'};
@@ -286,6 +271,8 @@ const StyledContainer = styled.div<IContainer>`
       align-items: ${props.CenterCA && 'center'};
       align-items: ${props.EndCA && 'flex-end'};
       align-items: ${props.StartCA && 'flex-start'};
+      align-items: ${props.StretchCA && 'stretch'};
+      justify-content: ${props.StretchMA && 'stretch'};
       gap: ${props.Gap};
 
       //* Dimensions
@@ -311,12 +298,33 @@ const StyledContainer = styled.div<IContainer>`
       //* BackgroundColor
       background-color: ${props.BG};
 
-      overflow-y: initial;
-      overflow-x: initial;
+      //* Overflow Behavior
       overflow-x: ${props.ScrollX && 'auto'};
       overflow-y: ${props.ScrollY && 'auto'};
+      overflow: ${props.OverflowHide && 'hidden'};
+      overflow-y: ${props.OverflowHideY && 'hidden'};
+      overflow-x: ${props.OverflowHideX && 'hidden'};
 
       //* Styles
+      //* Container Shape
+      ${props.Shape &&
+      {
+        CS0: css`
+          border-radius: 0.5rem;
+        `,
+        CS1: css`
+          border-radius: 1rem;
+        `,
+        CS2: css`
+          border-radius: 2rem;
+        `,
+        CS3: css`
+          border-radius: 3rem;
+        `,
+        Circle: css`
+          border-radius: 50%;
+        `,
+      }[props.Shape]};
 
       //* Border Properties
       ${props.Border &&
@@ -333,6 +341,7 @@ const StyledContainer = styled.div<IContainer>`
       `};
 
       //* Position Properties
+      z-index: ${props.Index};
       ${props.Position &&
       css`
         position: ${props.Position.Type};
@@ -342,7 +351,13 @@ const StyledContainer = styled.div<IContainer>`
         right: ${props.Position.Right};
       `};
 
-      z-index: ${props.Index};
+      //* Container Hover Animation Interactions
+      ${props.Hover &&
+      css`
+        &:hover {
+          background-color: ${props.Hover.BG};
+        }
+      `}
     `}
   
   ${(props) =>
@@ -396,6 +411,9 @@ export function Container(props: ContainerProps) {
       Position={props.Position}
       ScrollStyle={props.ScrollStyle}
       Shape={props.Shape}
+      OverflowHide={props.OverflowHide}
+      OverflowHideX={props.OverflowHideX}
+      OverflowHideY={props.OverflowHideY}
       ScrollX={props.ScrollX}
       ScrollY={props.ScrollY}
       Elevation={props.Elevation}
@@ -403,6 +421,8 @@ export function Container(props: ContainerProps) {
       EndMA={props.EndMA}
       Hover={props.Hover}
       Index={props.Index}
+      StretchCA={props.StretchCA}
+      StretchMA={props.StretchMA}
       className={props.ClassName}
     >
       {props.children}

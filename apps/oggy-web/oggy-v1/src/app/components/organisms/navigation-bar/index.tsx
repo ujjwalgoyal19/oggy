@@ -6,13 +6,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Container from 'app/components/atoms/container';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
+import Images from 'app/constants/images';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {
-  Logo: {
-    src: string;
-    width: string;
-    height: string;
-  };
+  Logo: string;
   Width?: string;
   SearchBar?: boolean;
 }
@@ -71,7 +68,9 @@ export function NavigationBar(props: NavigationBarProps) {
           <Container Row Width={width} SpaceBetweenMA CenterCA>
             <Container Row Width="70%" Height="fit-content" Gap="5rem">
               <Link to="/">
-                <Image Image={props.Logo} />
+                <Container Height="6rem" style={{ overflow: 'hidden' }}>
+                  <Image Src={Images.Logo.Oggy} />
+                </Container>
               </Link>
               {showSearchBar ? <SearchBarHero TypeA /> : null}
             </Container>

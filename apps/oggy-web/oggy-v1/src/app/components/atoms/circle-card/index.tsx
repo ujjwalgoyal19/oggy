@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface CircleCardProps {
-  image?: {
-    src: string;
-    height: string;
-    width: string;
-  };
+  image?: string;
   size: string;
   text?: string;
   Link?: string;
@@ -52,7 +48,7 @@ export function CircleCard(props: CircleCardProps) {
   return (
     <StyledCircleCard>
       <StyledCircleCardImage to={props.Link || '/'} size={props.size}>
-        {props.image ? <Image Image={props.image} /> : null}
+        {props.image ? <Image Src={props.image} /> : null}
       </StyledCircleCardImage>
       {props.text ? (
         <StyledCircleCardText to={props.Link || '/'}>

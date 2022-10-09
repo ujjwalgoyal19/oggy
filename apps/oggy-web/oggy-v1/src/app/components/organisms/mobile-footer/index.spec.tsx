@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import LocationPin from './index';
+import MobileFooter from './index';
 
-describe('LocationPin', () => {
+describe('MobileFooter', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<LocationPin />);
+    const { baseElement } = render(<MobileFooter />);
     expect(baseElement).toBeTruthy();
   });
 });

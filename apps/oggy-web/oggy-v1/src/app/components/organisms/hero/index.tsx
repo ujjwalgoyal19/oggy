@@ -42,7 +42,7 @@ export function Hero(props: HeroProps) {
             </Text>
           </Container>
 
-          <Container Row Width="65rem">
+          <Container Row Width="65rem" Height="4.5rem">
             {device.greaterThan('md') && <SearchBarHero TypeA />}
           </Container>
         </Container>

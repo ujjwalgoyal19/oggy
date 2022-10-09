@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import Image from 'app/components/atoms/image';
 import { GetRatingColor } from 'app/utils';
 import Text from '../text';
+import Images from 'app/constants/images';
 
 /* eslint-disable-next-line */
 export interface RatingProps {
@@ -57,7 +58,7 @@ export function Rating(props: RatingProps) {
       <Text EB H4>
         {props.Rating.toString()}
       </Text>
-      <Image Image={config.images.StarIcon} />
+      <Image Src={Images.Icons.Star} />
     </StyledRating>
   );
 }

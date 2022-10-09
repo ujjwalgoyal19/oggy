@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Image from 'app/components/atoms/image';
 import config from 'app/config';
+import Images from 'app/constants/images';
 
 /* eslint-disable-next-line */
 export interface ListCardProps {
@@ -53,7 +54,7 @@ const StyledListCardIcon = styled.div`
 export function ListCard(props: ListCardProps) {
   return (
     <StyledListCard
-      href={props.url || "/"}
+      href={props.url || '/'}
       padding={props.padding}
       width={props.width}
     >
@@ -62,7 +63,7 @@ export function ListCard(props: ListCardProps) {
         <h5>{props.subtext}</h5>
       </StyledListCardDescription>
       <StyledListCardIcon>
-        <Image Image={config.images.RightArrow} />
+        <Image Src={Images.Icons.RightArrow} />
       </StyledListCardIcon>
     </StyledListCard>
   );

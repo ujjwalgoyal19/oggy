@@ -7,6 +7,10 @@ import NavigationBar from './components/organisms/navigation-bar';
 import Footer from 'app/components/organisms/footer';
 import WebFont from 'webfontloader';
 import { useEffect } from 'react';
+import { useDeviceType } from './hooks/useDeviceType.hook';
+import MobileNavigationBar from './components/organisms/mobile-navigation-bar';
+import MobileFooter from './components/organisms/mobile-footer';
+import Images from './constants/images';
 
 const StyledApp = styled.div``;
 
@@ -18,14 +22,19 @@ export function App() {
       },
     });
   }, []);
+  const device = useDeviceType();
   return (
     <ThemeProvider theme={config.themes.light}>
       <GlobalStyles />
       <StyledApp>
         <Router basename="/">
-          <NavigationBar Logo={config.images.Oggy.Logo} />
+          {device.greaterThan('md') && (
+            <NavigationBar Logo={Images.Logo.Oggy} />
+          )}
+          {device.lessThan('md') && <MobileNavigationBar />}
           <Switch />
-          <Footer />
+          {device.greaterThan('md') && <Footer />}
+          {device.lessThan('md') && <MobileFooter />}
         </Router>
       </StyledApp>
     </ThemeProvider>

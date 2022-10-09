@@ -15,6 +15,7 @@ import {
   CreateCuisineString,
 } from 'app/utils';
 import styled from 'styled-components';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface RestaurantPageTemplateProps {
@@ -27,21 +28,23 @@ const StyledRestaurantPageTemplate = styled.div`
 `;
 
 export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
+  const device = useDeviceType();
   const Sections = ['Overview', 'Offers', 'Reviews', 'Photos'];
   const [activeSection, setActiveSection] = useState(0);
   const changeSectionHandler = (index: number) => {
     setActiveSection(index);
   };
-  useEffect(() => {
-    console.log(props.Data);
-  }, []);
+  // useEffect(() => {
+  //   console.log(props.Data);
+  // }, []);
   return (
     <StyledRestaurantPageTemplate>
       <Section Width="100%" Sticky BackgroundColor="white">
-        <Section Width="70%">
-          <ImageGallery Images={props.Data.images.all} />
-        </Section>
-        <Section Width="70%" MarginBottom="2rem" Sticky>
+        <Section
+          Width={(device.greaterThan('md') && '70%') || '90%'}
+          MarginBottom="2rem"
+          Sticky
+        >
           <Container Row SpaceBetweenMA PaddingTop="3rem">
             <Container Column>
               <Container Row>
@@ -107,7 +110,11 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
           </Container>
         </Section>
       </Section>
-      <Section Width="70%" MarginBottom="20rem" MarginTop="5rem">
+      <Section
+        Width={(device.greaterThan('md') && '70%') || '90%'}
+        MarginBottom="20rem"
+        MarginTop="5rem"
+      >
         {{
           0: (
             <Overview

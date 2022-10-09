@@ -15,7 +15,6 @@ export interface RestaurantCardProps {
   Cuisines?: string;
   Name?: string;
   CostForTwo?: string;
-  Skeleton?: boolean;
 }
 
 interface Rating {

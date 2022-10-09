@@ -6,12 +6,7 @@ import styled from 'styled-components';
 
 /* eslint-disable-next-line */
 export interface ChainCardProps {
-  Image: {
-    src: string;
-    height: string;
-    width: string;
-    radius?: string | undefined;
-  };
+  Image: string;
   Name: string;
   Link: string;
   ClickHandler: (chain: string) => void;
@@ -34,7 +29,9 @@ export function ChainCard(props: ChainCardProps) {
             CenterCA
             CenterMA
           >
-            <Image Image={props.Image} />
+            <Container Height="10rem" Width="fit-content">
+              <Image Src={props.Image} />
+            </Container>
           </Container>
         </Link>
         <Container Row CenterCA CenterMA>
