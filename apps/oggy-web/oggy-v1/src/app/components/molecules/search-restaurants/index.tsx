@@ -49,6 +49,7 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
                 Placeholder: 'Restaurant name or a dish',
                 Value: formik.values.search,
                 ChangeHandler: formik.handleChange,
+                Disable: true,
               }}
               Key={1}
             />
@@ -56,7 +57,11 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
         </div>
       </Container>
       {props.Mobile && (
-        <Modal Open={modalState} Close={() => setModalState(false)}>
+        <Modal
+          Open={modalState}
+          Animation="GrowFromBottom"
+          Close={() => setModalState(false)}
+        >
           <Container
             Column
             Height="calc(100 * var(--vh))"
@@ -71,8 +76,8 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
             }}
           >
             <Container Row SpaceBetweenMA Height="fit-content" CenterCA>
-              <Text H2 B>
-                Search Restaurants
+              <Text H3 B>
+                Search restaurants or dishes
               </Text>
               <div onClick={() => setModalState(false)}>
                 <GrFormClose size="8vw" />

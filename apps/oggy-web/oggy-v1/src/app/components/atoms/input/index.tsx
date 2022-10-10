@@ -23,6 +23,7 @@ export interface InputProps {
     Placeholder: string;
     Value: string;
     ChangeHandler: any;
+    Disable?: boolean;
   };
   Checkbox?: boolean;
   Radio?: boolean;
@@ -242,6 +243,7 @@ export function Input(props: InputProps) {
           placeholder={props.TextNew.Placeholder}
           onChange={props.TextNew.ChangeHandler}
           value={props.TextNew.Value}
+          disabled={props.TextNew.Disable}
         />
       )}
       {props.Dropdown && props.Dropdown.Modal && props.children && (

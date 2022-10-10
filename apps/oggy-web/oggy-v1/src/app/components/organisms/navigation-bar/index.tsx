@@ -51,6 +51,11 @@ export function NavigationBar(props: NavigationBarProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [prevScrollPos]);
+
+  if (location.pathname === '/login' || location.pathname === '/signup') {
+    return null;
+  }
+
   return (
     <StyledNavigationBar Position={position}>
       <Container

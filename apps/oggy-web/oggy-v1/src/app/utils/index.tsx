@@ -157,3 +157,8 @@ export const GetVendorImage = (vendor: string) => {
       return null;
   }
 };
+
+export const Capitalize = (value: string) => {
+  console.log(value.charAt(0).toUpperCase());
+  return value.at(0)?.toUpperCase() + value.substring(1, value.length);
+};

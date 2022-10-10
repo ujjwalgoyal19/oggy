@@ -17,7 +17,8 @@ export interface SearchResultTemplateProps {
 const StyledSearchResultTemplate = styled.div`
   min-height: 100vh;
   margin-bottom: 20vh;
-  background-color: #f6f6f6;
+  /* background-color: #f6f6f6; */
+  background-color: white;
   ${media.greaterThan('md')`
     background-color: white;
   `}

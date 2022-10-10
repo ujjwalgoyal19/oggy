@@ -1,6 +1,8 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { gsap } from 'gsap';
+import { useEffect } from 'react';
+import { duration } from '@mui/material';
 
 /* eslint-disable-next-line */
 export interface ModalProps {
@@ -34,11 +36,32 @@ const StyledModal = styled.div`
 `;
 
 export function Modal(props: ModalProps) {
+  useEffect(() => {
+    if (props.Open && props.Animation === 'GrowFromBottom') {
+      gsap.fromTo(
+        '.grow-from-bottom',
+        { y: '100%' },
+        { y: '0%', ease: 'Power2.easeInOut' }
+      );
+    }
+  }, [props.Open]);
+
   if (!props.Open) return null;
   return ReactDOM.createPortal(
     <>
       <StyledOverlay onClick={props.Close} />
-      <StyledModal>{props.children}</StyledModal>
+      <StyledModal
+        className={
+          props.Animation &&
+          {
+            GrowFromBottom: 'grow-from-bottom',
+            EmergeFromTop: 'emerge-from-top',
+            Blur: 'blur',
+          }[props.Animation]
+        }
+      >
+        {props.children}
+      </StyledModal>
     </>,
     document.getElementById('portal') as HTMLElement
   );
