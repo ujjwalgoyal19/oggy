@@ -61,7 +61,7 @@ const HomeTemplate = (props: HomeProps) => {
       });
     };
     ScrollTrigger.defaults({
-      markers: true,
+      // markers: true,
     });
 
     sections.forEach((eachPanel, i) => {
@@ -70,8 +70,8 @@ const HomeTemplate = (props: HomeProps) => {
         ScrollTrigger.create({
           id: 'enter',
           trigger: eachPanel as gsap.DOMTarget,
-          start: '1vh bottom',
-          end: '1vh top',
+          start: `${device.getHeight(1)} bottom`,
+          end: `${device.getHeight(1)} top`,
           onEnter: () => goToSection(heights[i] - 1),
         });
       }
@@ -79,8 +79,8 @@ const HomeTemplate = (props: HomeProps) => {
         ScrollTrigger.create({
           id: 'enterBack',
           trigger: eachPanel as gsap.DOMTarget,
-          start: '99% bottom',
-          end: '99% top',
+          start: `${device.getHeight(99)} bottom`,
+          end: `${device.getHeight(99)} top`,
           onEnterBack: () => goToSection(heights[i] + 1),
         });
       }
@@ -118,7 +118,7 @@ const HomeTemplate = (props: HomeProps) => {
         trigger: '.hero',
         scrub: 0.6,
         start: 'top top',
-        end: '100% top',
+        end: `bottom top`,
         snap: { snapTo: 1 },
         toggleActions: 'play complete reverse pause',
       },
@@ -147,7 +147,7 @@ const HomeTemplate = (props: HomeProps) => {
       <Container Column CenterCA>
         <Container
           ClassName="snap hero"
-          Height="200vh"
+          Height={`calc(200 * var(--vh))`}
           Width="100%"
           Column
           Position={{ Type: 'relative' }}
@@ -156,7 +156,7 @@ const HomeTemplate = (props: HomeProps) => {
           <Container
             ClassName="hero__child"
             Row
-            Height="100vh"
+            Height={`calc(100 * var(--vh))`}
             Width="100%"
             PaddingTop={(device.greaterThan('md') && '8%') || '35%'}
           >
@@ -173,13 +173,13 @@ const HomeTemplate = (props: HomeProps) => {
             Width="100%"
             BG="transparent"
             Padding="1rem"
-            Position={{ Type: 'absolute', Top: '39%' }}
+            Position={{ Type: 'absolute', Top: '33%' }}
           >
             <Container
               ClassName="hero__image"
               Width="fit-content"
               Shape="Circle"
-              Height="70vw"
+              Height={`calc(70 * var(--vw))`}
             >
               <Image Src={Images.HomePage.FoodPlate} />
             </Container>
@@ -187,7 +187,7 @@ const HomeTemplate = (props: HomeProps) => {
         </Container>
         <Container
           ClassName="snap enterBack chains"
-          Height="100vh"
+          Height={`calc(100 * var(--vh))`}
           Column
           CenterCA
           BG="white"
@@ -195,7 +195,7 @@ const HomeTemplate = (props: HomeProps) => {
         >
           <Container
             Width={(device.greaterThan('md') && '80%') || '100%'}
-            PaddingTop="20%"
+            PaddingTop={device.greaterThan('md') ? '6vh' : '20%'}
             CenterMA
           >
             <Chain
@@ -206,7 +206,7 @@ const HomeTemplate = (props: HomeProps) => {
         </Container>
         <Container
           ClassName="snap enter enterBack locality"
-          Height="100vh"
+          Height={`calc(100 * var(--vh))`}
           Column
         >
           <Container ClassName="locality__child" BG="transparent" CenterCA>
@@ -218,7 +218,10 @@ const HomeTemplate = (props: HomeProps) => {
             />
           </Container>
         </Container>
-        <Container ClassName="snap enter enterBack download" Height="100vh">
+        <Container
+          Height={`calc(100 * var(--vh))`}
+          ClassName="snap enter enterBack download"
+        >
           <Download />
         </Container>
       </Container>

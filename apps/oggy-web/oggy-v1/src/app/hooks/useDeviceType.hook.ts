@@ -49,11 +49,33 @@ export function useDeviceType() {
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight,
     });
+    document.documentElement.style.setProperty(
+      '--vh',
+      screenSize.dynamicHeight / 100 + 'px'
+    );
+    document.documentElement.style.setProperty(
+      '--vw',
+      screenSize.dynamicWidth / 100 + 'px'
+    );
+  };
+
+  const getHeight = (value: number): string => {
+    return value * (screenSize.dynamicHeight / 100) + 'px';
+  };
+
+  const getWidth = (value: number): string => {
+    return value * (screenSize.dynamicWidth / 100) + 'px';
   };
 
   useEffect(() => {
+    setDimensions();
+  }, []);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
-      window.addEventListener('resize', setDimensions);
+      window.addEventListener('resize', () => {
+        setDimensions();
+      });
     }, 200);
 
     return () => {
@@ -62,5 +84,5 @@ export function useDeviceType() {
     };
   }, [screenSize]);
 
-  return Object.assign({ lessThan, greaterThan, between });
+  return Object.assign({ lessThan, greaterThan, between, getWidth, getHeight });
 }

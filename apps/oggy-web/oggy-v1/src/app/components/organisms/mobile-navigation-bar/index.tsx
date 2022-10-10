@@ -7,20 +7,28 @@ import Filters from '../filters';
 /* eslint-disable-next-line */
 export interface MobileNavigationBarProps {}
 
-const StyledMobileNavigationBar = styled.div``;
+const StyledMobileNavigationBar = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  overflow: hidden;
+  z-index: 100;
+  padding: 1rem;
+`;
 
 export function MobileNavigationBar(props: MobileNavigationBarProps) {
   return (
     <StyledMobileNavigationBar>
-      <Container Column>
+      <Container Column Gap="1rem">
         <Container Row>
           <LocationSelector />
         </Container>
         <Container Row>
-          <SearchRestaurants />
-        </Container>
-        <Container Row>
-          <Filters />
+          <SearchRestaurants Mobile />
         </Container>
       </Container>
     </StyledMobileNavigationBar>

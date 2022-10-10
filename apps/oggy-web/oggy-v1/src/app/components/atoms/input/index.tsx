@@ -14,6 +14,16 @@ export interface InputProps {
   Placeholder?: string;
   Label?: string;
   Active?: boolean;
+
+  //* Type of Input Field
+  TextNew?: {
+    Type: 'A';
+    Id: string;
+    Name: string;
+    Placeholder: string;
+    Value: string;
+    ChangeHandler: any;
+  };
   Checkbox?: boolean;
   Radio?: boolean;
   Text?: boolean;
@@ -25,7 +35,7 @@ export interface InputProps {
     };
     Screen?: boolean;
   };
-  ChangeHandler: any;
+  ChangeHandler?: any;
   children?: JSX.Element | JSX.Element[];
 }
 
@@ -57,6 +67,19 @@ const StyledInput = styled.div<IInput>`
   width: 100%;
   background-color: inherit;
 
+  .input__text__A {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: #eeeeee;
+    &::placeholder {
+      color: #2c3333;
+      font-weight: 600;
+    }
+  }
+
   ${(props) =>
     props.Dropdown &&
     css`
@@ -64,7 +87,7 @@ const StyledInput = styled.div<IInput>`
     `}
 
   ${(props) =>
-    (props.Text || props.Dropdown) &&
+    props.Dropdown &&
     css`
       & input[type='text'] {
         border: none;
@@ -185,7 +208,6 @@ export function Input(props: InputProps) {
   return (
     <StyledInput
       Checkbox={props.Checkbox}
-      Text={props.Text}
       Dropdown={props.Dropdown}
       Active={checked}
     >
@@ -211,14 +233,15 @@ export function Input(props: InputProps) {
           </label>
         </form>
       )}
-      {props.Text && (
+      {props.TextNew && (
         <input
           type="text"
-          id={props.Id}
-          name={props.Name}
-          placeholder={props.Placeholder}
-          onChange={props.ChangeHandler}
-          value={props.Value}
+          className={{ A: 'input__text__A' }[props.TextNew.Type]}
+          id={props.TextNew.Id}
+          name={props.TextNew.Name}
+          placeholder={props.TextNew.Placeholder}
+          onChange={props.TextNew.ChangeHandler}
+          value={props.TextNew.Value}
         />
       )}
       {props.Dropdown && props.Dropdown.Modal && props.children && (
