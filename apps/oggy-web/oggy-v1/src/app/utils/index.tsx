@@ -127,7 +127,6 @@ export const GetRatingColor = (rating: number | string): string => {
 
 export const GetVendorColor = (vendor: string) => {
   const v = vendor.toLowerCase();
-  console.log(v);
   switch (v) {
     case 'zomato':
       return '#E33745';
@@ -144,21 +143,26 @@ export const GetVendorColor = (vendor: string) => {
 
 export const GetVendorImage = (vendor: string) => {
   const v = vendor.toLowerCase();
+  let Logo;
   switch (v) {
     case 'zomato':
-      return <Image Src={Images.Logo.Zomato} />;
+      Logo = Images.Logo.Zomato;
+      break;
     case 'swiggy':
-      return <Image Src={Images.Logo.Swiggy} />;
+      Logo = Images.Logo.Swiggy;
+      break;
     case 'dineout':
-      return <Image Src={Images.Logo.Dineout} />;
+      Logo = Images.Logo.Dineout;
+      break;
     case 'eazydiner':
-      return <Image Src={Images.Logo.Eazydiner} />;
+      Logo = Images.Logo.Eazydiner;
+      break;
     default:
-      return null;
+      Logo = null;
   }
+  return Logo && <Image Width="100%" Height="100%" Src={Logo} />;
 };
 
 export const Capitalize = (value: string) => {
-  console.log(value.charAt(0).toUpperCase());
   return value.at(0)?.toUpperCase() + value.substring(1, value.length);
 };

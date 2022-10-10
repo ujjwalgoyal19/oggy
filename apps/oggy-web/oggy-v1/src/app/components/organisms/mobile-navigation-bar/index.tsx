@@ -1,7 +1,8 @@
 import Container from 'app/components/atoms/container';
 import LocationSelector from 'app/components/molecules/location-selector';
 import SearchRestaurants from 'app/components/molecules/search-restaurants';
-import { useEffect, useState } from 'react';
+import gsap from 'gsap';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -32,6 +33,36 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
     }
   };
 
+  const mobileNavLocation = document.querySelector('.mobile-nav__location');
+
+  useEffect(() => {
+    const hide = gsap.timeline({
+      paused: true,
+    });
+    mobileNavLocation &&
+      hide.to('.mobile-nav__border', {
+        y: `-${mobileNavLocation.clientHeight + 10}`,
+        duration: 0.1,
+        ease: 'Power3.easeInOut',
+      });
+
+    const show = gsap.timeline({
+      paused: true,
+    });
+    mobileNavLocation &&
+      show.to('.mobile-nav__border', {
+        y: 0,
+        duration: 0.1,
+        ease: 'Power3.easeInOut',
+      });
+
+    if (position) {
+      hide.play();
+    } else {
+      show.play();
+    }
+  }, [position]);
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
@@ -45,15 +76,15 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
         <Container
           ClassName="mobile-nav__border"
           Column
-          Gap="2rem"
+          Gap="1rem"
           BG="white"
           Elevation={(position && { L1: true }) || undefined}
-          Padding="2rem 1rem 1rem 1rem"
+          Padding="1rem 1rem 1rem 1rem"
         >
-          <Container Row>
-            <LocationSelector />
+          <Container Row ClassName="mobile-nav__location">
+            <LocationSelector Mobile />
           </Container>
-          <Container Row>
+          <Container Row ClassName="mobile-nav__search">
             <SearchRestaurants Mobile />
           </Container>
         </Container>

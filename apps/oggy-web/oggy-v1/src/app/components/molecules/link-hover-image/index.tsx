@@ -3,10 +3,11 @@ import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import Text from 'app/components/atoms/text';
+import Image from 'app/components/atoms/image';
+import Container from 'app/components/atoms/container';
 
 /* eslint-disable-next-line */
 export interface LinkHoverImageProps {
-  Key: number;
   text: string;
   image: string;
   subtext: string;
@@ -99,10 +100,6 @@ const ImageWrapper = styled.div<IImageWrapper>`
   }
 `;
 
-const Image = styled.img`
-  width: 100%;
-`;
-
 const Subtext = styled.div`
   margin: 0;
   transform: translateY(100%);
@@ -136,10 +133,6 @@ const StyledLinkHoverImage = styled(Link).attrs((props) => ({
   margin-left: ${(props) => props.margin};
   margin-right: ${(props) => props.margin};
 
-  &:hover ${Content} {
-    // z-index: 101;
-  }
-
   &:hover ${Subtext} {
     transform: translateY(0%);
   }
@@ -150,26 +143,17 @@ const StyledLinkHoverImage = styled(Link).attrs((props) => ({
   }
 `;
 
-const Light = styled.span`
-  font-weight: 300;
-`;
-const Bold = styled.span`
-  font-weight: 700;
-  // color: rgb(255, 152, 0, 0.8);
-  color: white;
-`;
-
 const getHeading = (text: string) => {
   const TextArray = text.split(' ');
   return (
     <>
       {TextArray.map((word, index) => {
         if (TextArray.length === 1) {
-          return <Bold>{word}</Bold>;
+          return <Text EB>{word}</Text>;
         } else if (index % 2 === 0) {
-          return <Light>{word}</Light>;
+          return <Text L>{word}</Text>;
         } else {
-          return <Bold>{word}</Bold>;
+          return <Text EB>{word}</Text>;
         }
       })}
     </>
@@ -180,7 +164,6 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
   const [active, setActive] = useState(false);
   return (
     <StyledLinkHoverImage
-      key={props.Key}
       className={props.className}
       to={props.url}
       margin={props.margin}
@@ -199,17 +182,15 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
           props.hoverState && !active ? { opacity: 0.2 } : { opacity: 1 }
         }
       >
-        <Text D5 EB>
-          {getHeading(props.text)}
-        </Text>
+        <Text D5>{getHeading(props.text)}</Text>
         <ImageWrapper active={active} clip={getRandomClipPath()}>
-          <Image src={props.image} />
+          <Image Width="100%" Src={props.image} />
         </ImageWrapper>
-        <Wrapper>
+        <Container OverflowHide Height="fit-content">
           <Subtext>
             <Text H2>{props.subtext}</Text>
           </Subtext>
-        </Wrapper>
+        </Container>
       </Content>
     </StyledLinkHoverImage>
   );

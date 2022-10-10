@@ -1,7 +1,7 @@
-import config from 'app/config';
 import styled, { css } from 'styled-components';
 import Image from 'app/components/atoms/image';
 import { GetRatingColor } from 'app/utils';
+import { AiFillStar } from 'react-icons/ai';
 import Text from '../text';
 import Images from 'app/constants/images';
 
@@ -58,7 +58,7 @@ export function Rating(props: RatingProps) {
       <Text EB H4>
         {props.Rating.toString()}
       </Text>
-      <Image Src={Images.Icons.Star} />
+      <AiFillStar color="white" size={'1.4rem'} />
     </StyledRating>
   );
 }

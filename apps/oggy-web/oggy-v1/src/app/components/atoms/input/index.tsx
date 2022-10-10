@@ -75,6 +75,7 @@ const StyledInput = styled.div<IInput>`
     border: none;
     outline: none;
     background-color: #eeeeee;
+    font-weight: 600;
     &::placeholder {
       color: #2c3333;
       font-weight: 600;
@@ -244,6 +245,7 @@ export function Input(props: InputProps) {
           onChange={props.TextNew.ChangeHandler}
           value={props.TextNew.Value}
           disabled={props.TextNew.Disable}
+          autoComplete="off"
         />
       )}
       {props.Dropdown && props.Dropdown.Modal && props.children && (

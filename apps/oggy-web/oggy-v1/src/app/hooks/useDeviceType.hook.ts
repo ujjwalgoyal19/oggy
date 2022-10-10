@@ -49,6 +49,7 @@ export function useDeviceType() {
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight,
     });
+    console.log(screenSize);
     document.documentElement.style.setProperty(
       '--vh',
       screenSize.dynamicHeight / 100 + 'px'

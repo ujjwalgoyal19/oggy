@@ -14,7 +14,6 @@ import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface HomeProps {
-  Localities: any;
   HomeContent: any;
 }
 
@@ -23,18 +22,6 @@ const StyledHome = styled.div`
   height: 100%;
   transition: all 0.6s ease;
 `;
-
-const getRandomMargin = (length: number) => {
-  const Margin = [];
-  for (let i = 0; i < length; i++) {
-    if (i % 2 !== 0) {
-      Margin.push(Math.random() * 10 + '%');
-    } else {
-      Margin.push(Math.random() * 5 + '%');
-    }
-  }
-  return Margin;
-};
 
 const HomeTemplate = (props: HomeProps) => {
   const device = useDeviceType();
@@ -210,12 +197,7 @@ const HomeTemplate = (props: HomeProps) => {
           Column
         >
           <Container ClassName="locality__child" BG="transparent" CenterCA>
-            <Locality
-              Localities={props.Localities}
-              Margin={getRandomMargin(
-                props.HomeContent.HeroSectionLocalitiesJaipur.length
-              )}
-            />
+            <Locality />
           </Container>
         </Container>
         <Container

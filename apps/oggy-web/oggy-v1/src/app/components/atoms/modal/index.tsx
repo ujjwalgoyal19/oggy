@@ -18,7 +18,7 @@ interface IOverlay {
 }
 const StyledOverlay = styled.div<IOverlay>`
   background-color: rgba(black, 0.8);
-  backdrop-filter: blur(0.2rem);
+  /* backdrop-filter: blur(0.2rem); */
   position: fixed;
   top: 0;
   bottom: 0;

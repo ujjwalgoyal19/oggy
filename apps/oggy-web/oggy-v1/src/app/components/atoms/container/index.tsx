@@ -98,7 +98,7 @@ export interface ContainerProps {
     L3?: boolean;
   };
   Border?: {
-    Style: 'Solid' | 'Dotted';
+    Style: 'Solid' | 'Dotted' | 'Dashed';
     Color?: string;
     L1?: boolean;
     L2?: boolean;
@@ -162,7 +162,7 @@ interface IContainer {
     L3?: boolean;
   }; // Levels 0, 1, 2, 3
   Border?: {
-    Style: 'Solid' | 'Dotted';
+    Style: 'Solid' | 'Dotted' | 'Dashed';
     Color?: string;
     L1?: boolean;
     L2?: boolean;
@@ -185,7 +185,6 @@ interface IContainer {
 
 const getHSL = (value: string) => {
   const hsl = convert.hex.hsl(value);
-  console.log(`${hsl[0]}deg ${hsl[1]}% ${hsl[2]}%`);
   return `${hsl[0]}deg ${hsl[1]}% ${hsl[2]}%`;
 };
 
@@ -329,7 +328,7 @@ const StyledContainer = styled.div<IContainer>`
       //* Border Properties
       ${props.Border &&
       css`
-        --border-type: ${{ Solid: 'solid', Dotted: 'dotted' }[
+        --border-type: ${{ Solid: 'solid', Dotted: 'dotted', Dashed: 'dashed' }[
           props.Border.Style
         ]};
         --border-color: ${props.Border.Color || '#eeeeee'};
