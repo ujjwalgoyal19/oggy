@@ -4,6 +4,29 @@ const GlobalStyles = createGlobalStyle`
 /**
   * * Style Reset
  */
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html,
+body,
+#root {
+  max-width: 100vw;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: auto;
+  overflow-x: clip;
+}
+
+
 html {
   font-family: Raleway;
   -webkit-font-feature-settings: "lnum";
@@ -11,12 +34,10 @@ html {
   font-feature-settings: "lnum";
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  overflow-x: hidden;
   font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
-  margin: 0;
   background-color: #ffffff;
   font-size: 1.6rem;
 }

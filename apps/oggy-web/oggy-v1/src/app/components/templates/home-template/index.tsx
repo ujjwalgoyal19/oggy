@@ -21,6 +21,10 @@ const StyledHome = styled.div`
   min-height: 100vh;
   height: 100%;
   transition: all 0.6s ease;
+
+  .hero__transition {
+    transform: translateY(60%);
+  }
 `;
 
 const HomeTemplate = (props: HomeProps) => {
@@ -28,102 +32,103 @@ const HomeTemplate = (props: HomeProps) => {
   gsap.registerPlugin(ScrollTrigger);
   gsap.registerPlugin(ScrollToPlugin);
   useEffect(() => {
-    const sections = gsap.utils.toArray('.snap');
+    if (device.greaterThan('md')) {
+      const sections = gsap.utils.toArray('.snap');
 
-    let height = 0;
-    const heights = sections.map((eachPanel) => {
-      const h = (eachPanel as Element).getBoundingClientRect().height;
-      height += h;
-      return height - h;
-    });
-
-    const goToSection = (i: number) => {
-      gsap.to(window, {
-        scrollTo: {
-          y: i,
-          autoKill: false,
-        },
-        ease: 'Power3.easeInOut',
-        duration: 1.26,
+      let height = 0;
+      const heights = sections.map((eachPanel) => {
+        const h = (eachPanel as Element).getBoundingClientRect().height;
+        height += h;
+        return height - h;
       });
-    };
-    ScrollTrigger.defaults({
-      // markers: true,
-    });
 
-    sections.forEach((eachPanel, i) => {
-      const panel = eachPanel as Element;
-      if (panel.classList.contains('enter')) {
-        ScrollTrigger.create({
-          id: 'enter',
-          trigger: eachPanel as gsap.DOMTarget,
-          start: `${device.getHeight(1)} bottom`,
-          end: `${device.getHeight(1)} top`,
-          onEnter: () => goToSection(heights[i] - 1),
+      const goToSection = (i: number) => {
+        gsap.to(window, {
+          scrollTo: {
+            y: i,
+            autoKill: false,
+          },
+          ease: 'Power3.easeInOut',
+          duration: 1.26,
         });
-      }
-      if (panel.classList.contains('enterBack')) {
-        ScrollTrigger.create({
-          id: 'enterBack',
-          trigger: eachPanel as gsap.DOMTarget,
-          start: `${device.getHeight(99)} bottom`,
-          end: `${device.getHeight(99)} top`,
-          onEnterBack: () => goToSection(heights[i] + 1),
-        });
-      }
-    });
+      };
+      ScrollTrigger.defaults({
+        // markers: true,
+      });
 
-    //* Custom Timelines for creating animation
+      sections.forEach((eachPanel, i) => {
+        const panel = eachPanel as Element;
+        if (panel.classList.contains('enter')) {
+          ScrollTrigger.create({
+            id: 'enter',
+            trigger: eachPanel as gsap.DOMTarget,
+            start: `${device.getHeight(1)} bottom`,
+            end: `${device.getHeight(1)} top`,
+            onEnter: () => goToSection(heights[i] - 1),
+          });
+        }
+        if (panel.classList.contains('enterBack')) {
+          ScrollTrigger.create({
+            id: 'enterBack',
+            trigger: eachPanel as gsap.DOMTarget,
+            start: `${device.getHeight(99)} bottom`,
+            end: `${device.getHeight(99)} top`,
+            onEnterBack: () => goToSection(heights[i] + 1),
+          });
+        }
+      });
 
-    //* Locality Timeline */
-    const LocalityTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.locality',
-        start: 'start 50%',
-        end: 'end start',
-        toggleActions: 'play complete reverse reset',
-      },
-    });
-    LocalityTimeline.to('.locality', {
-      backgroundColor: 'black',
-    }).fromTo(
-      '.locality__child',
-      {
-        opacity: 0,
-        pointerEvents: 'none',
-      },
-      { opacity: 1, pointerEvents: 'auto' },
-      0
-    );
+      //* Custom Timelines for creating animation
 
-    //* Hero Timeline */
-    const HeroTimeline = gsap.timeline({
-      scrollTrigger: {
-        id: 'hero',
-        pin: true,
-        pinSpacing: false,
-        trigger: '.hero',
-        scrub: 0.6,
-        start: 'top top',
-        end: `bottom top`,
-        snap: { snapTo: 1 },
-        toggleActions: 'play complete reverse pause',
-      },
-    });
-    HeroTimeline.to('.hero__child', {
-      scale: 0.8,
-      opacity: '0',
-    })
-      .to(
-        '.hero__transition',
-        {
-          y: '-80%',
+      //* Locality Timeline */
+      const LocalityTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.locality',
+          start: 'start 50%',
+          end: 'end start',
+          toggleActions: 'play complete reverse reset',
         },
+      });
+      LocalityTimeline.to('.locality', {
+        backgroundColor: 'black',
+      }).fromTo(
+        '.locality__child',
+        {
+          opacity: 0,
+          pointerEvents: 'none',
+        },
+        { opacity: 1, pointerEvents: 'auto' },
         0
-      )
-      .to('.hero__image', { rotate: '90deg' }, 0)
-      .to('.hero__image', { opacity: '0', scale: '0.5' }, 0.5);
+      );
 
+      //* Hero Timeline */
+      const HeroTimeline = gsap.timeline({
+        scrollTrigger: {
+          id: 'hero',
+          pin: true,
+          pinSpacing: false,
+          trigger: '.hero',
+          scrub: 0.6,
+          start: 'top top',
+          end: `bottom top`,
+          snap: { snapTo: 1 },
+          toggleActions: 'play complete reverse pause',
+        },
+      });
+      HeroTimeline.to('.hero__child', {
+        scale: 0.8,
+        opacity: '0',
+      })
+        .to(
+          '.hero__transition',
+          {
+            y: '-80%',
+          },
+          0
+        )
+        .to('.hero__image', { rotate: '90deg' }, 0)
+        .to('.hero__image', { opacity: '0', scale: '0.5' }, 0.5);
+    }
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
       gsap.to(window, { scrollTo: { y: 0 } });
@@ -134,41 +139,44 @@ const HomeTemplate = (props: HomeProps) => {
       <Container Column CenterCA>
         <Container
           ClassName="snap hero"
-          Height={`calc(200 * var(--vh))`}
+          Height={device.getHeight(200)}
           Width="100%"
           Column
-          Position={{ Type: 'relative' }}
           Index={1}
         >
           <Container
             ClassName="hero__child"
             Row
-            Height={`calc(100 * var(--vh))`}
+            Height={device.getHeight(100)}
             Width="100%"
+            Position={{ Type: 'relative' }}
             PaddingTop={(device.greaterThan('md') && '8%') || '35%'}
           >
             <Hero
               Heading={props.HomeContent.Hero.Heading}
               SubHeading={props.HomeContent.Hero.SubHeading}
             />
-          </Container>
-          <Container
-            ClassName="hero__transition"
-            Margin="0"
-            CenterMA
-            Height="fit-content"
-            Width="100%"
-            BG="transparent"
-            Padding="1rem"
-            Position={{ Type: 'absolute', Top: '33%' }}
-          >
             <Container
-              ClassName="hero__image"
-              Width="fit-content"
-              Shape="Circle"
-              Height={`calc(70 * var(--vw))`}
+              ClassName="hero__transition"
+              Margin="0"
+              CenterMA
+              Height="fit-content"
+              Width="100%"
+              BG="transparent"
+              Padding="1rem"
+              Position={{ Type: 'absolute', Bottom: '0%' }}
             >
-              <Image Src={Images.HomePage.FoodPlate} />
+              <Container
+                ClassName="hero__image"
+                Width="fit-content"
+                Shape="Circle"
+                Height={
+                  (device.greaterThan('md') && device.getWidth(30)) ||
+                  device.getWidth(90)
+                }
+              >
+                <Image Src={Images.HomePage.FoodPlate} />
+              </Container>
             </Container>
           </Container>
         </Container>

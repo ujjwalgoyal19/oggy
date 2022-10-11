@@ -1,14 +1,16 @@
 import RestaurantCard from 'app/components/molecules/restaurant-card';
-import { useIntersectionObserver } from 'app/hooks/intersectionObserver.hook';
+// import { useIntersectionObserver } from 'app/hooks/intersectionObserver.hook';
 import { fetchSearch } from 'app/store/search/index.slice';
 import { AppDispatch, RootState } from 'app/store';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Text from 'app/components/atoms/text';
 import Container from 'app/components/atoms/container';
 import media from 'app/hooks/styledMediaQuery.hook';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 
 /* eslint-disable-next-line */
 export interface GalleryProps {}
@@ -52,14 +54,24 @@ const getImage = (image: string | undefined) => {
 export function Gallery(props: GalleryProps) {
   const SearchState = useSelector((state: RootState) => state.search);
   const dispatch = useDispatch<AppDispatch>();
-  const ref = useRef(null);
-  const { isIntersecting } = useIntersectionObserver(
-    ref,
-    { rootMargin: '8000px 0px 0px 0px' },
-    false
-  );
+  const ref = useRef<HTMLDivElement>(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  gsap.registerPlugin(ScrollTrigger);
 
-  const Desktop = useDeviceType().greaterThan('md');
+  useEffect(() => {
+    if (!isIntersecting) {
+      ScrollTrigger.getById('load')?.kill();
+      ScrollTrigger.create({
+        id: 'load',
+        trigger: ref.current,
+        start: '75% 50%',
+        end: '75% 50%',
+        onEnter: () => {
+          setIsIntersecting(true);
+        },
+      });
+    }
+  }, [isIntersecting]);
 
   useEffect(() => {
     if (isIntersecting) {
@@ -68,9 +80,16 @@ export function Gallery(props: GalleryProps) {
   }, [isIntersecting]);
 
   useEffect(() => {
+    if (SearchState.loadingStatus === 'loaded') {
+      setIsIntersecting(false);
+    }
+  }, [SearchState.loadingStatus]);
+
+  useEffect(() => {
     dispatch(fetchSearch(SearchState));
   }, [SearchState.filters, SearchState.searchQuery, SearchState.location]);
 
+  const Desktop = useDeviceType().greaterThan('md');
   return (
     <StyledGallery>
       <Container Row MarginBottom="3rem">
@@ -80,23 +99,30 @@ export function Gallery(props: GalleryProps) {
             : `${SearchState.locality} Restaurants, ${SearchState.city}`}
         </Text>
       </Container>
-      <StyledGalleryGrid>
-        {SearchState.ids.map((id, index) => {
-          return (
-            <RestaurantCard
-              key={SearchState.entities[id]!.id}
-              Id={SearchState.entities[id]!.id}
-              Name={SearchState.entities[id]!.name}
-              CostForTwo={SearchState.entities[id]!.cft}
-              Cuisines={SearchState.entities[id]!.cuisines}
-              Image={getImage(SearchState.entities[id]!.image)}
-              DeliveryRating={SearchState.entities[id]!.rating.delivery}
-              DiningRating={SearchState.entities[id]!.rating.dining}
-            />
-          );
-        })}
-      </StyledGalleryGrid>
-      <div ref={ref} />
+      <Container ClassName="gallery-grid" Ref={ref}>
+        <StyledGalleryGrid>
+          {SearchState.entities &&
+            Object.entries(SearchState.entities).map((res, index) => {
+              if (res[1]) {
+                const resObj = res[1];
+                return (
+                  <RestaurantCard
+                    key={index}
+                    Id={resObj.id}
+                    Name={resObj.name}
+                    CostForTwo={resObj.cft}
+                    Cuisines={resObj.cuisines}
+                    Image={getImage(resObj.image)}
+                    DeliveryRating={resObj.rating.delivery}
+                    DiningRating={resObj.rating.dining}
+                  />
+                );
+              } else {
+                return null;
+              }
+            })}
+        </StyledGalleryGrid>
+      </Container>
     </StyledGallery>
   );
 }

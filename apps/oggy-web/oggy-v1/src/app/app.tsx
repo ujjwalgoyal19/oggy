@@ -12,7 +12,9 @@ import MobileNavigationBar from './components/organisms/mobile-navigation-bar';
 import MobileFooter from './components/organisms/mobile-footer';
 import Images from './constants/images';
 
-const StyledApp = styled.div``;
+const StyledApp = styled.div`
+  position: relative;
+`;
 
 export function App() {
   useEffect(() => {

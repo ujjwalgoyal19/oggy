@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components';
 import convert from 'color-convert';
+import React from 'react';
 
 /* eslint-disable-next-line */
 export interface ContainerProps {
+  Ref?: React.RefObject<HTMLDivElement>;
   /*
    * Flex Properties
    * * Type of Container -> Row | Column
@@ -375,6 +377,7 @@ const StyledContainer = styled.div<IContainer>`
 export function Container(props: ContainerProps) {
   return (
     <StyledContainer
+      ref={props.Ref}
       style={props.style}
       Row={props.Row}
       Column={props.Column}

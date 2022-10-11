@@ -10,10 +10,9 @@ import styled from 'styled-components';
 export interface MobileNavigationBarProps {}
 
 const StyledMobileNavigationBar = styled.div`
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
+  /* position: sticky; */
+  /* top: 0; */
+  width: 100%;
   z-index: 100;
   .mobile-nav__border {
     border-bottom-left-radius: 1rem;
@@ -26,7 +25,7 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
   const location = useLocation();
   const handleScroll = () => {
     const pos = window.scrollY;
-    if (pos < 50) {
+    if (pos < 100) {
       setPosition(false);
     } else {
       setPosition(true);
@@ -34,34 +33,6 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
   };
 
   const mobileNavLocation = document.querySelector('.mobile-nav__location');
-
-  useEffect(() => {
-    const hide = gsap.timeline({
-      paused: true,
-    });
-    mobileNavLocation &&
-      hide.to('.mobile-nav__border', {
-        y: `-${mobileNavLocation.clientHeight + 10}`,
-        duration: 0.1,
-        ease: 'Power3.easeInOut',
-      });
-
-    const show = gsap.timeline({
-      paused: true,
-    });
-    mobileNavLocation &&
-      show.to('.mobile-nav__border', {
-        y: 0,
-        duration: 0.1,
-        ease: 'Power3.easeInOut',
-      });
-
-    if (position) {
-      hide.play();
-    } else {
-      show.play();
-    }
-  }, [position]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -72,23 +43,33 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
   }, []);
   if (location.pathname === '/search') {
     return (
-      <StyledMobileNavigationBar>
+      <>
         <Container
-          ClassName="mobile-nav__border"
-          Column
-          Gap="1rem"
+          Row
+          ClassName="mobile-nav__location"
+          Padding="1rem"
+          Position={{ Type: 'sticky', Top: '0' }}
+          Index={100}
           BG="white"
-          Elevation={(position && { L1: true }) || undefined}
-          Padding="1rem 1rem 1rem 1rem"
         >
-          <Container Row ClassName="mobile-nav__location">
-            <LocationSelector Mobile />
-          </Container>
-          <Container Row ClassName="mobile-nav__search">
-            <SearchRestaurants Mobile />
-          </Container>
+          <LocationSelector Mobile />
         </Container>
-      </StyledMobileNavigationBar>
+        <Container
+          Row
+          ClassName="mobile-nav__search"
+          Position={
+            (position && { Type: 'sticky', Top: '0' }) || {
+              Type: 'sticky',
+              Top: `${mobileNavLocation && mobileNavLocation?.clientHeight}px`,
+            }
+          }
+          Padding="1rem"
+          Index={101}
+          BG="white"
+        >
+          <SearchRestaurants Mobile />
+        </Container>
+      </>
     );
   } else {
     return null;

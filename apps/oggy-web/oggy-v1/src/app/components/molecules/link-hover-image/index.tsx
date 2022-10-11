@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Text from 'app/components/atoms/text';
 import Image from 'app/components/atoms/image';
 import Container from 'app/components/atoms/container';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface LinkHoverImageProps {
@@ -182,7 +183,7 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
           props.hoverState && !active ? { opacity: 0.2 } : { opacity: 1 }
         }
       >
-        <Text D5>{getHeading(props.text)}</Text>
+        <Text D4>{getHeading(props.text)}</Text>
         <ImageWrapper active={active} clip={getRandomClipPath()}>
           <Image Width="100%" Src={props.image} />
         </ImageWrapper>

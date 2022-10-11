@@ -49,14 +49,13 @@ export function useDeviceType() {
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight,
     });
-    console.log(screenSize);
     document.documentElement.style.setProperty(
       '--vh',
-      screenSize.dynamicHeight / 100 + 'px'
+      window.innerHeight * 0.01 + 'px'
     );
     document.documentElement.style.setProperty(
       '--vw',
-      screenSize.dynamicWidth / 100 + 'px'
+      window.innerWidth * 0.01 + 'px'
     );
   };
 
@@ -73,14 +72,11 @@ export function useDeviceType() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      window.addEventListener('resize', () => {
-        setDimensions();
-      });
-    }, 200);
+    window.addEventListener('resize', () => {
+      setDimensions();
+    });
 
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('resize', setDimensions);
     };
   }, [screenSize]);
