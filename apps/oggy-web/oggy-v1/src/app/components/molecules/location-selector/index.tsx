@@ -17,11 +17,15 @@ import { FiSearch } from 'react-icons/fi';
 import Input from 'app/components/atoms/input';
 /* eslint-disable-next-line */
 export interface LocationSelectorProps {
+  Condensed?: boolean;
+  Normal?: boolean;
   Mobile?: boolean;
   Desktop?: boolean;
 }
 
-const StyledLocationSelector = styled.div``;
+const StyledLocationSelector = styled.div`
+  width: 100%;
+`;
 
 export function LocationSelector(props: LocationSelectorProps) {
   const [modalState, setModalState] = useState(false);
@@ -63,20 +67,48 @@ export function LocationSelector(props: LocationSelectorProps) {
 
   return (
     <StyledLocationSelector>
-      <div onClick={() => setModalState(true)}>
-        <Container Row CenterCA Gap="2rem">
-          <FaLocationArrow color="#ff9800" size="4rem" />
-          <Container Column>
-            <Text H4 EB>
-              {Location.type.toUpperCase()}
-            </Text>
-            <Text H4 B>
-              {Capitalize(Location.name)}
-            </Text>
+      {props.Condensed && (
+        <div onClick={() => setModalState(true)}>
+          <Container Row CenterCA Gap="2rem">
+            <FaLocationArrow color="#ff9800" size="4rem" />
+            <Container Column>
+              <Text H4 EB>
+                {Location.type.toUpperCase()}
+              </Text>
+              <Text H4 B>
+                {Capitalize(Location.name)}
+              </Text>
+            </Container>
+            <FaCaretDown color="grey" />
           </Container>
-          <FaCaretDown color="grey" />
-        </Container>
-      </div>
+        </div>
+      )}
+      {props.Normal && (
+        <div onClick={() => setModalState(true)} style={{ width: '100%' }}>
+          <Container
+            BG="#eeeeee"
+            CenterCA
+            Padding="1rem"
+            Gap="1rem"
+            Shape="CS1"
+          >
+            <FaLocationArrow color="#ff9800" size="2.5rem" />
+            <Input
+              TextNew={{
+                Type: 'A',
+                Id: 'location',
+                Name: 'location',
+                Placeholder: Capitalize(Location.name),
+                Value: Capitalize(Location.name),
+                ChangeHandler: formik.handleChange,
+                Disable: props.Mobile,
+              }}
+              Key={1}
+            />
+          </Container>
+        </div>
+      )}
+
       {props.Mobile && (
         <Modal
           Close={() => setModalState(false)}

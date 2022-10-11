@@ -10,7 +10,6 @@ import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface ChainProps {
-  Heading: string;
   Content: {
     name: string;
     image: string;
@@ -33,51 +32,40 @@ export function Chain(props: ChainProps) {
   };
   return (
     <StyledChain>
-      <Container Column Gap="12vh">
-        <Container
-          Height="fit-content"
-          Column
-          Gap=".7rem"
-          PaddingLeft="2rem"
-          PaddingRight="2rem"
-        >
-          {device.greaterThan('md') ? (
-            <>
-              <Text D6 EB>
-                Hi, Jaipurite
+      <Container Column>
+        {device.greaterThan('md') ? (
+          <Container Height="fit-content" Column Gap=".7rem" Padding="2rem">
+            <Text D6 EB>
+              Hi, Jaipurite
+            </Text>
+            <Text D4 EB>
+              <Text>Checkout top chains in your</Text>
+              <Text Color="#FF8FB1"> pink city.</Text>
+            </Text>
+          </Container>
+        ) : (
+          <Container Padding="2rem">
+            <Text H1 EB>
+              <Text>
+                <Text>Top chains in </Text>
+                <Text Color="#FF8FB1">Jaipur</Text>
               </Text>
-              <Text D4 EB>
-                <Text>Checkout top chains in your</Text>
-                <Text Color="#FF8FB1"> pink city.</Text>
-              </Text>
-            </>
-          ) : (
-            <>
-              <Text H2 EB>
-                Hi, Jaipurite
-              </Text>
-              <Text D6 EB>
-                <Text>Checkout top chains in your</Text>
-                <Text Color="#FF8FB1"> pink city.</Text>
-              </Text>
-            </>
-          )}
-        </Container>
-        <Container Height="fit-content">
-          <Slider>
-            {props.Content.map((chain, index) => {
-              return (
-                <ChainCard
-                  ClickHandler={chainClickHandler}
-                  key={index}
-                  Image={chain.image}
-                  Name={chain.name}
-                  Link="/search"
-                />
-              );
-            })}
-          </Slider>
-        </Container>
+            </Text>
+          </Container>
+        )}
+        <Slider Padding="2rem">
+          {props.Content.map((chain, index) => {
+            return (
+              <ChainCard
+                ClickHandler={chainClickHandler}
+                key={index}
+                Image={chain.image}
+                Name={chain.name}
+                Link="/search"
+              />
+            );
+          })}
+        </Slider>
       </Container>
     </StyledChain>
   );

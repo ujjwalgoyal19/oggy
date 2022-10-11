@@ -94,68 +94,69 @@ const Locality = (props: LocalityProps) => {
         </Container>
       )}
       {device.lessThan('md') && (
-        <Container Column>
+        <Container Column BG="black" PaddingTop="20%">
           <Container Row Padding="2rem">
             <Text H1 EB Color="white">
               Localites Guide
             </Text>
           </Container>
-          <Container Row ScrollX ScrollStyle="Hide" Gap="0.8rem">
-            <div style={{ height: 'auto', width: '2rem' }}></div>
-            {localities &&
-              Object.keys(localities).length > 0 &&
-              Object.values(localities).map((locality: any, index) => {
-                return (
-                  <div onClick={() => getRestaurantLocalityHandler(locality)}>
-                    <Container
-                      key={index}
-                      Column
-                      BG="white"
-                      Shape="CS1"
-                      Width={'18rem'}
-                      Height={'18rem'}
-                      OverflowHide
-                      Padding="0.7rem"
-                    >
+          <Container Row ScrollX ScrollStyle="Hide">
+            <Container Row Gap="1.2rem" PaddingLeft="2rem">
+              {localities &&
+                Object.keys(localities).length > 0 &&
+                Object.values(localities).map((locality: any, index) => {
+                  return (
+                    <div onClick={() => getRestaurantLocalityHandler(locality)}>
                       <Container
-                        Row
-                        SpaceBetweenMA
-                        Height="fit-content"
-                        MarginBottom="1.4rem"
+                        key={index}
+                        Column
+                        BG="white"
+                        Shape="CS1"
+                        Width={'18rem'}
+                        Height={'18rem'}
+                        OverflowHide
+                        Padding="0.7rem"
                       >
-                        <Text H4 B Color="black">
-                          Jaipur
-                        </Text>
                         <Container
                           Row
-                          Width="fit-content"
-                          CenterCA
+                          SpaceBetweenMA
                           Height="fit-content"
+                          MarginBottom="1.4rem"
                         >
-                          <Container Height="1rem">
-                            <Image Src={Images.Logo.Oggy} />
+                          <Text H4 B Color="black">
+                            Jaipur
+                          </Text>
+                          <Container
+                            Row
+                            Width="fit-content"
+                            CenterCA
+                            Height="fit-content"
+                          >
+                            <Container Height="1rem">
+                              <Image Src={Images.Logo.Oggy} />
+                            </Container>
+                            <Text H6 B Color="black">
+                              Locality
+                            </Text>
                           </Container>
-                          <Text H6 B Color="black">
-                            Locality
+                        </Container>
+                        <Container Height="fit-content" MarginBottom="0.4rem">
+                          <Text H3 B Color="black">
+                            {locality.locality_name}
                           </Text>
                         </Container>
+                        <Container Width="100%" Height="100%" OverflowHide>
+                          <Image
+                            Width="100%"
+                            Height="100%"
+                            Src={'assets/images/malviyaNagar.jpg'}
+                          />
+                        </Container>
                       </Container>
-                      <Container Height="fit-content" MarginBottom="0.4rem">
-                        <Text H3 B Color="black">
-                          {locality.locality_name}
-                        </Text>
-                      </Container>
-                      <Container Width="100%" Height="100%" OverflowHide>
-                        <Image
-                          Width="100%"
-                          Height="100%"
-                          Src={'assets/images/malviyaNagar.jpg'}
-                        />
-                      </Container>
-                    </Container>
-                  </div>
-                );
-              })}
+                    </div>
+                  );
+                })}
+            </Container>
           </Container>
         </Container>
       )}

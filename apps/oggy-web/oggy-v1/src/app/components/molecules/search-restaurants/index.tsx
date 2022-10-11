@@ -77,7 +77,7 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
                 Placeholder: 'Restaurant name or a dish',
                 Value: formik.values.search,
                 ChangeHandler: formik.handleChange,
-                Disable: true,
+                Disable: props.Mobile,
               }}
               Key={1}
             />

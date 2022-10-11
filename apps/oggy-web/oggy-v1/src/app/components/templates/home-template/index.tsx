@@ -139,10 +139,14 @@ const HomeTemplate = (props: HomeProps) => {
       <Container Column CenterCA>
         <Container
           ClassName="snap hero"
-          Height={device.getHeight(200)}
+          Height={
+            (device.greaterThan('md') && device.getHeight(200)) ||
+            device.getHeight(100)
+          }
           Width="100%"
           Column
           Index={1}
+          OverflowHide={device.lessThan('md')}
         >
           <Container
             ClassName="hero__child"
@@ -182,26 +186,32 @@ const HomeTemplate = (props: HomeProps) => {
         </Container>
         <Container
           ClassName="snap enterBack chains"
-          Height={`calc(100 * var(--vh))`}
+          Height={
+            (device.greaterThan('md') && `calc(100 * var(--vh))`) ||
+            'fit-content'
+          }
           Column
           CenterCA
           BG="white"
           Index={2}
         >
-          <Container
-            Width={(device.greaterThan('md') && '80%') || '100%'}
-            PaddingTop={device.greaterThan('md') ? '6vh' : '20%'}
-            CenterMA
-          >
-            <Chain
-              Content={props.HomeContent.HeroSectionChainsJaipur}
-              Heading="Top Chain in Jaipur"
-            />
-          </Container>
+          {device.greaterThan('md') && (
+            <Container Width="80%" PaddingTop="6vh" CenterMA>
+              <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
+            </Container>
+          )}
+          {device.lessThan('md') && (
+            <Container Width="100%" PaddingTop="3rem">
+              <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
+            </Container>
+          )}
         </Container>
         <Container
           ClassName="snap enter enterBack locality"
-          Height={`calc(100 * var(--vh))`}
+          Height={
+            (device.greaterThan('md') && `calc(100 * var(--vh))`) ||
+            'fit-content'
+          }
           Column
         >
           <Container ClassName="locality__child" BG="transparent" CenterCA>

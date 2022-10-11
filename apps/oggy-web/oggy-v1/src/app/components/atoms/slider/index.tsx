@@ -4,6 +4,7 @@ import Container from 'app/components/atoms/container';
 export interface SliderProps {
   children: JSX.Element[];
   Gap?: string;
+  Padding?: string;
 }
 
 const StyledSlider = styled.div`
@@ -20,17 +21,11 @@ export function Slider(props: SliderProps) {
         ScrollStyle="Hide"
         ScrollX
       >
-        {props.children.map((child) => {
-          return (
-            <Container
-              ClassName="slider__child"
-              MarginRight={props.Gap || '1rem'}
-              MarginLeft={props.Gap || '1rem'}
-            >
-              {child}
-            </Container>
-          );
-        })}
+        <Container Row Gap="2rem" Padding={props.Padding}>
+          {props.children.map((child) => {
+            return <Container ClassName="slider__child">{child}</Container>;
+          })}
+        </Container>
       </Container>
     </StyledSlider>
   );

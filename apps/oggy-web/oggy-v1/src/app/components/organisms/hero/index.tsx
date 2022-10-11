@@ -4,6 +4,8 @@ import Text from 'app/components/atoms/text';
 import Container from 'app/components/atoms/container';
 import media from 'app/hooks/styledMediaQuery.hook';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
+import SearchRestaurants from 'app/components/molecules/search-restaurants';
+import LocationSelector from 'app/components/molecules/location-selector';
 /* eslint-disable-next-line */
 export interface HeroProps {
   Heading: string;
@@ -41,10 +43,21 @@ export function Hero(props: HeroProps) {
               {props.SubHeading}
             </Text>
           </Container>
-
-          <Container Row Width="65rem" Height="4.5rem">
-            {device.greaterThan('md') && <SearchBarHero TypeA />}
-          </Container>
+          {device.greaterThan('md') && (
+            <Container Row Width="65rem" Height="4.5rem">
+              <SearchBarHero TypeA />
+            </Container>
+          )}
+          {device.lessThan('md') && (
+            <Container Column Width="calc(85 * var(--vw))" Gap="2rem">
+              <Container Row Height="4.5rem">
+                <LocationSelector Mobile Normal />
+              </Container>
+              <Container Row Height="4.5rem">
+                <SearchRestaurants Mobile />
+              </Container>
+            </Container>
+          )}
         </Container>
       </Container>
     </StyledHero>
