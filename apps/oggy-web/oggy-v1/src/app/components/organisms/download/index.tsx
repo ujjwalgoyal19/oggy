@@ -1,7 +1,6 @@
 import Container from 'app/components/atoms/container';
 import Image from 'app/components/atoms/image';
 import Text from 'app/components/atoms/text';
-import config from 'app/config';
 import Images from 'app/constants/images';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import styled from 'styled-components';
@@ -10,7 +9,7 @@ import styled from 'styled-components';
 export interface DownloadProps {}
 
 const StyledDownload = styled.section`
-  height: 100vh;
+  height: 100%;
   background-color: black;
   color: white;
 `;

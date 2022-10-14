@@ -19,6 +19,10 @@
       integrity="sha256-NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s="
       crossorigin=""
     ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="portal"></div>
     <script type="text/javascript">
       var cId = '156018';
 
@@ -30,14 +34,8 @@
           (document.location.protocol == 'https:'
             ? 'https://cdn0.cuelinks.com/js/'
             : 'http://cdn0.cuelinks.com/js/') + 'cuelinksv2.js';
-        const el = document.getElementsByTagName('body')[0];
-        el && el.appendChild(s);
-        console.log(el);
+        document.getElementsByTagName('body')[0].appendChild(s);
       })();
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <div id="portal"></div>
   </body>
 </html>

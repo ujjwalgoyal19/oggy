@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import Text from 'app/components/atoms/text';
 import Image from 'app/components/atoms/image';
 import Container from 'app/components/atoms/container';
-import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface LinkHoverImageProps {
@@ -45,7 +43,7 @@ const ImageWrapper = styled.div<IImageWrapper>`
   visibility: hidden;
   transform: scale(0);
   transition: all 0.3s ease-in-out;
-  z-index: 101;
+  z-index: 1001;
   clip-path: ${(props) => props.clip};
   &:before {
     ${(props) =>
@@ -107,13 +105,10 @@ const Subtext = styled.div`
   transition: all 0.4s ease;
 `;
 
-const Wrapper = styled.div`
-  overflow: hidden;
-`;
-
-const Content = styled(motion.div)`
+const Content = styled.div`
   position: relative;
-  z-index: 100;
+  z-index: 1;
+  transition: all 0.4s ease;
 `;
 
 interface IStyledLinkHoverImage {
@@ -179,17 +174,19 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
       }}
     >
       <Content
-        animate={
-          props.hoverState && !active ? { opacity: 0.2 } : { opacity: 1 }
-        }
+        style={props.hoverState && !active ? { opacity: 0.2 } : { opacity: 1 }}
       >
-        <Text D4>{getHeading(props.text)}</Text>
+        <Text D4 Color="Grey">
+          {getHeading(props.text)}
+        </Text>
         <ImageWrapper active={active} clip={getRandomClipPath()}>
           <Image Width="100%" Src={props.image} />
         </ImageWrapper>
         <Container OverflowHide Height="fit-content">
           <Subtext>
-            <Text H2>{props.subtext}</Text>
+            <Text H2 Color="Grey">
+              {props.subtext}
+            </Text>
           </Subtext>
         </Container>
       </Content>

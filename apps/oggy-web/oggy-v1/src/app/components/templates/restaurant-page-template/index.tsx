@@ -34,26 +34,25 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
   const changeSectionHandler = (index: number) => {
     setActiveSection(index);
   };
-  // useEffect(() => {
-  //   console.log(props.Data);
-  // }, []);
+  useEffect(() => {
+    console.log(props.Data);
+  }, []);
   return (
     <StyledRestaurantPageTemplate>
       <Section Width="100%" Sticky BackgroundColor="white">
         <Section
           Width={(device.greaterThan('md') && '70%') || '90%'}
           MarginBottom="2rem"
-          Sticky
         >
           <Container Row SpaceBetweenMA PaddingTop="3rem">
             <Container Column>
               <Container Row>
-                <Text H1 B NoWrap={{ Width: '20vw' }}>
+                <Text H1 B NoWrap={{ Width: '100%' }}>
                   {props.Data.name}
                 </Text>
               </Container>
               <Container Row MarginTop="0.8rem">
-                <Text H3 L NoWrap={{ Width: '30vw' }} Color="rgb(105,105,105)">
+                <Text H3 L NoWrap={{ Width: '100%' }} Color="rgb(105,105,105)">
                   {CreateCuisineString(props.Data.cuisines)}
                 </Text>
               </Container>
@@ -66,39 +65,41 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
                 >{`${props.Data.location.locality}, ${props.Data.location.city}`}</Text>
               </Container>
             </Container>
-            <Container Row EndMA Gap="5vw">
-              <Container Width="fit-content" Row CenterCA Gap="1rem">
-                <Rating
-                  Large
-                  Rating={RatingAggregation(
-                    props.Data.delivery_rating,
-                    'rating'
-                  )}
-                />
-                <Container Column>
-                  <Text H4 B>
-                    {RatingAggregation(props.Data.delivery_rating, 'reviews')}
-                  </Text>
-                  <Text H5 Muted>
-                    Delivery Reviews
-                  </Text>
+            {device.greaterThan('md') && (
+              <Container Row EndMA Gap="5vw">
+                <Container Width="fit-content" Row CenterCA Gap="1rem">
+                  <Rating
+                    Large
+                    Rating={RatingAggregation(
+                      props.Data.delivery_rating,
+                      'rating'
+                    )}
+                  />
+                  <Container Column>
+                    <Text H4 B>
+                      {RatingAggregation(props.Data.delivery_rating, 'reviews')}
+                    </Text>
+                    <Text H5 Muted>
+                      Delivery Reviews
+                    </Text>
+                  </Container>
+                </Container>
+                <Container Width="fit-content" Row CenterCA Gap="1rem">
+                  <Rating
+                    Large
+                    Rating={RatingAggregation(props.Data.dining_rating)}
+                  />
+                  <Container Column>
+                    <Text H4 B>
+                      {RatingAggregation(props.Data.dining_rating, 'reviews')}
+                    </Text>
+                    <Text H5 Muted>
+                      Dining Reviews
+                    </Text>
+                  </Container>
                 </Container>
               </Container>
-              <Container Width="fit-content" Row CenterCA Gap="1rem">
-                <Rating
-                  Large
-                  Rating={RatingAggregation(props.Data.dining_rating)}
-                />
-                <Container Column>
-                  <Text H4 B>
-                    {RatingAggregation(props.Data.dining_rating, 'reviews')}
-                  </Text>
-                  <Text H5 Muted>
-                    Dining Reviews
-                  </Text>
-                </Container>
-              </Container>
-            </Container>
+            )}
           </Container>
           <Container Row Height="8rem">
             <TabBar

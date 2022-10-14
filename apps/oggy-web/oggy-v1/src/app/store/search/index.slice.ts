@@ -70,6 +70,7 @@ export const searchAdapter = createEntityAdapter<SearchEntity>();
 export const fetchSearch = createAsyncThunk(
   'search/fetchStatus',
   async (searchState: SearchState, thunkAPI) => {
+    // console.log(searchState);
     const Data = await SearchAPI.getRestaurants(
       searchState.page + 1,
       searchState.location,

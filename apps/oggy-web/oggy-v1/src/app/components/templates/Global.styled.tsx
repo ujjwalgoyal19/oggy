@@ -1,9 +1,60 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
+import media from 'app/hooks/styledMediaQuery.hook';
 
 const GlobalStyles = createGlobalStyle`
 /**
   * * Style Reset
  */
+
+//* Variables 
+:root {
+  //* Font Weight
+  --font-EL: 200;
+  --font-L: 400;
+  --font-N: 500;
+  --font-B: 600;
+  --font-EB: 800;
+
+  //* Font Types
+  --font-size-H1: 3.052rem;
+  --font-size-H2: 2.441rem;
+  --font-size-H3: 1.953rem;
+  --font-size-H4: 1.563rem;
+  --font-size-H5: 1.25rem;
+  --font-size-H6: 1rem;
+
+  --font-size-sub-H1: 2.8;
+  --font-size-sub-H2: 2.2rem;
+  --font-size-sub-H3: 1.7rem;
+  --font-size-sub-H4: 1.3rem;
+  --font-size-sub-H5: 1rem;
+  --font-size-sub-H6: 0.8rem;
+
+  --font-size-D1: 11.642rem;
+  --font-size-D2: 9.313rem;
+  --font-size-D3: 7.451rem;
+  --font-size-D4: 5.96rem;
+  --font-size-D5: 4.768rem;
+  --font-size-D6: 3.815rem;
+
+  --font-size-S1: 3rem;
+  --font-size-S2: 2rem;
+  --font-size-S3: 1rem;
+  --font-size-S4: 0.7rem;
+  --font-size-S5: 1.25rem;
+  --font-size-S6: 1rem;
+
+  --font-size-lead: 4.8rem;
+  --font-size-para: 4.8rem;
+
+  //* Color Type For Text
+  --primary-color: #ff9800;
+  --secondary-color: black;
+  --white-color: white;
+  --black-color: black;
+  --light-grey-color: rgb(228, 228, 228);
+  --grey-color: #393e46;
+}
 
 *,
 *::after,
@@ -26,6 +77,13 @@ body {
   overflow-x: clip;
 }
 
+.overflowHideY{
+  overflow-y: hidden !important;
+}
+
+.willChange {
+  will-change: transform, opacity;
+}
 
 html {
   font-family: Raleway;
@@ -34,7 +92,33 @@ html {
   font-feature-settings: "lnum";
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  font-size: 62.5%; /* 1rem = 10px */
+
+  font-size: 62.5%;
+
+  ${media.greaterThan('xss')`
+      font-size: 52%;
+    `}
+  ${media.greaterThan('xs')`
+      font-size: 52%;
+    `}
+  ${media.greaterThan('sm')`
+      font-size: 58%;
+    `}
+  ${media.greaterThan('md')`
+      font-size: 62.5%;
+   `}
+  ${media.greaterThan('lg')`
+      font-size: 62.5%;
+   `}
+  ${media.greaterThan('xl')`
+      font-size: 62.5%;
+   `}
+  ${media.greaterThan('xxl')`
+      font-size: 66%;
+   `}
+  ${media.greaterThan('xxxl')`
+      font-size: 68%;
+   `}
 }
 
 body {

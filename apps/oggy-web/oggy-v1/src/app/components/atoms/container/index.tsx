@@ -106,7 +106,21 @@ export interface ContainerProps {
     L2?: boolean;
     L3?: boolean;
   };
-  Shape?: 'CS0' | 'CS1' | 'CS2' | 'CS3' | 'Circle';
+  Shape?:
+    | 'CS0'
+    | 'CS1'
+    | 'CS2'
+    | 'CS3'
+    | 'CS4'
+    | 'CS0P'
+    | 'CS1P'
+    | 'CS2P'
+    | 'CS3P'
+    | 'CS0C'
+    | 'CS1C'
+    | 'CS2C'
+    | 'CS3C'
+    | 'Circle';
 
   Color?: string;
 
@@ -170,7 +184,21 @@ interface IContainer {
     L2?: boolean;
     L3?: boolean;
   };
-  Shape?: 'CS0' | 'CS1' | 'CS2' | 'CS3' | 'Circle';
+  Shape?:
+    | 'CS0'
+    | 'CS1'
+    | 'CS2'
+    | 'CS3'
+    | 'CS4'
+    | 'CS0P'
+    | 'CS1P'
+    | 'CS2P'
+    | 'CS3P'
+    | 'CS0C'
+    | 'CS1C'
+    | 'CS2C'
+    | 'CS3C'
+    | 'Circle';
   Index?: number;
   BG?: string;
   ScrollStyle?: 'Hide';
@@ -322,8 +350,36 @@ const StyledContainer = styled.div<IContainer>`
         CS3: css`
           border-radius: 3rem;
         `,
+        CS4: css``,
         Circle: css`
           border-radius: 50%;
+        `,
+        CS0P: css`
+          border-radius: 5px;
+        `,
+        CS0C: css`
+          border-radius: 4px;
+        `,
+
+        CS1P: css`
+          border-radius: 10px;
+        `,
+        CS1C: css`
+          border-radius: 9px;
+        `,
+
+        CS2P: css`
+          border-radius: 20px;
+        `,
+        CS2C: css`
+          border-radius: 19px;
+        `,
+
+        CS3P: css`
+          border-radius: 30px;
+        `,
+        CS3C: css`
+          border-radius: 29px;
         `,
       }[props.Shape]};
 

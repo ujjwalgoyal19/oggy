@@ -38,7 +38,11 @@ export function Hero(props: HeroProps) {
               <Text Color="Primary">Your City</Text>
             </Text>
           </Container>
-          <Container Row Width="fit-content">
+          <Container
+            Row
+            Width="fit-content"
+            Padding={device.lessThan('md') && '0rem 4rem'}
+          >
             <Text H4 L style={{ textAlign: 'center' }}>
               {props.SubHeading}
             </Text>

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Slider from 'app/components/atoms/slider';
-import CircleCard from 'app/components/atoms/circle-card';
 import Text from 'app/components/atoms/text';
 import Container from 'app/components/atoms/container';
 import { useDispatch } from 'react-redux';
@@ -34,7 +33,13 @@ export function Chain(props: ChainProps) {
     <StyledChain>
       <Container Column>
         {device.greaterThan('md') ? (
-          <Container Height="fit-content" Column Gap=".7rem" Padding="2rem">
+          <Container
+            Height="fit-content"
+            Column
+            Gap=".7rem"
+            Padding="2rem"
+            MarginBottom="4rem"
+          >
             <Text D6 EB>
               Hi, Jaipurite
             </Text>

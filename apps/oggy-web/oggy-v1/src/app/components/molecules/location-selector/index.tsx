@@ -69,7 +69,7 @@ export function LocationSelector(props: LocationSelectorProps) {
     <StyledLocationSelector>
       {props.Condensed && (
         <div onClick={() => setModalState(true)}>
-          <Container Row CenterCA Gap="2rem">
+          <Container Row CenterCA Gap="2rem" Width="fit-content">
             <FaLocationArrow color="#ff9800" size="4rem" />
             <Container Column>
               <Text H4 EB>

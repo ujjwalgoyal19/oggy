@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { useEffect } from 'react';
-import { duration } from '@mui/material';
 
 /* eslint-disable-next-line */
 export interface ModalProps {
@@ -37,13 +36,21 @@ const StyledModal = styled.div`
 
 export function Modal(props: ModalProps) {
   useEffect(() => {
-    if (props.Open && props.Animation === 'GrowFromBottom') {
-      gsap.fromTo(
-        '.grow-from-bottom',
-        { y: '100%' },
-        { y: '0%', ease: 'Power2.easeInOut' }
-      );
+    if (props.Open) {
+      document.getElementById('styled-modal')?.classList.add('willChange');
+      document.body.classList.add('overflowHideY');
+      props.Animation === 'GrowFromBottom' &&
+        gsap.fromTo(
+          '.grow-from-bottom',
+          { y: '100%' },
+          { y: '0%', ease: 'Power2.easeInOut' }
+        );
     }
+
+    return () => {
+      document.body.classList.remove('overflowHideY');
+      document.getElementById('styled-modal')?.classList.remove('willChange');
+    };
   }, [props.Open]);
 
   if (!props.Open) return null;
@@ -51,6 +58,7 @@ export function Modal(props: ModalProps) {
     <>
       <StyledOverlay onClick={props.Close} />
       <StyledModal
+        id="styled-modal"
         className={
           props.Animation &&
           {

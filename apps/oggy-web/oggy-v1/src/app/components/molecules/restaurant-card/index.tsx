@@ -15,6 +15,7 @@ export interface RestaurantCardProps {
   Cuisines?: string;
   Name?: string;
   CostForTwo?: string;
+  // Locality?: string;
 }
 
 interface Rating {
@@ -79,7 +80,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
           color: 'inherit',
         }}
       >
-        {device.greaterThan('md') ? (
+        {device.greaterThan('md') && (
           <Container
             Column
             Padding="1.6rem"
@@ -130,45 +131,55 @@ export function RestaurantCard(props: RestaurantCardProps) {
               </Container>
             </Container>
           </Container>
-        ) : (
+        )}
+        {device.lessThan('md') && (
           <Container
-            Column
-            BG="white"
-            Elevation={{ L1: true }}
-            style={{ overflow: 'hidden' }}
-            Border={{ Style: 'Solid', L1: true }}
-            Shape="CS3"
+            MaxWidth="calc(90 * var(--vw))"
+            Elevation={{ L2: true }}
+            Shape="CS3P"
           >
-            <Container Height="25vh">
-              <RestaurantImage
-                src={imageFile.src}
-                initial={{
-                  scale: 0,
-                  opacity: 0,
-                }}
-                animate={{
-                  scale: 1,
-                  opacity: 1,
-                }}
-              />
-            </Container>
-            <Container Column Padding="2rem" Gap=".4rem">
-              <Container SpaceBetweenMA Row>
-                <Text NoWrap={{ Width: '22rem' }} H3 N>
-                  {props.Name}
-                </Text>
-                <Rating
-                  Small
-                  Rating={RatingAggregation(props.DeliveryRating)}
-                />
-              </Container>
-              <Container SpaceBetweenMA Row>
-                <Text NoWrap={{ Width: '18rem' }} H4>
-                  {props.Cuisines}
-                </Text>
-                <Text H4>
-                  {props.CostForTwo?.replace(/\D/g, '') + '₹ for two'}
-                </Text>
+            <Container
+              // Border={{ Style: 'Solid', L1: true }}
+              Shape="CS3C"
+              OverflowHide
+            >
+              <Container BG="white" Column>
+                <Container Height="30rem">
+                  <RestaurantImage
+                    src={imageFile.src}
+                    initial={{
+                      scale: 0,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      scale: 1,
+                      opacity: 1,
+                    }}
+                  />
+                </Container>
+                <Container Column Padding="2rem" Gap="8px" Height="fit-content">
+                  <Container SpaceBetweenMA Row Gap="2rem" Height="fit-content">
+                    <Text NoWrap={{ Width: '100%' }} H3 N>
+                      {props.Name}
+                    </Text>
+                    <Rating
+                      Small
+                      Rating={RatingAggregation(props.DeliveryRating)}
+                    />
+                  </Container>
+                  <Container Row SpaceBetweenMA Gap="2rem" Height="fit-content">
+                    <Text NoWrap={{ Width: '100%' }} H4>
+                      {props.Cuisines?.split(',')?.slice(0, 3)?.join(', ')}
+                    </Text>
+                    <Text
+                      NoWrap={{ Width: '100%' }}
+                      H4
+                      style={{ textAlign: 'end' }}
+                    >
+                      {props.CostForTwo?.replace(/\D/g, '') + '₹ for two'}
+                    </Text>
+                  </Container>
+                </Container>
               </Container>
             </Container>
           </Container>

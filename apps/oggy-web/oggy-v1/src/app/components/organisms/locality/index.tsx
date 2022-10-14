@@ -9,6 +9,7 @@ import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import Text from 'app/components/atoms/text';
 import Image from 'app/components/atoms/image';
 import Images from 'app/constants/images';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface LocalityProps {}
@@ -16,7 +17,7 @@ export interface LocalityProps {}
 const StyledLocality = styled.div`
   height: fit-content;
   width: 100%;
-  color: white;
+  color: black;
   background-color: transparent;
 `;
 
@@ -59,7 +60,6 @@ const Locality = (props: LocalityProps) => {
       })
     );
   };
-  console.log(localities);
 
   return (
     <StyledLocality>
@@ -94,19 +94,26 @@ const Locality = (props: LocalityProps) => {
         </Container>
       )}
       {device.lessThan('md') && (
-        <Container Column BG="black" PaddingTop="20%">
+        <Container Column BG="white" PaddingTop="2rem" PaddingBottom="2rem">
           <Container Row Padding="2rem">
-            <Text H1 EB Color="white">
+            <Text H1 EB Color="black">
               Localites Guide
             </Text>
           </Container>
           <Container Row ScrollX ScrollStyle="Hide">
-            <Container Row Gap="1.2rem" PaddingLeft="2rem">
+            <Container Row Gap="2rem" Padding="2rem" Width="max-content">
               {localities &&
                 Object.keys(localities).length > 0 &&
                 Object.values(localities).map((locality: any, index) => {
                   return (
-                    <div onClick={() => getRestaurantLocalityHandler(locality)}>
+                    <Link
+                      key={index}
+                      onClick={() => {
+                        console.log('hello');
+                        getRestaurantLocalityHandler(locality);
+                      }}
+                      to="/search"
+                    >
                       <Container
                         key={index}
                         Column
@@ -114,6 +121,8 @@ const Locality = (props: LocalityProps) => {
                         Shape="CS1"
                         Width={'18rem'}
                         Height={'18rem'}
+                        Border={{ Style: 'Solid', L1: true }}
+                        Elevation={{ L2: true }}
                         OverflowHide
                         Padding="0.7rem"
                       >
@@ -132,8 +141,12 @@ const Locality = (props: LocalityProps) => {
                             CenterCA
                             Height="fit-content"
                           >
-                            <Container Height="1rem">
-                              <Image Src={Images.Logo.Oggy} />
+                            <Container Height="1rem" Width="auto">
+                              <Image
+                                Width="100%"
+                                Height="100%"
+                                Src={Images.Logo.Oggy}
+                              />
                             </Container>
                             <Text H6 B Color="black">
                               Locality
@@ -153,7 +166,7 @@ const Locality = (props: LocalityProps) => {
                           />
                         </Container>
                       </Container>
-                    </div>
+                    </Link>
                   );
                 })}
             </Container>

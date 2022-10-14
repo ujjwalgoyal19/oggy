@@ -4,9 +4,6 @@ import Hero from 'app/components/organisms/hero';
 import Chain from 'app/components/organisms/chain';
 import Locality from 'app/components/organisms/locality';
 import Download from 'app/components/organisms/download';
-import gsap from 'gsap';
-import { useEffect } from 'react';
-import { ScrollToPlugin, ScrollTrigger } from 'gsap/all';
 import Image from 'app/components/atoms/image';
 import Container from 'app/components/atoms/container';
 import Images from 'app/constants/images';
@@ -29,202 +26,159 @@ const StyledHome = styled.div`
 
 const HomeTemplate = (props: HomeProps) => {
   const device = useDeviceType();
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.registerPlugin(ScrollToPlugin);
-  useEffect(() => {
-    if (device.greaterThan('md')) {
-      const sections = gsap.utils.toArray('.snap');
-
-      let height = 0;
-      const heights = sections.map((eachPanel) => {
-        const h = (eachPanel as Element).getBoundingClientRect().height;
-        height += h;
-        return height - h;
-      });
-
-      const goToSection = (i: number) => {
-        gsap.to(window, {
-          scrollTo: {
-            y: i,
-            autoKill: false,
-          },
-          ease: 'Power3.easeInOut',
-          duration: 1.26,
-        });
-      };
-      ScrollTrigger.defaults({
-        // markers: true,
-      });
-
-      sections.forEach((eachPanel, i) => {
-        const panel = eachPanel as Element;
-        if (panel.classList.contains('enter')) {
-          ScrollTrigger.create({
-            id: 'enter',
-            trigger: eachPanel as gsap.DOMTarget,
-            start: `${device.getHeight(1)} bottom`,
-            end: `${device.getHeight(1)} top`,
-            onEnter: () => goToSection(heights[i] - 1),
-          });
-        }
-        if (panel.classList.contains('enterBack')) {
-          ScrollTrigger.create({
-            id: 'enterBack',
-            trigger: eachPanel as gsap.DOMTarget,
-            start: `${device.getHeight(99)} bottom`,
-            end: `${device.getHeight(99)} top`,
-            onEnterBack: () => goToSection(heights[i] + 1),
-          });
-        }
-      });
-
-      //* Custom Timelines for creating animation
-
-      //* Locality Timeline */
-      const LocalityTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.locality',
-          start: 'start 50%',
-          end: 'end start',
-          toggleActions: 'play complete reverse reset',
-        },
-      });
-      LocalityTimeline.to('.locality', {
-        backgroundColor: 'black',
-      }).fromTo(
-        '.locality__child',
-        {
-          opacity: 0,
-          pointerEvents: 'none',
-        },
-        { opacity: 1, pointerEvents: 'auto' },
-        0
-      );
-
-      //* Hero Timeline */
-      const HeroTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'hero',
-          pin: true,
-          pinSpacing: false,
-          trigger: '.hero',
-          scrub: 0.6,
-          start: 'top top',
-          end: `bottom top`,
-          snap: { snapTo: 1 },
-          toggleActions: 'play complete reverse pause',
-        },
-      });
-      HeroTimeline.to('.hero__child', {
-        scale: 0.8,
-        opacity: '0',
-      })
-        .to(
-          '.hero__transition',
-          {
-            y: '-80%',
-          },
-          0
-        )
-        .to('.hero__image', { rotate: '90deg' }, 0)
-        .to('.hero__image', { opacity: '0', scale: '0.5' }, 0.5);
-    }
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
-      gsap.to(window, { scrollTo: { y: 0 } });
-    };
-  }, []);
   return (
     <StyledHome>
-      <Container Column CenterCA>
-        <Container
-          ClassName="snap hero"
-          Height={
-            (device.greaterThan('md') && device.getHeight(200)) ||
-            device.getHeight(100)
-          }
-          Width="100%"
-          Column
-          Index={1}
-          OverflowHide={device.lessThan('md')}
-        >
+      {device.greaterThan('md') && (
+        <Container Column CenterCA>
           <Container
-            ClassName="hero__child"
-            Row
-            Height={device.getHeight(100)}
+            Height="calc(100 * var(--vh))"
             Width="100%"
-            Position={{ Type: 'relative' }}
-            PaddingTop={(device.greaterThan('md') && '8%') || '35%'}
+            Column
+            Index={1}
+            PaddingTop="calc(15 * var(--vh))"
           >
-            <Hero
-              Heading={props.HomeContent.Hero.Heading}
-              SubHeading={props.HomeContent.Hero.SubHeading}
-            />
+            <Container Width="100%" Height="fit-content">
+              <Hero
+                Heading={props.HomeContent.Hero.Heading}
+                SubHeading={props.HomeContent.Hero.SubHeading}
+              />
+            </Container>
+          </Container>
+          <Container
+            Height="fit-content"
+            Column
+            CenterCA
+            BG="white"
+            Index={2}
+            MarginBottom={device.getHeight(20)}
+          >
+            <Container Width="100%" CenterMA>
+              <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
+            </Container>
+          </Container>
+          <Container
+            ClassName="snap enter enterBack locality"
+            Height="fit-content"
+            BG="white"
+            Column
+            Index={2}
+            MarginBottom={device.getHeight(20)}
+          >
+            <Container ClassName="locality__child" BG="transparent" CenterCA>
+              <Locality />
+            </Container>
+          </Container>
+          <Container
+            Height="calc(100 * var(--vh))"
+            ClassName="snap enter enterBack download"
+            Index={2}
+          >
+            <Download />
+          </Container>
+        </Container>
+      )}
+
+      {device.lessThan('md') && (
+        <Container Column CenterCA>
+          <Container
+            ClassName="hero"
+            // Height={device.getHeight(100)}
+            // Width={device.getWidth(100)}
+            Height="calc(100* var(--vh))"
+            Width="calc(100* var(--vw))"
+            Column
+            Index={0}
+            Position={{ Type: 'sticky', Top: '0' }}
+            OverflowHideY
+          >
             <Container
-              ClassName="hero__transition"
-              Margin="0"
-              CenterMA
-              Height="fit-content"
+              Row
+              // Height={device.getHeight(100)}
+              Height="calc(100* var(--vh))"
               Width="100%"
-              BG="transparent"
-              Padding="1rem"
-              Position={{ Type: 'absolute', Bottom: '0%' }}
+              Position={{ Type: 'relative' }}
+              PaddingTop="15%"
             >
               <Container
-                ClassName="hero__image"
-                Width="fit-content"
-                Shape="Circle"
-                Height={
-                  (device.greaterThan('md') && device.getWidth(30)) ||
-                  device.getWidth(90)
-                }
+                ClassName="hero__child"
+                Width="100%"
+                Height="fit-content"
               >
-                <Image Src={Images.HomePage.FoodPlate} />
+                <Hero
+                  Heading={props.HomeContent.Hero.Heading}
+                  SubHeading={props.HomeContent.Hero.SubHeading}
+                />
+              </Container>
+              <Container
+                ClassName="hero__transition"
+                Margin="0"
+                CenterMA
+                Height="fit-content"
+                Width="100%"
+                BG="transparent"
+                Padding="1rem"
+                Position={{ Type: 'absolute', Bottom: '0%' }}
+              >
+                <Container
+                  ClassName="hero__image"
+                  Shape="Circle"
+                  Width={device.getWidth(80)}
+                  Height="auto"
+                >
+                  <Image
+                    Width="100%"
+                    Height="100%"
+                    Src={Images.HomePage.FoodPlate}
+                  />
+                </Container>
               </Container>
             </Container>
           </Container>
-        </Container>
-        <Container
-          ClassName="snap enterBack chains"
-          Height={
-            (device.greaterThan('md') && `calc(100 * var(--vh))`) ||
-            'fit-content'
-          }
-          Column
-          CenterCA
-          BG="white"
-          Index={2}
-        >
-          {device.greaterThan('md') && (
-            <Container Width="80%" PaddingTop="6vh" CenterMA>
-              <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
+          <Container
+            Column
+            BG="white"
+            ClassName="content"
+            Height="calc(100* var(--vh))"
+            Position={{ Type: 'sticky', Top: '0' }}
+          >
+            <Container
+              ClassName="chains"
+              Height="fit-content"
+              Column
+              CenterCA
+              Index={2}
+            >
+              <Container Width="100%" PaddingTop="3rem">
+                <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
+              </Container>
             </Container>
-          )}
-          {device.lessThan('md') && (
-            <Container Width="100%" PaddingTop="3rem">
-              <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
+            <Container
+              ClassName="locality"
+              Height="fit-content"
+              Column
+              Index={2}
+            >
+              <Container ClassName="locality__child" BG="transparent" CenterCA>
+                <Locality />
+              </Container>
             </Container>
-          )}
-        </Container>
-        <Container
-          ClassName="snap enter enterBack locality"
-          Height={
-            (device.greaterThan('md') && `calc(100 * var(--vh))`) ||
-            'fit-content'
-          }
-          Column
-        >
-          <Container ClassName="locality__child" BG="transparent" CenterCA>
-            <Locality />
+          </Container>
+          <Container
+            Height={`calc(95 * var(--vh))`}
+            ClassName="download"
+            Index={3}
+            Position={{ Type: 'sticky', Top: '4rem' }}
+            Shape="CS2"
+            style={{
+              borderBottomLeftRadius: '0',
+              borderBottomRightRadius: '0',
+            }}
+            OverflowHide
+          >
+            <Download />
           </Container>
         </Container>
-        <Container
-          Height={`calc(100 * var(--vh))`}
-          ClassName="snap enter enterBack download"
-        >
-          <Download />
-        </Container>
-      </Container>
+      )}
     </StyledHome>
   );
 };

@@ -6,7 +6,7 @@ import GlobalStyles from './components/templates/Global.styled';
 import NavigationBar from './components/organisms/navigation-bar';
 import Footer from 'app/components/organisms/footer';
 import WebFont from 'webfontloader';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useDeviceType } from './hooks/useDeviceType.hook';
 import MobileNavigationBar from './components/organisms/mobile-navigation-bar';
 import MobileFooter from './components/organisms/mobile-footer';
@@ -17,6 +17,7 @@ const StyledApp = styled.div`
 `;
 
 export function App() {
+  
   useEffect(() => {
     WebFont.load({
       google: {

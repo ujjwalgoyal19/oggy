@@ -21,7 +21,7 @@ export function Slider(props: SliderProps) {
         ScrollStyle="Hide"
         ScrollX
       >
-        <Container Row Gap="2rem" Padding={props.Padding}>
+        <Container Row Gap="2rem" Padding={props.Padding} Width="max-content">
           {props.children.map((child) => {
             return <Container ClassName="slider__child">{child}</Container>;
           })}

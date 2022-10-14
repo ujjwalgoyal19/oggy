@@ -1,8 +1,16 @@
-import { useEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {
   defaultBreakpoints,
   DefaultBreakpoints,
 } from './styledMediaQuery.hook';
+import debounce from 'lodash/debounce';
+import { useScroll } from './useScroll.hook';
 
 const getSizeFromBreakpoint = (breakpoint: keyof DefaultBreakpoints) => {
   return parseInt(defaultBreakpoints[breakpoint].replace(/\D/g, ''));
@@ -13,6 +21,8 @@ export function useDeviceType() {
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
+
+  const scrollStopped = useScroll();
 
   const lessThan = (breakpoint: keyof DefaultBreakpoints) => {
     if (screenSize.dynamicWidth < getSizeFromBreakpoint(breakpoint)) {
@@ -47,17 +57,21 @@ export function useDeviceType() {
   const setDimensions = () => {
     getDimensions({
       dynamicWidth: window.innerWidth,
+
       dynamicHeight: window.innerHeight,
     });
-    document.documentElement.style.setProperty(
-      '--vh',
-      window.innerHeight * 0.01 + 'px'
-    );
-    document.documentElement.style.setProperty(
-      '--vw',
-      window.innerWidth * 0.01 + 'px'
-    );
+    if (scrollStopped) {
+      document.documentElement.style.setProperty(
+        '--vw',
+        window.innerWidth * 0.01 + 'px'
+      );
+    }
   };
+
+  const debouncedSetDimensions = useMemo(
+    () => debounce(setDimensions, 300),
+    []
+  );
 
   const getHeight = (value: number): string => {
     return value * (screenSize.dynamicHeight / 100) + 'px';
@@ -67,17 +81,21 @@ export function useDeviceType() {
     return value * (screenSize.dynamicWidth / 100) + 'px';
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setDimensions();
+    document.documentElement.style.setProperty(
+      '--vh',
+      window.innerHeight * 0.01 + 'px'
+    );
   }, []);
 
   useEffect(() => {
     window.addEventListener('resize', () => {
-      setDimensions();
+      debouncedSetDimensions();
     });
 
     return () => {
-      window.removeEventListener('resize', setDimensions);
+      window.removeEventListener('resize', debouncedSetDimensions);
     };
   }, [screenSize]);
 

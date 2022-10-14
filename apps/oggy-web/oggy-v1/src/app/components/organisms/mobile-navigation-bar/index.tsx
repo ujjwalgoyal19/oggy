@@ -52,7 +52,7 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
           Index={100}
           BG="white"
         >
-          <LocationSelector Mobile />
+          <LocationSelector Condensed Mobile />
         </Container>
         <Container
           Row

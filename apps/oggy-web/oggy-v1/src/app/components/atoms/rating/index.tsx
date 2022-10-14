@@ -4,6 +4,7 @@ import { GetRatingColor } from 'app/utils';
 import { AiFillStar } from 'react-icons/ai';
 import Text from '../text';
 import Images from 'app/constants/images';
+import Container from '../container';
 
 /* eslint-disable-next-line */
 export interface RatingProps {
@@ -19,33 +20,22 @@ interface IStyledRating {
 }
 
 const StyledRating = styled.div<IStyledRating>`
-  box-sizing: border-box;
   background-color: ${(props) => props.Color};
+  min-width: 60px;
   ${(props) =>
     props.Small &&
     css`
-      padding: 0.8rem;
+      padding: 4px;
       border-radius: 0.4rem;
-      width: 4.8rem;
-      height: 2.5rem;
-      font-size: 1.3rem;
-      gap: 0.4rem;
+      --gap-rating: 0.4rem;
     `}
   ${(props) =>
     props.Large &&
     css`
-      padding: 0 0.8rem;
+      padding: 5px;
       border-radius: 0.8rem;
-      width: 6rem;
-      height: 2.7rem;
-      font-size: 1.75rem;
-      gap: 0.7rem;
+      --gap-rating: 0.7rem;
     `}
-
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export function Rating(props: RatingProps) {
@@ -55,10 +45,20 @@ export function Rating(props: RatingProps) {
       Small={props.Small}
       Large={props.Large}
     >
-      <Text EB H4>
-        {props.Rating.toString()}
-      </Text>
-      <AiFillStar color="white" size={'1.4rem'} />
+      <Container CenterMA>
+        <Container
+          Row
+          CenterCA
+          SpaceBetweenMA
+          Gap="var(--gap-rating)"
+          Width="fit-content"
+        >
+          <Text Color="white" EB H4>
+            {props.Rating.toString()}
+          </Text>
+          <AiFillStar color="white" size="14px" />
+        </Container>
+      </Container>
     </StyledRating>
   );
 }

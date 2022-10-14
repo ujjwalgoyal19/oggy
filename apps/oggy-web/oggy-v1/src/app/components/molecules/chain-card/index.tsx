@@ -1,6 +1,7 @@
 import Container from 'app/components/atoms/container';
 import Image from 'app/components/atoms/image';
 import Text from 'app/components/atoms/text';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,6 +16,7 @@ export interface ChainCardProps {
 const StyledChainCard = styled.div``;
 
 export function ChainCard(props: ChainCardProps) {
+  const device = useDeviceType();
   return (
     <StyledChainCard onClick={() => props.ClickHandler(props.Name)}>
       <Container Column Gap="2rem">
@@ -24,13 +26,13 @@ export function ChainCard(props: ChainCardProps) {
             Elevation={{ L2: true }}
             Border={{ Style: 'Solid', L1: true }}
             Shape="Circle"
-            Width="20rem"
-            Height="20rem"
+            Width={(device.greaterThan('md') && '20rem') || '15rem'}
+            Height={(device.greaterThan('md') && '20rem') || '15rem'}
             CenterCA
             CenterMA
           >
-            <Container Height="10rem" Width="fit-content">
-              <Image Src={props.Image} />
+            <Container Height="60%" Width="60%">
+              <Image Width="100%" Height="100%" Src={props.Image} />
             </Container>
           </Container>
         </Link>
