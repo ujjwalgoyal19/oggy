@@ -142,7 +142,7 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
                   Key={1}
                 />
               </Container>
-              <Container ScrollY>
+              <Container ScrollY ScrollStyle="Hide">
                 <RestaurantSuggestions Data={suggestions} />
               </Container>
             </Container>

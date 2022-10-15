@@ -51,6 +51,7 @@ export function RestaurantSuggestions(props: RestaurantSuggestionsProps) {
                 display: 'block',
                 textDecoration: 'none',
                 color: 'inherit',
+                width: '100%',
               }}
             >
               <Container Row CenterCA Padding="1rem" Hover={{ BG: '#EEEEEE' }}>

@@ -1,11 +1,7 @@
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import media from 'app/hooks/styledMediaQuery.hook';
 
 const GlobalStyles = createGlobalStyle`
-/**
-  * * Style Reset
- */
-
 //* Variables 
 :root {
   //* Font Weight
@@ -23,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
   --font-size-H5: 1.25rem;
   --font-size-H6: 1rem;
 
-  --font-size-sub-H1: 2.8;
+  --font-size-sub-H1: 2.8rem;
   --font-size-sub-H2: 2.2rem;
   --font-size-sub-H3: 1.7rem;
   --font-size-sub-H4: 1.3rem;
@@ -49,12 +45,20 @@ const GlobalStyles = createGlobalStyle`
 
   //* Color Type For Text
   --primary-color: #ff9800;
-  --secondary-color: black;
+  --secondary-color: #C21010;
   --white-color: white;
-  --black-color: black;
+  --black-color: #141716;
   --light-grey-color: rgb(228, 228, 228);
   --grey-color: #393e46;
+
+
+  //* Shadow Types
+
 }
+
+/**
+  * * Style Reset
+ */
 
 *,
 *::after,

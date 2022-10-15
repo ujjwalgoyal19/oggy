@@ -27,10 +27,11 @@ const StyledOverlay = styled.div<IOverlay>`
 `;
 
 const StyledModal = styled.div`
+  min-height: 100vh;
   height: fit-content;
   width: fit-content;
   position: fixed;
-  bottom: 0;
+  top: 0;
   z-index: 10001;
 `;
 

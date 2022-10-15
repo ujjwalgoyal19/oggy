@@ -124,6 +124,9 @@ export interface ContainerProps {
 
   Color?: string;
 
+  //* Event Handlers
+  ClickHandler?: any;
+
   ClassName?: string;
   children?: string | JSX.Element | JSX.Element[] | null | any;
 }
@@ -433,6 +436,7 @@ const StyledContainer = styled.div<IContainer>`
 export function Container(props: ContainerProps) {
   return (
     <StyledContainer
+      onClick={props.ClickHandler}
       ref={props.Ref}
       style={props.style}
       Row={props.Row}

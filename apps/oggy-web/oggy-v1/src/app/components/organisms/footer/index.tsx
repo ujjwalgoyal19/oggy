@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import config from 'app/config';
 import Image from 'app/components/atoms/image';
 import Text from 'app/components/atoms/text';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Separator from 'app/components/atoms/separator';
 import Container from 'app/components/atoms/container';
 import Images from 'app/constants/images';
@@ -17,6 +17,8 @@ const StyledFooter = styled.div`
 `;
 
 export function Footer(props: FooterProps) {
+  const location = useLocation();
+  if (location.pathname === '/') return null;
   return (
     <StyledFooter>
       <Container Column CenterCA PaddingBottom="2rem">

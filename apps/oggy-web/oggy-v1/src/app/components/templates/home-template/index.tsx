@@ -31,11 +31,12 @@ const HomeTemplate = (props: HomeProps) => {
       {device.greaterThan('md') && (
         <Container Column CenterCA>
           <Container
+            MinHeight="fit-content"
             Height="calc(100 * var(--vh))"
             Width="100%"
             Column
             Index={1}
-            PaddingTop="calc(15 * var(--vh))"
+            PaddingTop="calc(20 * var(--vh))"
           >
             <Container Width="100%" Height="fit-content">
               <Hero
@@ -45,6 +46,7 @@ const HomeTemplate = (props: HomeProps) => {
             </Container>
           </Container>
           <Container
+            MinHeight="fit-content"
             Height="fit-content"
             Column
             CenterCA
@@ -52,26 +54,35 @@ const HomeTemplate = (props: HomeProps) => {
             Index={2}
             MarginBottom={device.getHeight(20)}
           >
-            <Container Width="100%" CenterMA>
+            <Container Width="80%" CenterMA>
               <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
             </Container>
           </Container>
           <Container
-            ClassName="snap enter enterBack locality"
+            ClassName="locality"
+            MinHeight="calc(80 * var(--vh))"
             Height="fit-content"
             BG="white"
             Column
             Index={2}
-            MarginBottom={device.getHeight(20)}
+            PaddingTop={device.getHeight(10)}
+            PaddingBottom={device.getHeight(10)}
+            Position={{ Type: 'sticky', Top: '0' }}
           >
-            <Container ClassName="locality__child" BG="transparent" CenterCA>
-              <Locality />
-            </Container>
+            <Locality />
           </Container>
           <Container
-            Height="calc(100 * var(--vh))"
-            ClassName="snap enter enterBack download"
+            MinHeight="calc(90 * var(--vh))"
+            Height="fit-content"
+            ClassName="download"
             Index={2}
+            Shape="CS3"
+            OverflowHide
+            BG="Black"
+            style={{
+              borderBottomLeftRadius: '0',
+              borderBottomRightRadius: '0',
+            }}
           >
             <Download />
           </Container>

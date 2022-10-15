@@ -176,17 +176,13 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
       <Content
         style={props.hoverState && !active ? { opacity: 0.2 } : { opacity: 1 }}
       >
-        <Text D4 Color="Grey">
-          {getHeading(props.text)}
-        </Text>
+        <Text D4>{getHeading(props.text)}</Text>
         <ImageWrapper active={active} clip={getRandomClipPath()}>
           <Image Width="100%" Src={props.image} />
         </ImageWrapper>
         <Container OverflowHide Height="fit-content">
           <Subtext>
-            <Text H2 Color="Grey">
-              {props.subtext}
-            </Text>
+            <Text H2>{props.subtext}</Text>
           </Subtext>
         </Container>
       </Content>
