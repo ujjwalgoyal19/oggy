@@ -8,6 +8,7 @@ import Image from 'app/components/atoms/image';
 import Container from 'app/components/atoms/container';
 import Images from 'app/constants/images';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface HomeProps {
@@ -28,6 +29,41 @@ const HomeTemplate = (props: HomeProps) => {
   const device = useDeviceType();
   return (
     <StyledHome>
+      <Container
+        Row
+        Width="calc(100 * var(--vw))"
+        Position={{ Type: 'fixed', Top: '0' }}
+        Height="fit-content"
+        PaddingTop="2rem"
+        PaddingBottom="2rem"
+        BG="white"
+        CenterMA
+        Index={1}
+      >
+        <Container
+          Width={
+            (device.greaterThan('md') && 'calc(80 * var(--vw))') ||
+            'calc(80 * var(--vw))'
+          }
+          Height="fit-content"
+          CenterCA
+          SpaceBetweenMA
+        >
+          <Container Height="min(6vh, 7vw)" Width="fit-content">
+            <Image Src={Images.Logo.Oggy} />
+          </Container>
+          <Container
+            Row
+            EndMA
+            Gap="5rem"
+            Width="fit-content"
+            Height="fit-content"
+          >
+            <Link to="/login">Sign In</Link>
+            <Link to="/register">Register</Link>
+          </Container>
+        </Container>
+      </Container>
       {device.greaterThan('md') && (
         <Container Column CenterCA>
           <Container
@@ -35,8 +71,9 @@ const HomeTemplate = (props: HomeProps) => {
             Height="calc(100 * var(--vh))"
             Width="100%"
             Column
-            Index={1}
+            Index={0}
             PaddingTop="calc(20 * var(--vh))"
+            Position={{ Type: 'sticky', Top: '0' }}
           >
             <Container Width="100%" Height="fit-content">
               <Hero
@@ -46,13 +83,13 @@ const HomeTemplate = (props: HomeProps) => {
             </Container>
           </Container>
           <Container
-            MinHeight="fit-content"
+            MarginTop="calc(10 * var(--vh))"
+            MinHeight="calc(100 * var(--vh))"
             Height="fit-content"
             Column
             CenterCA
             BG="white"
             Index={2}
-            MarginBottom={device.getHeight(20)}
           >
             <Container Width="80%" CenterMA>
               <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
@@ -60,18 +97,18 @@ const HomeTemplate = (props: HomeProps) => {
           </Container>
           <Container
             ClassName="locality"
-            MinHeight="calc(80 * var(--vh))"
+            MinHeight="calc(100 * var(--vh))"
+            CenterMA
             Height="fit-content"
             BG="white"
             Column
             Index={2}
-            PaddingTop={device.getHeight(10)}
-            PaddingBottom={device.getHeight(10)}
             Position={{ Type: 'sticky', Top: '0' }}
           >
             <Locality />
           </Container>
           <Container
+            MarginTop="calc(10 * var(--vh))"
             MinHeight="calc(90 * var(--vh))"
             Height="fit-content"
             ClassName="download"
@@ -93,10 +130,8 @@ const HomeTemplate = (props: HomeProps) => {
         <Container Column CenterCA>
           <Container
             ClassName="hero"
-            // Height={device.getHeight(100)}
-            // Width={device.getWidth(100)}
-            Height="calc(100* var(--vh))"
-            Width="calc(100* var(--vw))"
+            Height="calc(100 * var(--vh))"
+            Width="calc(88 * var(--vw))"
             Column
             Index={0}
             Position={{ Type: 'sticky', Top: '0' }}
@@ -104,11 +139,10 @@ const HomeTemplate = (props: HomeProps) => {
           >
             <Container
               Row
-              // Height={device.getHeight(100)}
               Height="calc(100* var(--vh))"
               Width="100%"
               Position={{ Type: 'relative' }}
-              PaddingTop="15%"
+              MarginTop="calc(20 * var(--vh))"
             >
               <Container
                 ClassName="hero__child"
@@ -120,29 +154,6 @@ const HomeTemplate = (props: HomeProps) => {
                   SubHeading={props.HomeContent.Hero.SubHeading}
                 />
               </Container>
-              <Container
-                ClassName="hero__transition"
-                Margin="0"
-                CenterMA
-                Height="fit-content"
-                Width="100%"
-                BG="transparent"
-                Padding="1rem"
-                Position={{ Type: 'absolute', Bottom: '0%' }}
-              >
-                <Container
-                  ClassName="hero__image"
-                  Shape="Circle"
-                  Width={device.getWidth(80)}
-                  Height="auto"
-                >
-                  <Image
-                    Width="100%"
-                    Height="100%"
-                    Src={Images.HomePage.FoodPlate}
-                  />
-                </Container>
-              </Container>
             </Container>
           </Container>
           <Container
@@ -151,30 +162,22 @@ const HomeTemplate = (props: HomeProps) => {
             ClassName="content"
             Height="calc(100* var(--vh))"
             Position={{ Type: 'sticky', Top: '0' }}
+            Index={2}
+            PaddingTop="3rem"
           >
-            <Container
-              ClassName="chains"
-              Height="fit-content"
-              Column
-              CenterCA
-              Index={2}
-            >
-              <Container Width="100%" PaddingTop="3rem">
+            <Container ClassName="chains" Height="fit-content" Column CenterCA>
+              <Container Width="100%">
                 <Chain Content={props.HomeContent.HeroSectionChainsJaipur} />
               </Container>
             </Container>
-            <Container
-              ClassName="locality"
-              Height="fit-content"
-              Column
-              Index={2}
-            >
+            <Container ClassName="locality" Height="fit-content" Column>
               <Container ClassName="locality__child" BG="transparent" CenterCA>
                 <Locality />
               </Container>
             </Container>
           </Container>
           <Container
+            MarginTop="calc(10* var(--vh))"
             Height={`calc(95 * var(--vh))`}
             ClassName="download"
             Index={3}

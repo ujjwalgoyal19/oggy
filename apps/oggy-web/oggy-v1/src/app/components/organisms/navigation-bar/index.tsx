@@ -31,62 +31,42 @@ export function NavigationBar(props: NavigationBarProps) {
   const device = useDeviceType();
 
   const location = useLocation();
-  const position = location.pathname === '/' ? 'fixed' : 'static';
-  const autoHide = location.pathname === '/';
   const showSearchBar = location.pathname !== '/';
-  const width = location.pathname === '/' ? '80%' : '70%';
-  const [visible, setVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
-  useEffect(() => {
-    const handleScroll = () => {
-      const prev = prevScrollPos;
-      const currentScrollPos = window.pageYOffset;
 
-      setVisible(prev > currentScrollPos);
-      setPrevScrollPos(window.pageYOffset);
-    };
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [prevScrollPos]);
-
-  if (location.pathname === '/login' || location.pathname === '/signup') {
+  if (
+    location.pathname === '/login' ||
+    location.pathname === '/signup' ||
+    location.pathname === '/'
+  ) {
     return null;
   }
 
   return (
-    <StyledNavigationBar Position={position}>
-      <Container
-        Column
-        CenterCA
-        // Padding="2rem"
-        BG="transparent"
-        Position={
-          autoHide
-            ? { Type: 'absolute', Top: `${visible ? 0 : '-100%'}` }
-            : { Type: 'static' }
-        }
-      >
-        {device.greaterThan('md') ? (
-          <Container Row Width={width} SpaceBetweenMA CenterCA>
-            <Container Row Width="70%" Height="fit-content" Gap="5rem">
-              <Link to="/">
-                <Container Height="6rem" style={{ overflow: 'hidden' }}>
-                  <Image Src={Images.Logo.Oggy} />
-                </Container>
-              </Link>
-              {showSearchBar ? <SearchBarHero TypeA /> : null}
-            </Container>
-            <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content">
-              <Link to="/login">Sign In</Link>
-              <Link to="/register">Register</Link>
-            </Container>
+    <StyledNavigationBar>
+      <Container Column CenterCA BG="transparent">
+        <Container
+          Row
+          Width={
+            (device.greaterThan('xl') && 'calc(70 * var(--vw) )') ||
+            (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
+            (device.lessThan('md') && '90%')
+          }
+          SpaceBetweenMA
+          CenterCA
+        >
+          <Container Row Width="70%" Height="fit-content" Gap="5rem">
+            <Link to="/">
+              <Container Height="6rem" style={{ overflow: 'hidden' }}>
+                <Image Src={Images.Logo.Oggy} />
+              </Container>
+            </Link>
+            {showSearchBar ? <SearchBarHero TypeA /> : null}
           </Container>
-        ) : (
-          <SearchBarHero TypeB />
-        )}
+          <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content">
+            <Link to="/login">Sign In</Link>
+            <Link to="/register">Register</Link>
+          </Container>
+        </Container>
       </Container>
     </StyledNavigationBar>
   );

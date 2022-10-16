@@ -3,7 +3,6 @@ import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
 import Map from 'app/components/molecules/map';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
-import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -50,6 +49,14 @@ export function Overview(props: OverviewProps) {
                 About this place
               </Text>
             ))}
+          {props.CFT && (
+            <Container Column Gap="2rem">
+              <Text H3 N>
+                Average Cost
+              </Text>
+              <Text>{`₹${props.CFT} for two people (approx.)`}</Text>
+            </Container>
+          )}
           {props.Features && (
             <Container Column Gap="2rem">
               <Text H3 N>
@@ -120,14 +127,6 @@ export function Overview(props: OverviewProps) {
                   );
                 })}
               </Container>
-            </Container>
-          )}
-          {props.CFT && (
-            <Container Column Gap="2rem">
-              <Text H3 N>
-                Average Cost
-              </Text>
-              <Text>{`₹${props.CFT} for two people (approx.)`}</Text>
             </Container>
           )}
         </Container>

@@ -41,7 +41,13 @@ export function SearchResultTemplate(props: SearchResultTemplateProps) {
           BG="White"
           Index={100}
         >
-          <Container Width={device.greaterThan('md') ? '70%' : '97%'}>
+          <Container
+            Width={
+              (device.greaterThan('xl') && 'calc(70 * var(--vw) )') ||
+              (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
+              (device.lessThan('md') && '90%')
+            }
+          >
             <Filters />
           </Container>
         </Container>

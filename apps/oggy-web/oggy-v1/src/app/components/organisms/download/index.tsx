@@ -32,10 +32,10 @@ export function Download(props: DownloadProps) {
           Width={device.greaterThan('md') ? 'fit-content' : '90%'}
           Height="fit-content"
           Gap="3rem"
-          MarginBottom="10rem"
+          MarginBottom="5rem"
         >
           {device.greaterThan('md') ? (
-            <Text D2 EB>
+            <Text D3 EB>
               Download our app
             </Text>
           ) : (
@@ -44,7 +44,7 @@ export function Download(props: DownloadProps) {
             </Text>
           )}
           <Container Width={device.greaterThan('md') && '40%'}>
-            <Text H2 N Color="LightGrey" style={{ textAlign: 'center' }}>
+            <Text H3 N Color="LightGrey" style={{ textAlign: 'center' }}>
               Find the experience of your best restaurant in cheapest prices,
               never let your wallet stop you from best food in your city.
             </Text>
@@ -52,7 +52,7 @@ export function Download(props: DownloadProps) {
         </Container>
         <Container Row Width="fit-content" Height="fit-content">
           <a href="https://rb.gy/bqprcb">
-            <Container Height="max(4vw, 6vh)">
+            <Container Height="max(2.5vw, 3.5vh)">
               <Image Src={Images.HomePage.AndroidStoreBadge} />
             </Container>
           </a>

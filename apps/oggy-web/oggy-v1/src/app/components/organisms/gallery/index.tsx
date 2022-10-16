@@ -6,7 +6,6 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -21,27 +20,26 @@ import { throttle } from 'lodash';
 /* eslint-disable-next-line */
 export interface GalleryProps {}
 
-const StyledGallery = styled.div`
-  width: 90%;
-  ${media.greaterThan('md')`
-    width: 70%;
-  `}
-`;
+const StyledGallery = styled.div``;
 
 const StyledGalleryGrid = styled.div`
+  display: flex;
   ${media.lessThan('md')`
-    display: flex;
     flex-direction: column;
     gap: 2.5rem;
   `}
   ${media.greaterThan('md')`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
+    flex-wrap: wrap;
+    > div {
+      width: 48%;
+    }
   `}
   ${media.greaterThan('lg')`
-    grid-template-columns: repeat(3, 33%);
-    gap: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1.5%;
+    > div {
+      width: 32%;
+    }
   `}
 `;
 
@@ -64,66 +62,103 @@ export function Gallery(props: GalleryProps) {
   const ref = useRef<HTMLDivElement>(null);
   const device = useDeviceType();
 
-  const intersectHeight = parseInt(device.getHeight(90).replace(/\D/g, ''));
+  // const intersectHeight = parseFloat(device.getHeight(90).replace(/\D/g, ''));
+  const intersectHeight = parseFloat(
+    device.getHeight(90).match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]
+  );
 
   const [loadMore, setLoadMore] = useState(true);
+  const [resultsComplete, setResultsComplete] = useState(false);
 
   const checkIfIntersecting = () => {
-    const pixels =
-      (ref.current &&
-        0 + ref.current?.clientHeight - window.scrollY - window.innerHeight) ||
-      intersectHeight;
+    if (!resultsComplete) {
+      const pixels =
+        (ref.current &&
+          0 +
+            ref.current?.clientHeight -
+            window.scrollY -
+            window.innerHeight) ||
+        intersectHeight;
 
-    if (pixels < intersectHeight) {
-      setLoadMore(true);
+      if (pixels < intersectHeight) {
+        setLoadMore(true);
+      }
     }
   };
 
   useEffect(() => {
-    if (SearchState.loadingStatus === 'loaded' && loadMore) {
+    // console.log(SearchState.totalPage);
+    // console.log(SearchState.ids.length);
+    if (SearchState.ids.length + 1 === SearchState.totalPage) {
+      setResultsComplete(true);
+    } else if (SearchState.loadingStatus === 'loaded' && loadMore) {
       dispatch(fetchSearch(SearchState));
       setLoadMore(false);
+      setResultsComplete(false);
     }
   }, [SearchState.loadingStatus, loadMore]);
 
   useLayoutEffect(() => {
-    document.addEventListener('scroll', throttle(checkIfIntersecting, 300));
+    document.addEventListener('scroll', throttle(checkIfIntersecting, 500));
   }, []);
 
   useEffect(() => {
     dispatch(fetchSearch(SearchState));
+    setResultsComplete(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [SearchState.filters, SearchState.searchQuery, SearchState.location]);
 
   const Desktop = useDeviceType().greaterThan('md');
   return (
     <StyledGallery>
-      <Container Row MarginBottom="3rem">
-        <Text H2={!Desktop} D6={Desktop} B>
-          {SearchState.location.type === 'City'
-            ? `Restaurants in ${SearchState.city}`
-            : `${SearchState.locality} Restaurants, ${SearchState.city}`}
-        </Text>
+      <Container CenterMA Width="calc(100 * var(--vw))">
+        <Container
+          Width={
+            (device.greaterThan('xl') && 'calc(70 * var(--vw) )') ||
+            (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
+            (device.lessThan('md') && '90%')
+          }
+          Column
+        >
+          <Container Row MarginBottom="3rem">
+            <Text H2={!Desktop} D6={Desktop} B>
+              {SearchState.location.type === 'City'
+                ? `Restaurants in ${SearchState.city}`
+                : `${SearchState.locality} Restaurants, ${SearchState.city}`}
+            </Text>
+          </Container>
+          <StyledGalleryGrid ref={ref}>
+            {Object.entries(SearchState.entities).map((resObj, index) => {
+              const res = resObj[1];
+              return (
+                res && (
+                  <RestaurantCard
+                    key={index}
+                    Id={res.id}
+                    Name={res.name}
+                    CostForTwo={res.cft}
+                    Cuisines={res.cuisines}
+                    Image={getImage(res.image)}
+                    DeliveryRating={res.rating.delivery}
+                    DiningRating={res.rating.dining}
+                  />
+                )
+              );
+            })}
+            {SearchState.loadingStatus === 'loading' &&
+              [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => {
+                return <RestaurantCard Skeleton key={i} />;
+              })}
+          </StyledGalleryGrid>
+          <Container CenterMA PaddingTop="8vh">
+            {resultsComplete && (
+              <Text D6 EB Color="Grey">
+                End of results!
+              </Text>
+            )}
+          </Container>
+        </Container>
       </Container>
-      <StyledGalleryGrid ref={ref}>
-        {Object.entries(SearchState.entities).map((resObj, index) => {
-          const res = resObj[1];
-          return (
-            res && (
-              <RestaurantCard
-                key={index}
-                Id={res.id}
-                Name={res.name}
-                CostForTwo={res.cft}
-                Cuisines={res.cuisines}
-                Image={getImage(res.image)}
-                DeliveryRating={res.rating.delivery}
-                DiningRating={res.rating.dining}
-              />
-            )
-          );
-        })}
-        {SearchState.loadingStatus === 'loading' && <Text>Skeleton Here</Text>}
-      </StyledGalleryGrid>
     </StyledGallery>
   );
 }

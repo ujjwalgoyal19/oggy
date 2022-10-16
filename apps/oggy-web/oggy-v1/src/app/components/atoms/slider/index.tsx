@@ -6,6 +6,7 @@ import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from 'react-icons/md';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 /* eslint-disable-next-line */
 export interface SliderProps {
   children: JSX.Element[];
@@ -44,6 +45,7 @@ const StyledSlider = styled.div`
 `;
 
 export function Slider(props: SliderProps) {
+  const device = useDeviceType();
   const sliderRef = useRef<HTMLDivElement>(null);
   const [showShadow, setShowShadow] = useState(false);
   const [atStart, setAtStart] = useState(true);
@@ -81,7 +83,7 @@ export function Slider(props: SliderProps) {
           </Container>
         </Container>
       </Container>
-      {(atStart && (
+      {(device.greaterThan('md') && atStart && (
         <Container
           ClickHandler={() => {
             sliderRef.current?.scroll(sliderRef.current.clientWidth, 0);
@@ -105,7 +107,7 @@ export function Slider(props: SliderProps) {
         </Container>
       )) ||
         null}
-      {(atEnd && (
+      {(device.greaterThan('md') && atEnd && (
         <Container
           Position={{ Type: 'absolute', Left: '0', Top: '0' }}
           style={{ transform: 'translateX(-50%)' }}

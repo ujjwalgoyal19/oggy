@@ -63,9 +63,12 @@ export interface SearchState extends EntityState<SearchEntity> {
   filters: FilterEntity[] | null;
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error: string | null;
+  list: any[];
 }
 
-export const searchAdapter = createEntityAdapter<SearchEntity>();
+export const searchAdapter = createEntityAdapter<SearchEntity>({
+  sortComparer: false,
+});
 
 export const fetchSearch = createAsyncThunk(
   'search/fetchStatus',
@@ -143,6 +146,7 @@ export const initialSearchState: SearchState = searchAdapter.getInitialState({
     id: 1,
     name: 'Jaipur',
   },
+  list: [],
   searchQuery: '',
   city: 'Jaipur',
   locality: null,
@@ -189,6 +193,7 @@ export const searchSlice = createSlice({
         fetchSearch.fulfilled,
         (state: SearchState, action: PayloadAction<any>) => {
           if (state.restart) {
+            state.list = action.payload.list;
             searchAdapter.setAll(state, action.payload.list);
             state.restart = false;
           } else {

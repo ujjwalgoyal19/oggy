@@ -5,8 +5,7 @@ import React from 'react';
 /* eslint-disable-next-line */
 export interface ContainerProps {
   Ref?: React.RefObject<HTMLDivElement>;
-  /*
-   * Flex Properties
+  /* Flex Properties
    * * Type of Container -> Row | Column
    * * Wrap Properties
    * * NoWrap
@@ -82,8 +81,7 @@ export interface ContainerProps {
   ScrollX?: boolean;
   ScrollY?: boolean;
 
-  /*
-   * Styles
+  /* * Styles
    * * Inline Styles
    * * Scroll Bar Styles -> Hide
    * * Elevation Styles -> Tint || L1 | L2 | L3
@@ -126,6 +124,9 @@ export interface ContainerProps {
 
   //* Event Handlers
   ClickHandler?: any;
+
+  // * Skeleton
+  Skeleton?: boolean;
 
   ClassName?: string;
   children?: string | JSX.Element | JSX.Element[] | null | any;
@@ -214,6 +215,7 @@ interface IContainer {
   OverflowHideY?: boolean;
   ScrollX?: boolean;
   ScrollY?: boolean;
+  Skeleton?: boolean;
 }
 
 const getHSL = (value: string) => {
@@ -333,7 +335,7 @@ const StyledContainer = styled.div<IContainer>`
       //* Overflow Behavior
       overflow-x: ${props.ScrollX && 'auto'};
       overflow-y: ${props.ScrollY && 'auto'};
-      overflow: ${props.OverflowHide && 'hidden'};
+      overflow: ${(props.OverflowHide || props.Shape) && 'hidden'};
       overflow-y: ${props.OverflowHideY && 'hidden'};
       overflow-x: ${props.OverflowHideX && 'hidden'};
 
@@ -418,6 +420,16 @@ const StyledContainer = styled.div<IContainer>`
           background-color: ${props.Hover.BG};
         }
       `}
+
+      ${props.Hover &&
+      css`
+        transition: box-shadow 0.2s ease;
+        border: 0.1rem solid rgb(255, 255, 255);
+        &:hover {
+          box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.1);
+          border-color: rgb(232, 232, 232);
+        }
+      `}
     `}
   
   ${(props) =>
@@ -431,6 +443,30 @@ const StyledContainer = styled.div<IContainer>`
         }
       `,
     }[props.ScrollStyle]};
+
+  ${(props) =>
+    props.Skeleton &&
+    css`
+      /* background-color: var(--light-grey-color); */
+      background-image: linear-gradient(
+        90deg,
+        #e2e2e2 0px,
+        #efefef 30px,
+        #e2e2e2 60px
+      );
+      background-size: calc(100% + 100%);
+      animation: refresh 1.2s infinite ease-out;
+
+      @keyframes refresh {
+        0% {
+          background-position: calc(100%);
+        }
+        60%,
+        100% {
+          background-position: -100%;
+        }
+      }
+    `};
 `;
 
 export function Container(props: ContainerProps) {
@@ -485,6 +521,7 @@ export function Container(props: ContainerProps) {
       Index={props.Index}
       StretchCA={props.StretchCA}
       StretchMA={props.StretchMA}
+      Skeleton={props.Skeleton}
       className={props.ClassName}
     >
       {props.children}

@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import Container from '../container';
 import Text from 'app/components/atoms/text';
-import { rootShouldForwardProp } from '@mui/material/styles/styled';
 
 /* eslint-disable-next-line */
 export interface TabBarProps {
@@ -27,17 +26,19 @@ const StyledTabBar = styled.div<ITabBar>`
     props.Vertical &&
     css`
       border-right: 2px solid #efefef;
+      & > hr {
+        height: 0.1px;
+        width: 100%;
+        background-color: #efefef;
+        margin: 0;
+        border-color: transparent;
+        border-radius: 0.7rem;
+        align-self: center;
+        z-index: 0;
+      }
     `};
-  & > hr {
-    height: 0.1px;
-    width: 100%;
-    background-color: #efefef;
-    margin: 0;
-    border-color: transparent;
-    border-radius: 0.7rem;
-    align-self: center;
-    z-index: 0;
-  }
+
+  ${(props) => props.Horizontal && css``}
 `;
 
 interface IStyledTab {
@@ -72,6 +73,9 @@ const StyledTab = styled.div<IStyledTab>`
       font-weight: 300;
       color: grey;
       flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 2rem;
       width: 12rem;
       & hr {
         height: 0.8px;

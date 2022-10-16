@@ -30,7 +30,7 @@ const StyledRestaurantPageTemplate = styled.div`
 export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
   const device = useDeviceType();
   const Sections = ['Overview', 'Offers', 'Reviews', 'Photos'];
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeSection, setActiveSection] = useState(1);
   const changeSectionHandler = (index: number) => {
     setActiveSection(index);
   };

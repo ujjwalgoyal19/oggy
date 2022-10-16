@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import {
   defaultBreakpoints,
   DefaultBreakpoints,
