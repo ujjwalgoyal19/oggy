@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
-import SearchBarHero from 'app/components/molecules/search-bar';
 import Image from 'app/components/atoms/image';
 import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import Container from 'app/components/atoms/container';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import Images from 'app/constants/images';
+import LocationSelector from 'app/components/molecules/location-selector';
+import Separator from 'app/components/atoms/separator';
+import SearchRestaurants from 'app/components/molecules/search-restaurants';
+import Text from 'app/components/atoms/text';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {
   Logo: string;
@@ -28,10 +30,7 @@ const StyledNavigationBar = styled.div<IStyledNavigationBar>`
 `;
 
 export function NavigationBar(props: NavigationBarProps) {
-  const device = useDeviceType();
-
   const location = useLocation();
-  const showSearchBar = location.pathname !== '/';
 
   if (
     location.pathname === '/login' ||
@@ -47,25 +46,50 @@ export function NavigationBar(props: NavigationBarProps) {
         <Container
           Row
           Width={
-            ((location.pathname = '/search') && 'calc(60 * var(--vw))') ||
-            (device.greaterThan('xl') && 'calc(70 * var(--vw) )') ||
-            (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
-            (device.lessThan('md') && '90%')
+            location.pathname === '/search'
+              ? 'var(--search-page-width)'
+              : 'var(--restaurant-page-width)'
           }
           SpaceBetweenMA
           CenterCA
         >
-          <Container Row Width="70%" Height="fit-content" Gap="5rem">
+          <Container Row Width="70%" Height="fit-content" Gap="5rem" CenterCA>
             <Link to="/">
               <Container Height="6rem" style={{ overflow: 'hidden' }}>
                 <Image Src={Images.Logo.Oggy} />
               </Container>
             </Link>
-            {showSearchBar ? <SearchBarHero TypeA /> : null}
+            <Container
+              Row
+              Width="65rem"
+              Height="4.5rem"
+              Border={{ Style: 'Solid', L2: true }}
+              Shape="CS0"
+              CenterCA
+              style={{ overflow: 'initial' }}
+            >
+              <Container Width="30%" Height="fit-content">
+                <LocationSelector Desktop Normal />
+              </Container>
+              <Container Width="fit-content" Height="60%">
+                <Separator Color="#ffffff" ColorType="light" Vertical />
+              </Container>
+              <Container Width="70%" Height="fit-content">
+                <SearchRestaurants Desktop />
+              </Container>
+            </Container>
           </Container>
           <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content">
-            <Link to="/login">Sign In</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/login">
+              <Text H4 N>
+                Log In
+              </Text>
+            </Link>
+            <Link to="/register">
+              <Text H4 Color="Primary" N>
+                Sign Up
+              </Text>
+            </Link>
           </Container>
         </Container>
       </Container>

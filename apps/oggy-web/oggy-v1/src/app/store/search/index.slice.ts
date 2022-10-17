@@ -19,6 +19,7 @@ export interface SearchEntity {
   cuisines: string | undefined;
   image: string | undefined;
   rating: any;
+  locality: string | undefined;
   id: number;
 }
 
@@ -97,6 +98,7 @@ export const fetchSearch = createAsyncThunk(
         cuisines: cuisines,
         cft: restaurant.cft ? restaurant.cft : '',
         image: restaurant.images.indexImage,
+        locality: `${restaurant.location.locality}, ${restaurant.location.city}`,
         rating: {
           delivery: [
             {

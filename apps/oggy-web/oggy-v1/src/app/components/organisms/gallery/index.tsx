@@ -1,14 +1,7 @@
 import RestaurantCard from 'app/components/molecules/restaurant-card';
-// import { useIntersectionObserver } from 'app/hooks/intersectionObserver.hook';
 import { fetchSearch } from 'app/store/search/index.slice';
 import { AppDispatch, RootState } from 'app/store';
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Text from 'app/components/atoms/text';
@@ -112,14 +105,7 @@ export function Gallery(props: GalleryProps) {
   return (
     <StyledGallery>
       <Container CenterMA Width="calc(100 * var(--vw))">
-        <Container
-          Width={
-            (device.greaterThan('xl') && 'calc(60 * var(--vw) )') ||
-            (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
-            (device.lessThan('md') && '90%')
-          }
-          Column
-        >
+        <Container Width="var(--search-page-width)" Column>
           <Container Row MarginBottom="1rem">
             <Text H1 B>
               {SearchState.location.type === 'City'
@@ -141,6 +127,7 @@ export function Gallery(props: GalleryProps) {
                     Image={getImage(res.image)}
                     DeliveryRating={res.rating.delivery}
                     DiningRating={res.rating.dining}
+                    Locality={res.locality}
                   />
                 )
               );

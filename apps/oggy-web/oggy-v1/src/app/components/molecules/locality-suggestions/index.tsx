@@ -9,6 +9,8 @@ export interface LocalitySuggestionsProps {
 }
 
 const StyledLocalitySuggestions = styled.div`
+  width: 100%;
+  height: fit-content;
   overflow-x: hidden;
 `;
 
@@ -32,7 +34,7 @@ export function LocalitySuggestions(props: LocalitySuggestionsProps) {
                   display: 'inline-block',
                   padding: '2rem',
                   width: '90%',
-                  borderBottom: '1px solid rgba(0,0,0,.1)',
+                  // borderBottom: '1px solid rgba(0,0,0,.1)',
                 }}
               >
                 <Text H4 N>

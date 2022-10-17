@@ -54,6 +54,36 @@ const GlobalStyles = createGlobalStyle`
 
   //* Shadow Types
 
+  //* Page Widths
+  //* Search Page
+  ${media.greaterThan('xss')`
+    --search-page-width: calc(90 * var(--vw));
+  `}
+  ${media.greaterThan('xl')`
+    --search-page-width: calc(80 * var(--vw));
+  `}
+  ${media.greaterThan('xxl')`
+    --search-page-width: calc(60 * var(--vw));
+  `}
+
+  //* Restaurant Page
+  ${media.greaterThan('xss')`
+    --restaurant-page-width: calc(90 * var(--vw));
+  `}
+  ${media.greaterThan('xl')`
+    --restaurant-page-width: calc(80 * var(--vw));
+  `}
+  ${media.greaterThan('xxl')`
+    --restaurant-page-width: calc(70 * var(--vw));
+  `}
+
+}
+
+
+//* Animations
+.blurApply {
+  transition: all 0.2s ease-in-out;
+  filter: blur(6px);
 }
 
 /**
@@ -83,6 +113,7 @@ body {
 
 .overflowHideY{
   overflow-y: hidden !important;
+  ${media.greaterThan('md')`padding-right: 15px;`}
 }
 
 .willChange {

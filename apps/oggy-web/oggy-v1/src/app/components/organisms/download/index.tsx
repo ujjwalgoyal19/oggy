@@ -43,10 +43,10 @@ export function Download(props: DownloadProps) {
               Download our app
             </Text>
           )}
-          <Container Width={device.greaterThan('md') && '40%'}>
+          <Container Width={device.greaterThan('md') && '60%'}>
             <Text H3 N Color="LightGrey" style={{ textAlign: 'center' }}>
               Find the experience of your best restaurant in cheapest prices,
-              never let your wallet stop you from best food in your city.
+              never let your wallet stop you.
             </Text>
           </Container>
         </Container>

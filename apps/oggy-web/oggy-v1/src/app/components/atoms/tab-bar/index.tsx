@@ -6,6 +6,7 @@ import Text from 'app/components/atoms/text';
 export interface TabBarProps {
   Vertical?: boolean;
   Horizontal?: boolean;
+  Size?: string;
   Sections: string[];
   ActiveSection: number;
   ChangeSection: (section: number) => void;
@@ -14,6 +15,7 @@ export interface TabBarProps {
 interface ITabBar {
   Vertical?: boolean;
   Horizontal?: boolean;
+  Size?: string;
 }
 
 const StyledTabBar = styled.div<ITabBar>`
@@ -22,6 +24,12 @@ const StyledTabBar = styled.div<ITabBar>`
   height: 100%;
   flex-direction: column-reverse;
   align-items: center;
+  font-size: 1.9rem;
+  ${(props) =>
+    props.Size &&
+    css`
+      font-size: ${props.Size};
+    `}
   ${(props) =>
     props.Vertical &&
     css`
@@ -38,7 +46,20 @@ const StyledTabBar = styled.div<ITabBar>`
       }
     `};
 
-  ${(props) => props.Horizontal && css``}
+  ${(props) =>
+    props.Horizontal &&
+    css`
+      & > hr {
+        height: 0.1px;
+        width: 100%;
+        background-color: #efefef;
+        margin: 0;
+        border-color: transparent;
+        border-radius: 0.7rem;
+        align-self: center;
+        z-index: 0;
+      }
+    `}
 `;
 
 interface IStyledTab {
@@ -69,8 +90,6 @@ const StyledTab = styled.div<IStyledTab>`
   ${(props) =>
     props.Horizontal &&
     css`
-      font-size: 1.9rem;
-      font-weight: 300;
       color: grey;
       flex-direction: column;
       justify-content: flex-end;
@@ -105,7 +124,11 @@ const StyledTab = styled.div<IStyledTab>`
 
 export function TabBar(props: TabBarProps) {
   return (
-    <StyledTabBar Vertical={props.Vertical} Horizontal={props.Horizontal}>
+    <StyledTabBar
+      Vertical={props.Vertical}
+      Horizontal={props.Horizontal}
+      Size={props.Size}
+    >
       <hr />
       <Container
         MarginBottom="-2px"
@@ -137,7 +160,6 @@ export function TabBar(props: TabBarProps) {
                       ? '#faa519'
                       : 'rgb(105, 105, 105)'
                   }
-                  H3
                   N
                 >
                   {section}

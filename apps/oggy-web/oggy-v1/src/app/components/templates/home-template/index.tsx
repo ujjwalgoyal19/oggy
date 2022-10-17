@@ -9,6 +9,7 @@ import Container from 'app/components/atoms/container';
 import Images from 'app/constants/images';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import { Link } from 'react-router-dom';
+import Text from 'app/components/atoms/text';
 
 /* eslint-disable-next-line */
 export interface HomeProps {
@@ -59,8 +60,16 @@ const HomeTemplate = (props: HomeProps) => {
             Width="fit-content"
             Height="fit-content"
           >
-            <Link to="/login">Sign In</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/login">
+              <Text H4 N>
+                Log In
+              </Text>
+            </Link>
+            <Link to="/register">
+              <Text H4 Color="Primary" N>
+                Sign Up
+              </Text>
+            </Link>
           </Container>
         </Container>
       </Container>

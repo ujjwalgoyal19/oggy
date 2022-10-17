@@ -18,7 +18,7 @@ const StyledFooter = styled.div`
 
 export function Footer(props: FooterProps) {
   const location = useLocation();
-  if (location.pathname === '/') return null;
+  if (location.pathname === '/') return <div></div>;
   return (
     <StyledFooter>
       <Container Column CenterCA PaddingBottom="2rem">

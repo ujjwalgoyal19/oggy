@@ -27,7 +27,7 @@ export function Overview(props: OverviewProps) {
   const device = useDeviceType();
   return (
     <StyledOverview>
-      <Container Row MarginTop="3rem">
+      <Container Row>
         <Container
           Width={(device.greaterThan('md') && '60%') || '100%'}
           Column

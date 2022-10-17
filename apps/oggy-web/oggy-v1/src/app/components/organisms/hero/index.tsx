@@ -6,6 +6,7 @@ import media from 'app/hooks/styledMediaQuery.hook';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import SearchRestaurants from 'app/components/molecules/search-restaurants';
 import LocationSelector from 'app/components/molecules/location-selector';
+import Separator from 'app/components/atoms/separator';
 /* eslint-disable-next-line */
 export interface HeroProps {
   Heading: string;
@@ -43,13 +44,29 @@ export function Hero(props: HeroProps) {
             Width="fit-content"
             Padding={device.lessThan('md') && '0rem 4rem'}
           >
-            <Text H4 L style={{ textAlign: 'center' }}>
+            <Text H4 N style={{ textAlign: 'center' }}>
               {props.SubHeading}
             </Text>
           </Container>
           {device.greaterThan('md') && (
-            <Container Row Width="65rem" Height="4.5rem">
-              <SearchBarHero TypeA />
+            <Container
+              Row
+              Width="65rem"
+              Height="4.5rem"
+              Border={{ Style: 'Solid', L2: true }}
+              Shape="CS0"
+              CenterCA
+              style={{ overflow: 'initial' }}
+            >
+              <Container Width="30%" Height="fit-content">
+                <LocationSelector Desktop Normal />
+              </Container>
+              <Container Width="fit-content" Height="60%">
+                <Separator Color="#ffffff" ColorType="light" Vertical />
+              </Container>
+              <Container Width="70%" Height="fit-content">
+                <SearchRestaurants Desktop />
+              </Container>
             </Container>
           )}
           {device.lessThan('md') && (

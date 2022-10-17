@@ -2,7 +2,6 @@ import Container from 'app/components/atoms/container';
 import Rating from 'app/components/atoms/rating';
 import Section from 'app/components/atoms/section';
 import TabBar from 'app/components/atoms/tab-bar';
-import ImageGallery from 'app/components/organisms/image-gallery';
 import Review from 'app/components/organisms/review';
 import Offers from 'app/components/organisms/offers';
 import Overview from 'app/components/organisms/overview';
@@ -39,10 +38,15 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
   }, []);
   return (
     <StyledRestaurantPageTemplate>
-      <Section Width="100%" Sticky BackgroundColor="white">
-        <Section
-          Width={(device.greaterThan('md') && '70%') || '90%'}
-          MarginBottom="2rem"
+      <Container Column Width="calc(100 * var(--vw))" CenterCA>
+        <Container
+          Column
+          CenterCA
+          CenterMA
+          BG="white"
+          Width="var(--restaurant-page-width)"
+          Position={{ Type: 'sticky', Top: '0' }}
+          Index={2}
         >
           <Container Row SpaceBetweenMA PaddingTop="3rem">
             <Container Column>
@@ -76,7 +80,7 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
                     )}
                   />
                   <Container Column>
-                    <Text H4 B>
+                    <Text H5 N>
                       {RatingAggregation(props.Data.delivery_rating, 'reviews')}
                     </Text>
                     <Text H5 Muted>
@@ -90,7 +94,7 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
                     Rating={RatingAggregation(props.Data.dining_rating)}
                   />
                   <Container Column>
-                    <Text H4 B>
+                    <Text H5 B>
                       {RatingAggregation(props.Data.dining_rating, 'reviews')}
                     </Text>
                     <Text H5 Muted>
@@ -109,52 +113,58 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
               ChangeSection={changeSectionHandler}
             />
           </Container>
-        </Section>
-      </Section>
-      <Section
-        Width={(device.greaterThan('md') && '70%') || '90%'}
-        MarginBottom="20rem"
-        MarginTop="5rem"
-      >
-        {{
-          0: (
-            <Overview
-              Data={props.Data}
-              Features={
-                props.Data.about.features.length > 0 &&
-                props.Data.about.features
-              }
-              PeopleLiked={
-                props.Data.about.people_liked.length > 0 &&
-                props.Data.about.people_liked
-              }
-              TopTags={
-                props.Data.about.top_tags.length > 0 &&
-                props.Data.about.top_tags
-              }
-              TopDishes={
-                props.Data.about.top_dishes.length > 0 &&
-                props.Data.about.top_dishes
-              }
-              CFT={props.Data.cft && props.Data.cft}
-            />
-          ),
-          1: <Offers Offers={props.Data.offer_details} />,
-          2: (
-            <Review
-              Reviews={{
-                dining: RatingArrayCreate(props.Data.dining_rating),
-                delivery: RatingArrayCreate(props.Data.delivery_rating),
-              }}
-              // Reviews={RatingArrayCreate(
-              //   props.Data.dining_rating,
-              //   props.Data.delivery_rating
-              // )}
-            />
-          ),
-          3: <Photos Image={props.Data.images.all} />,
-        }[activeSection] || <Overview Data={props.Data} />}
-      </Section>
+        </Container>
+        <Container
+          Column
+          Width="var(--restaurant-page-width)"
+          MarginBottom="20rem"
+          MarginTop="5rem"
+        >
+          {{
+            0: (
+              <Overview
+                Data={props.Data}
+                Features={
+                  props.Data.about.features.length > 0 &&
+                  props.Data.about.features
+                }
+                PeopleLiked={
+                  props.Data.about.people_liked.length > 0 &&
+                  props.Data.about.people_liked
+                }
+                TopTags={
+                  props.Data.about.top_tags.length > 0 &&
+                  props.Data.about.top_tags
+                }
+                TopDishes={
+                  props.Data.about.top_dishes.length > 0 &&
+                  props.Data.about.top_dishes
+                }
+                CFT={props.Data.cft && props.Data.cft}
+              />
+            ),
+            1: (
+              <Offers
+                Offers={props.Data.offer_details}
+                Links={props.Data.restaurant_mapped_url}
+              />
+            ),
+            2: (
+              <Review
+                Reviews={{
+                  dining: RatingArrayCreate(props.Data.dining_rating),
+                  delivery: RatingArrayCreate(props.Data.delivery_rating),
+                }}
+                // Reviews={RatingArrayCreate(
+                //   props.Data.dining_rating,
+                //   props.Data.delivery_rating
+                // )}
+              />
+            ),
+            3: <Photos Image={props.Data.images.all} />,
+          }[activeSection] || <Overview Data={props.Data} />}
+        </Container>
+      </Container>
     </StyledRestaurantPageTemplate>
   );
 }

@@ -138,19 +138,28 @@ const Locality = (props: LocalityProps) => {
                           <Container
                             Row
                             Width="fit-content"
-                            CenterCA
                             Height="fit-content"
+                            CenterCA
+                            CenterMA
+                            Gap=".3rem"
                           >
-                            <Container Height="1rem" Width="auto">
+                            <Container Height="1.2rem" Width="auto">
                               <Image
                                 Width="100%"
                                 Height="100%"
-                                Src={Images.Logo.Oggy}
+                                Src={Images.Logo.OggyMark}
                               />
                             </Container>
-                            <Text H6 B Color="black">
-                              Locality
-                            </Text>
+                            <Container Width="fit-content" Height="fit-content">
+                              <Text
+                                H6
+                                B
+                                Color="black"
+                                style={{ lineHeight: '1rem' }}
+                              >
+                                Locality
+                              </Text>
+                            </Container>
                           </Container>
                         </Container>
                         <Container Height="fit-content" MarginBottom="0.4rem">

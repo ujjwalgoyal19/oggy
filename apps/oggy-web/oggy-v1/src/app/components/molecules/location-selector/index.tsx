@@ -7,13 +7,11 @@ import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { RootState } from 'app/store';
 import { Capitalize } from 'app/utils';
-import { Portal } from '@mui/material';
 import Modal from 'app/components/atoms/modal';
 import { IoIosArrowDown } from 'react-icons/io';
 import { AutocompleteAPI } from 'app/service/autocomplete.service';
 import LocalitySuggestions from '../locality-suggestions';
 import { searchActions } from 'app/store/search/index.slice';
-import { FiSearch } from 'react-icons/fi';
 import Input from 'app/components/atoms/input';
 /* eslint-disable-next-line */
 export interface LocationSelectorProps {
@@ -25,6 +23,7 @@ export interface LocationSelectorProps {
 
 const StyledLocationSelector = styled.div`
   width: 100%;
+  position: relative;
 `;
 
 export function LocationSelector(props: LocationSelectorProps) {
@@ -55,7 +54,7 @@ export function LocationSelector(props: LocationSelectorProps) {
     };
   }, [formik.values.location]);
 
-  const locationHandler = (value: any) => {
+  const ChangeLocationHandler = (value: any) => {
     dispatch(
       searchActions.changeLocation({
         type: value.loc_type,
@@ -63,6 +62,13 @@ export function LocationSelector(props: LocationSelectorProps) {
         name: value.loc_name,
       })
     );
+    formik.setValues({ location: '' });
+    setModalState(false);
+  };
+
+  const CloseHandler = () => {
+    setModalState(false);
+    formik.setValues({ location: '' });
   };
 
   return (
@@ -86,7 +92,7 @@ export function LocationSelector(props: LocationSelectorProps) {
       {props.Normal && (
         <div onClick={() => setModalState(true)} style={{ width: '100%' }}>
           <Container
-            BG="#eeeeee"
+            BG={(props.Mobile && '#eeeeee') || 'transparent'}
             CenterCA
             Padding="1rem"
             Gap="1rem"
@@ -99,7 +105,7 @@ export function LocationSelector(props: LocationSelectorProps) {
                 Id: 'location',
                 Name: 'location',
                 Placeholder: Capitalize(Location.name),
-                Value: Capitalize(Location.name),
+                Value: formik.values.location,
                 ChangeHandler: formik.handleChange,
                 Disable: props.Mobile,
               }}
@@ -111,7 +117,7 @@ export function LocationSelector(props: LocationSelectorProps) {
 
       {props.Mobile && (
         <Modal
-          Close={() => setModalState(false)}
+          Close={CloseHandler}
           Open={modalState}
           Animation="GrowFromBottom"
         >
@@ -126,10 +132,7 @@ export function LocationSelector(props: LocationSelectorProps) {
             OverflowHide
           >
             <Container Height="fit-content" EndMA>
-              <div
-                onClick={() => setModalState(false)}
-                style={{ height: 'fit-content' }}
-              >
+              <div onClick={CloseHandler} style={{ height: 'fit-content' }}>
                 <IoIosArrowDown size="2rem" />
               </div>
             </Container>
@@ -163,18 +166,46 @@ export function LocationSelector(props: LocationSelectorProps) {
               <Container Column>
                 <LocalitySuggestions
                   Data={suggestions}
-                  ChangeHandler={(value) => {
-                    locationHandler(value);
-                    formik.setValues({
-                      location: '',
-                    });
-                    setModalState(false);
-                  }}
+                  ChangeHandler={ChangeLocationHandler}
                 />
               </Container>
             </Container>
           </Container>
         </Modal>
+      )}
+
+      {props.Desktop && formik.values.location.length > 0 && (
+        <>
+          <Container
+            Position={{
+              Type: 'fixed',
+              Top: '0',
+              Bottom: '0',
+              Right: '0',
+              Left: '0',
+            }}
+            ClickHandler={CloseHandler}
+            Index={2}
+          />
+          <Container
+            Column
+            Width="20rem"
+            MaxHeight="100rem"
+            Height="fit-content"
+            BG="white"
+            Elevation={{ L1: true }}
+            Border={{ Style: 'Solid', L1: true }}
+            ScrollY
+            ScrollStyle="Hide"
+            Position={{ Type: 'absolute', Top: '120%' }}
+            Index={3}
+          >
+            <LocalitySuggestions
+              Data={suggestions}
+              ChangeHandler={ChangeLocationHandler}
+            />
+          </Container>
+        </>
       )}
     </StyledLocationSelector>
   );

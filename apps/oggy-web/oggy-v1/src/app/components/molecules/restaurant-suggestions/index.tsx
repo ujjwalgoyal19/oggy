@@ -10,6 +10,7 @@ export interface RestaurantSuggestionsProps {
 }
 
 const StyledRestaurantSuggestions = styled.div`
+  width: 100%;
   padding: 1rem 0;
 `;
 

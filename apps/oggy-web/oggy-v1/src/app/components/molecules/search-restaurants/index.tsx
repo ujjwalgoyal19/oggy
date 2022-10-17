@@ -3,8 +3,6 @@ import Input from 'app/components/atoms/input';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
-// import { GrFormClose } from 'react-icons/gr';
-// import { AiOutlineCloseCircle, AiFillCloseCircle } from 'react-icons/ai';
 import { IoIosArrowDown } from 'react-icons/io';
 import Modal from 'app/components/atoms/modal';
 import { useEffect, useState } from 'react';
@@ -24,6 +22,7 @@ export interface SearchRestaurantsProps {
 const StyledSearchRestaurants = styled.div`
   width: 100%;
   height: 100%;
+  position: relative;
 `;
 
 export function SearchRestaurants(props: SearchRestaurantsProps) {
@@ -59,12 +58,17 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
     };
   }, [formik.values.search]);
 
+  const CloseHandler = () => {
+    setModalState(false);
+    formik.setValues({ search: '' });
+  };
+
   return (
     <StyledSearchRestaurants>
       <Container Column CenterCA>
         <div onClick={() => setModalState(true)} style={{ width: '100%' }}>
           <Container
-            BG="#eeeeee"
+            BG={(props.Mobile && '#eeeeee') || 'transparent'}
             CenterCA
             Padding="1rem"
             Gap="1rem"
@@ -153,7 +157,37 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
           </Container>
         </Modal>
       )}
-      {props.Desktop && <Container></Container>}
+      {props.Desktop && formik.values.search.length > 0 && (
+        <>
+          <Container
+            Position={{
+              Type: 'fixed',
+              Top: '0',
+              Bottom: '0',
+              Right: '0',
+              Left: '0',
+            }}
+            ClickHandler={CloseHandler}
+            Index={2}
+          />
+          <Container
+            Column
+            Width="45rem"
+            MaxHeight="calc(30 * var(--vh))"
+            Height="fit-content"
+            BG="white"
+            Elevation={{ L1: true }}
+            Border={{ Style: 'Solid', L1: true }}
+            ScrollY
+            ScrollStyle="Hide"
+            Position={{ Type: 'absolute', Top: '120%' }}
+            Index={3}
+            ClickHandler={CloseHandler}
+          >
+            <RestaurantSuggestions Data={suggestions} />
+          </Container>
+        </>
+      )}
     </StyledSearchRestaurants>
   );
 }

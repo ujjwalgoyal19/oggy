@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import Filters from 'app/components/organisms/filters';
 import Gallery from 'app/components/organisms/gallery';
 import Container from 'app/components/atoms/container';
-import media from 'app/hooks/styledMediaQuery.hook';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
@@ -15,11 +14,7 @@ export interface SearchResultTemplateProps {}
 const StyledSearchResultTemplate = styled.div`
   min-height: 100vh;
   margin-bottom: 20vh;
-  /* background-color: #f6f6f6; */
   background-color: white;
-  ${media.greaterThan('md')`
-    background-color: white;
-  `}
 `;
 
 export function SearchResultTemplate(props: SearchResultTemplateProps) {
@@ -37,20 +32,14 @@ export function SearchResultTemplate(props: SearchResultTemplateProps) {
           }
           CenterMA
           BG="White"
-          Index={100}
+          Index={2}
         >
-          <Container
-            Width={
-              (device.greaterThan('xl') && 'calc(60 * var(--vw) )') ||
-              (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
-              (device.lessThan('md') && '90%')
-            }
-          >
+          <Container Width="var(--search-page-width)">
             <Filters />
           </Container>
         </Container>
       )}
-      <Container Column CenterCA Index={99} MarginTop="2rem">
+      <Container Column CenterCA Index={1} MarginTop="2rem">
         <Gallery />
       </Container>
     </StyledSearchResultTemplate>

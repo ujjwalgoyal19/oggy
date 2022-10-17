@@ -13,49 +13,36 @@ export interface RatingProps {
   Large?: boolean;
 }
 
-interface IStyledRating {
-  Color: string;
-  Small?: boolean;
-  Large?: boolean;
-}
-
-const StyledRating = styled.div<IStyledRating>`
-  background-color: ${(props) => props.Color};
-  ${(props) =>
-    props.Small &&
-    css`
-      padding: 4px;
-      border-radius: 0.4rem;
-      --gap-rating: 0.4rem;
-    `}
-  ${(props) =>
-    props.Large &&
-    css`
-      padding: 5px;
-      border-radius: 0.8rem;
-      --gap-rating: 0.7rem;
-    `}
-`;
+const StyledRating = styled.div``;
 
 export function Rating(props: RatingProps) {
   return (
-    <StyledRating
-      Color={GetRatingColor(props.Rating)}
-      Small={props.Small}
-      Large={props.Large}
-    >
+    <StyledRating>
       <Container CenterMA>
         <Container
           Row
           CenterCA
           SpaceBetweenMA
-          Gap="var(--gap-rating)"
-          Width="fit-content"
+          // Width="50px"
+          Padding="5px 8px"
+          Shape="CS0"
+          Gap="6px"
+          BG={GetRatingColor(props.Rating)}
         >
-          <Text Color="white" style={{ fontWeight: 700 }} H5>
-            {props.Rating.toString()}
-          </Text>
-          <AiFillStar color="white" size="10px" />
+          <Container CenterMA Width="20px">
+            {(props.Small && (
+              <Text Color="white" style={{ fontWeight: 700 }} H5>
+                {props.Rating.toString()}
+              </Text>
+            )) || (
+              <Text Color="white" style={{ fontWeight: 700 }} H4>
+                {props.Rating.toString()}
+              </Text>
+            )}
+          </Container>
+          <Container Width="fit-content">
+            <AiFillStar color="white" size="14px" />
+          </Container>
         </Container>
       </Container>
     </StyledRating>

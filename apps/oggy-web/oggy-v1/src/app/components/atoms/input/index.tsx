@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import Text from '../text';
 
 /* eslint-disable-next-line */
 export interface InputProps {
@@ -46,14 +47,6 @@ export interface IInput {
   Radio?: boolean;
   Text?: boolean;
   Password?: boolean;
-  Dropdown?: {
-    Modal?: {
-      Width: string;
-      Height: string;
-    };
-    Screen?: boolean;
-  };
-
   Small?: boolean;
   Medium?: boolean;
   Large?: boolean;
@@ -74,31 +67,13 @@ const StyledInput = styled.div<IInput>`
     height: 100%;
     border: none;
     outline: none;
-    background-color: #eeeeee;
+    background-color: transparent;
     font-weight: 600;
     &::placeholder {
       color: #2c3333;
       font-weight: 600;
     }
   }
-
-  ${(props) =>
-    props.Dropdown &&
-    css`
-      position: relative;
-    `}
-
-  ${(props) =>
-    props.Dropdown &&
-    css`
-      & input[type='text'] {
-        border: none;
-        width: 100%;
-        &:focus {
-          outline: none;
-        }
-      }
-    `}
 
   ${(props) =>
     props.Checkbox &&
@@ -156,63 +131,10 @@ const StyledInput = styled.div<IInput>`
     `}
 `;
 
-interface IDropList {
-  Visible?: boolean;
-  Width?: string;
-  Height?: string;
-}
-
-const DropList = styled.div<IDropList>`
-  overflow-y: auto;
-  background-color: white;
-  border-radius: 0.6rem;
-  border: 0.1rem solid rgb(232, 232, 232);
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.04);
-  height: fit-content;
-  width: ${(props) => props.Width};
-  max-height: ${(props) => props.Height};
-  position: absolute;
-  margin-top: 3rem;
-  top: 100%;
-  left: -2rem;
-  transform: scale(0);
-  transform-origin: top;
-  transition: 125ms transform ease;
-  z-index: 10000;
-  ${(props) =>
-    props.Visible &&
-    css`
-      transform: scale(1);
-    `};
-`;
-
-const Modal = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-`;
-
 export function Input(props: InputProps) {
-  const [value, setValue] = useState(props.Value);
-  const [event, setEvent] = useState<any>(null);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (event) {
-        props.ChangeHandler(event);
-      }
-    }, 200);
-    return () => clearTimeout(timer);
-  }, [value]);
-  const [visible, setVisible] = useState(false);
   const [checked, setChecked] = useState(props.Active);
   return (
-    <StyledInput
-      Checkbox={props.Checkbox}
-      Dropdown={props.Dropdown}
-      Active={checked}
-    >
+    <StyledInput Checkbox={props.Checkbox} Active={checked}>
       {props.Checkbox && (
         <form>
           <input
@@ -231,7 +153,9 @@ export function Input(props: InputProps) {
               setChecked(!checked);
             }}
           >
-            {props.Label}
+            <Text H4 N>
+              {props.Label}
+            </Text>
           </label>
         </form>
       )}
@@ -247,38 +171,6 @@ export function Input(props: InputProps) {
           disabled={props.TextNew.Disable}
           autoComplete="off"
         />
-      )}
-      {props.Dropdown && props.Dropdown.Modal && props.children && (
-        <>
-          <input
-            type="text"
-            id={props.Id}
-            name={props.Name}
-            placeholder={props.Placeholder}
-            onChange={(e) => {
-              setValue(e.target.value);
-              setEvent(e);
-            }}
-            onFocus={() => {
-              setVisible(true);
-              setValue('');
-            }}
-            onBlur={() => {
-              setValue(props.Value);
-            }}
-            autoComplete="off"
-            value={value}
-          />
-          {visible && <Modal onClick={() => setVisible(false)}></Modal>}
-          <DropList
-            Visible={visible}
-            Width={props.Dropdown.Modal.Width}
-            Height={props.Dropdown.Modal.Height}
-            onClick={() => setVisible(false)}
-          >
-            {props.children}
-          </DropList>
-        </>
       )}
     </StyledInput>
   );

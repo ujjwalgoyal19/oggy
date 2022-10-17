@@ -447,23 +447,23 @@ const StyledContainer = styled.div<IContainer>`
   ${(props) =>
     props.Skeleton &&
     css`
-      /* background-color: var(--light-grey-color); */
-      background-image: linear-gradient(
-        90deg,
-        #e2e2e2 0px,
-        #efefef 30px,
-        #e2e2e2 60px
-      );
-      background-size: calc(100% + 100%);
-      animation: refresh 1.2s infinite ease-out;
+      will-change: background-position-x;
+      --loading-grey: #ededed;
+      background-color: var(--loading-grey);
+      background: linear-gradient(
+          100deg,
+          rgba(255, 255, 255, 0) 40%,
+          rgba(255, 255, 255, 0.5) 50%,
+          rgba(255, 255, 255, 0) 60%
+        )
+        var(--loading-grey);
+      background-size: 200% 100%;
+      background-position-x: 180%;
+      animation: 1s loading ease-in-out infinite;
 
-      @keyframes refresh {
-        0% {
-          background-position: calc(100%);
-        }
-        60%,
-        100% {
-          background-position: -100%;
+      @keyframes loading {
+        to {
+          background-position-x: -20%;
         }
       }
     `};

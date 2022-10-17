@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import Text from 'app/components/atoms/text';
 
 /* eslint-disable-next-line */
 export interface RadioOptionPickerProps {
@@ -19,10 +20,6 @@ interface StyledRadio {
 }
 
 const StyledRadio = styled.label<StyledRadio>`
-  font-family: inherit;
-  font-size: 1.9rem;
-  font-weight: 400;
-  line-height: 1.1;
   display: grid;
   grid-template-columns: 1em auto;
   gap: 2rem;
@@ -47,7 +44,9 @@ export function RadioOptionPicker(props: RadioOptionPickerProps) {
                 props.ChangeSelectedOption(index);
               }}
             />
-            {option}
+            <Text H4 N>
+              {option}
+            </Text>
           </StyledRadio>
         );
       })}

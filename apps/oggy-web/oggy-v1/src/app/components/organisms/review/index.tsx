@@ -1,6 +1,7 @@
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
 import Star from 'app/graphics/star.graphic';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import { GetRatingColor, GetVendorColor, GetVendorImage } from 'app/utils';
 import { AiFillStar } from 'react-icons/ai';
 import styled from 'styled-components';
@@ -13,29 +14,52 @@ export interface ReviewProps {
 const StyledReview = styled.div``;
 
 export function Review(props: ReviewProps) {
+  const device = useDeviceType();
   return (
     <StyledReview>
-      <Container Column Height="fit-content" Gap="10vh">
-        {props.Reviews.delivery.length > 0 && (
-          <Container Column>
-            <Container Row Width="fit-content" MarginBottom="3rem" CenterCA>
-              <Text Color="Grey" H1 EB>
-                Delivery
-              </Text>
-            </Container>
-            <Container Row Height="100%" CenterCA Gap="15%">
+      <Container
+        Row={device.greaterThan('md')}
+        Column={device.lessThan('md')}
+        Height="fit-content"
+        Gap="5rem"
+      >
+        <Container
+          Column
+          BG="White"
+          Padding="3rem"
+          Shape="CS2"
+          Border={{ L1: true, Style: 'Solid' }}
+          Elevation={{ L1: true }}
+        >
+          <Container Row Width="fit-content" MarginBottom="3rem" CenterCA>
+            <Text Color="Grey" H1 EB>
+              Delivery
+            </Text>
+          </Container>
+          {(props.Reviews.delivery.length > 0 && (
+            <Container
+              Row
+              Height="100%"
+              CenterCA
+              Gap="4rem"
+              ScrollX
+              ScrollStyle="Hide"
+              PaddingBottom="2rem"
+            >
               {props.Reviews.delivery.map((review: any) => {
                 return (
                   <Container
                     Column
-                    Height="max(21rem, calc(20 * var(--vh)))"
-                    SpaceBetweenMA
-                    Width="30rem"
+                    Height="fit-content"
+                    Width="fit-content"
                     Shape="CS2"
                     Border={{ Style: 'Dashed', Color: 'Grey', L2: true }}
-                    Padding="3rem"
+                    Padding="5rem"
+                    CenterCA
+                    Position={{ Type: 'relative' }}
+                    style={{ overflow: 'initial' }}
                   >
-                    <Container Column Gap=".5rem">
+                    <Container Column Gap=".5rem" Height="fit-content" CenterCA>
                       <Container Height="fit-content" Row CenterCA Gap="1rem">
                         <Text
                           D5
@@ -48,17 +72,31 @@ export function Review(props: ReviewProps) {
                           {review.rating ? review.rating : '-'}
                         </Text>
                         {review.rating && (
-                          <AiFillStar color={GetRatingColor(review.rating)} />
+                          <AiFillStar
+                            color={GetRatingColor(review.rating)}
+                            size="28px"
+                          />
                         )}
                       </Container>
-                      <Text H3 N Color="Grey">
+                      <Text H5 B Color="Grey">
                         {review.count
                           ? review.count + ' reviews'
                           : 'No reviews'}
                       </Text>
                     </Container>
-                    <Container Height="fit-content" EndMA>
-                      <Container Height="1.6rem" Width="fit-content">
+                    <Container
+                      Height="fit-content"
+                      Width="fit-content"
+                      BG="White"
+                      Position={{
+                        Type: 'absolute',
+                        Bottom: '0',
+                        Right: '10px',
+                      }}
+                      style={{ transform: 'translateY(50%)' }}
+                      Padding="1rem"
+                    >
+                      <Container Height="10px" Width="auto">
                         {GetVendorImage(review.vendor)}
                       </Container>
                     </Container>
@@ -66,28 +104,45 @@ export function Review(props: ReviewProps) {
                 );
               })}
             </Container>
+          )) || <Text H4>Not available for delivery on any platform</Text>}
+        </Container>
+        <Container
+          Column
+          BG="White"
+          Border={{ Style: 'Solid', L1: true }}
+          Elevation={{ L1: true }}
+          Padding="3rem"
+          Shape="CS2"
+        >
+          <Container Row Width="fit-content" MarginBottom="3rem" CenterCA>
+            <Text Color="Grey" H1 EB>
+              Dining
+            </Text>
           </Container>
-        )}
-        {props.Reviews.dining.length > 0 && (
-          <Container Column>
-            <Container Row Width="fit-content" MarginBottom="3rem" CenterCA>
-              <Text Color="Grey" H1 EB>
-                Dining
-              </Text>
-            </Container>
-            <Container Row Height="100%" CenterCA Gap="15%">
+          {(props.Reviews.dining.length > 0 && (
+            <Container
+              Row
+              Height="100%"
+              CenterCA
+              Gap="4rem"
+              ScrollX
+              ScrollStyle="Hide"
+              PaddingBottom="2rem"
+            >
               {props.Reviews.dining.map((review: any) => {
                 return (
                   <Container
                     Column
-                    Height="max(21rem, calc(20 * var(--vh)))"
-                    SpaceBetweenMA
-                    Width="30rem"
+                    Height="fit-content"
+                    Width="fit-content"
                     Shape="CS2"
                     Border={{ Style: 'Dashed', Color: 'Grey', L2: true }}
-                    Padding="3rem"
+                    Padding="5rem"
+                    CenterCA
+                    Position={{ Type: 'relative' }}
+                    style={{ overflow: 'initial' }}
                   >
-                    <Container Column Gap=".5rem">
+                    <Container Column Gap=".5rem" Height="fit-content" CenterCA>
                       <Container Height="fit-content" Row CenterCA Gap="1rem">
                         <Text
                           D5
@@ -100,17 +155,31 @@ export function Review(props: ReviewProps) {
                           {review.rating ? review.rating : '-'}
                         </Text>
                         {review.rating && (
-                          <AiFillStar color={GetRatingColor(review.rating)} />
+                          <AiFillStar
+                            color={GetRatingColor(review.rating)}
+                            size="28px"
+                          />
                         )}
                       </Container>
-                      <Text H3 N Color="Grey">
+                      <Text H5 B Color="Grey">
                         {review.count
                           ? review.count + ' reviews'
                           : 'No reviews'}
                       </Text>
                     </Container>
-                    <Container Height="fit-content" EndMA>
-                      <Container Height="1.6rem" Width="fit-content">
+                    <Container
+                      Height="fit-content"
+                      Width="fit-content"
+                      BG="White"
+                      Position={{
+                        Type: 'absolute',
+                        Bottom: '0',
+                        Right: '10px',
+                      }}
+                      style={{ transform: 'translateY(50%)' }}
+                      Padding="1rem"
+                    >
+                      <Container Height="10px" Width="auto">
                         {GetVendorImage(review.vendor)}
                       </Container>
                     </Container>
@@ -118,8 +187,8 @@ export function Review(props: ReviewProps) {
                 );
               })}
             </Container>
-          </Container>
-        )}
+          )) || <Text H4>Not available for dining on any platform</Text>}
+        </Container>
       </Container>
     </StyledReview>
   );

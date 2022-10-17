@@ -4,6 +4,7 @@ export const Logo = {
   Dineout: 'assets/images/dineout.webp',
   Eazydiner: 'assets/images/eazydiner.webp',
   Oggy: 'assets/images/oggyLogo.webp',
+  OggyMark: 'assets/images/O logo.png',
 };
 
 export const HomePage = {

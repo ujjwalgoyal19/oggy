@@ -14,6 +14,7 @@ export interface RestaurantCardProps {
   Cuisines?: string;
   Name?: string;
   CostForTwo?: string;
+  Locality?: string;
   Skeleton?: boolean;
 }
 
@@ -57,8 +58,8 @@ export function RestaurantCard(props: RestaurantCardProps) {
           >
             <Container Shape="CS2" Height="100%" Skeleton />
             <Container Column Gap="1rem" Height="fit-content">
-              <Container Height="2rem" Skeleton />
-              <Container Height="2rem" Skeleton />
+              <Container Height="2rem" Skeleton Shape="CS1" />
+              <Container Height="2rem" Skeleton Shape="CS1" />
             </Container>
           </Container>
         )}
@@ -78,11 +79,12 @@ export function RestaurantCard(props: RestaurantCardProps) {
               PaddingLeft="2rem"
               PaddingRight="2rem"
               CenterMA
-              Gap="2rem"
+              Gap="1.2rem"
               Height="25%"
             >
-              <Container Skeleton Height="2rem" Shape="CS1" />
-              <Container Skeleton Height="2rem" Shape="CS1" />
+              <Container Skeleton Height="1.3rem" Shape="CS1" />
+              <Container Skeleton Height="1.3rem" Shape="CS1" />
+              <Container Skeleton Height="1.3rem" Shape="CS1" />
             </Container>
           </Container>
         )}
@@ -93,7 +95,8 @@ export function RestaurantCard(props: RestaurantCardProps) {
       <Container
         Width="100%"
         ClickHandler={() => {
-          navigate(`/restaurant/${props.Id}`);
+          console.log('Hello');
+          navigate(`/restaurant/${props.Id}`, { replace: true });
         }}
       >
         {device.greaterThan('md') && (
@@ -110,7 +113,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
             <Container Shape="CS2" Height="100%">
               <Image Width="100%" Height="100%" Src={props.Image} />
             </Container>
-            <Container Column Gap="0.5rem" Height="fit-content">
+            <Container Column Gap=".5rem" Height="fit-content">
               <Container
                 SpaceBetweenMA
                 Row
@@ -133,16 +136,23 @@ export function RestaurantCard(props: RestaurantCardProps) {
                 Height="fit-content"
                 CenterCA
               >
-                <Text NoWrap={{ Width: '100%' }} H5 Color="Grey">
+                <Text N NoWrap={{ Width: '100%' }} H4 Sub Color="Grey">
                   {props.Cuisines?.split(',')?.slice(0, 3)?.join(', ')}
                 </Text>
                 <Text
+                  N
                   NoWrap={{ Width: '100%' }}
-                  H5
+                  H4
+                  Sub
                   style={{ textAlign: 'end' }}
                   Color="Grey"
                 >
                   {props.CostForTwo?.replace(/\D/g, '') + '₹ for two'}
+                </Text>
+              </Container>
+              <Container Height="fit-content" CenterCA>
+                <Text H4 Sub N style={{ opacity: '0.6' }} Color="Grey">
+                  {props.Locality}
                 </Text>
               </Container>
             </Container>
@@ -156,20 +166,26 @@ export function RestaurantCard(props: RestaurantCardProps) {
             Shape="CS3"
             BG="white"
             Column
+            Gap="1rem"
           >
             <Container Height="75%" OverflowHide>
               <Image Width="100%" Height="100%" Src={props.Image} />
             </Container>
             <Container
               Column
+              Gap=".5rem"
+              Height="fit-content"
               PaddingLeft="2rem"
               PaddingRight="2rem"
-              CenterMA
-              Gap="8px"
-              Height="25%"
             >
-              <Container SpaceBetweenMA Row Gap="2rem" Height="fit-content">
-                <Text NoWrap={{ Width: '100%' }} H3 N>
+              <Container
+                SpaceBetweenMA
+                Row
+                Gap="2rem"
+                Height="fit-content"
+                CenterCA
+              >
+                <Text NoWrap={{ Width: '22rem' }} H3 B>
                   {props.Name}
                 </Text>
                 <Rating
@@ -177,16 +193,30 @@ export function RestaurantCard(props: RestaurantCardProps) {
                   Rating={RatingAggregation(props.DeliveryRating)}
                 />
               </Container>
-              <Container Row SpaceBetweenMA Gap="2rem" Height="fit-content">
-                <Text NoWrap={{ Width: '100%' }} H4>
+              <Container
+                Row
+                SpaceBetweenMA
+                Gap="2rem"
+                Height="fit-content"
+                CenterCA
+              >
+                <Text N NoWrap={{ Width: '100%' }} H3 Sub Color="Grey">
                   {props.Cuisines?.split(',')?.slice(0, 3)?.join(', ')}
                 </Text>
                 <Text
+                  N
                   NoWrap={{ Width: '100%' }}
-                  H4
+                  H3
+                  Sub
                   style={{ textAlign: 'end' }}
+                  Color="Grey"
                 >
                   {props.CostForTwo?.replace(/\D/g, '') + '₹ for two'}
+                </Text>
+              </Container>
+              <Container Height="fit-content" CenterCA>
+                <Text H4 Sub N style={{ opacity: '0.6' }} Color="Grey">
+                  {props.Locality}
                 </Text>
               </Container>
             </Container>

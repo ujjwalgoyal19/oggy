@@ -136,6 +136,7 @@ export function Filters(props: FiltersProps) {
               <Container Width="40%" Column>
                 <TabBar
                   Vertical
+                  Size="1.7rem"
                   key={0}
                   Sections={Filters.Order}
                   ActiveSection={Filters.Order.indexOf(category)}
@@ -171,13 +172,7 @@ export function Filters(props: FiltersProps) {
                       FilterHandler={setFilterHandler}
                     />
                   ),
-                }[category] || (
-                  <SortSection
-                    Filters={Filters.Category[Filters.Order.indexOf(category)]}
-                    Active={activeFilters[Filters.Order.indexOf(category)]}
-                    FilterHandler={setFilterHandler}
-                  />
-                )}
+                }[category] || null}
               </Container>
             </Container>
           </Wrapper>
