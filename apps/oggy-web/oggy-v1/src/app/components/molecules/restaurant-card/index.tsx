@@ -48,10 +48,10 @@ export function RestaurantCard(props: RestaurantCardProps) {
         {device.greaterThan('md') && (
           <Container
             Column
-            Padding="1.6rem"
+            Padding="1rem"
             ClassName="animate"
             Shape="CS1"
-            Height="35rem"
+            Height="32rem"
             SpaceBetweenMA
             Gap="1.5rem"
           >
@@ -100,19 +100,25 @@ export function RestaurantCard(props: RestaurantCardProps) {
           <Container
             Column
             Hover={{}}
-            Padding="1.6rem"
+            Padding="1rem"
             ClassName="animate"
             Shape="CS1"
-            Height="35rem"
+            Height="32rem"
             SpaceBetweenMA
             Gap="1.5rem"
           >
             <Container Shape="CS2" Height="100%">
               <Image Width="100%" Height="100%" Src={props.Image} />
             </Container>
-            <Container Column Gap="1rem" Height="fit-content">
-              <Container SpaceBetweenMA Row Gap="2rem" Height="fit-content">
-                <Text NoWrap={{ Width: '22rem' }} H3 N>
+            <Container Column Gap="0.5rem" Height="fit-content">
+              <Container
+                SpaceBetweenMA
+                Row
+                Gap="2rem"
+                Height="fit-content"
+                CenterCA
+              >
+                <Text NoWrap={{ Width: '22rem' }} H4 B>
                   {props.Name}
                 </Text>
                 <Rating
@@ -120,14 +126,21 @@ export function RestaurantCard(props: RestaurantCardProps) {
                   Rating={RatingAggregation(props.DeliveryRating)}
                 />
               </Container>
-              <Container Row SpaceBetweenMA Gap="2rem" Height="fit-content">
-                <Text NoWrap={{ Width: '100%' }} H4 Color="Grey">
+              <Container
+                Row
+                SpaceBetweenMA
+                Gap="2rem"
+                Height="fit-content"
+                CenterCA
+              >
+                <Text NoWrap={{ Width: '100%' }} H5 Color="Grey">
                   {props.Cuisines?.split(',')?.slice(0, 3)?.join(', ')}
                 </Text>
                 <Text
                   NoWrap={{ Width: '100%' }}
-                  H4
+                  H5
                   style={{ textAlign: 'end' }}
+                  Color="Grey"
                 >
                   {props.CostForTwo?.replace(/\D/g, '') + '₹ for two'}
                 </Text>

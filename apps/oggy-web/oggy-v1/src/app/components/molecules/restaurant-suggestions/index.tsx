@@ -1,6 +1,6 @@
 import Container from 'app/components/atoms/container';
+import Image from 'app/components/atoms/image';
 import Text from 'app/components/atoms/text';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -11,18 +11,6 @@ export interface RestaurantSuggestionsProps {
 
 const StyledRestaurantSuggestions = styled.div`
   padding: 1rem 0;
-`;
-
-const RestaurantImage = styled(motion.img)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: none;
-  opacity: 1;
-  will-change: transform, opacity;
-  border-radius: 5px;
-  filter: unset;
-  transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
 `;
 
 const getImage = (image: string | undefined) => {
@@ -56,16 +44,10 @@ export function RestaurantSuggestions(props: RestaurantSuggestionsProps) {
             >
               <Container Row CenterCA Padding="1rem" Hover={{ BG: '#EEEEEE' }}>
                 <Container Row Width="9rem" Height="6rem" BG="transparent">
-                  <RestaurantImage
-                    src={getImage(res.images.indexImage)}
-                    initial={{
-                      scale: 0,
-                      opacity: 0,
-                    }}
-                    animate={{
-                      scale: 1,
-                      opacity: 1,
-                    }}
+                  <Image
+                    Width="100%"
+                    Height="100%"
+                    Src={getImage(res.images.indexImage)}
                   />
                 </Container>
                 <Container

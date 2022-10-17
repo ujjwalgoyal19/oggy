@@ -1,6 +1,6 @@
 import Container from 'app/components/atoms/container';
+import Image from 'app/components/atoms/image';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
@@ -12,7 +12,7 @@ const StyledPhotos = styled.div`
   color: pink;
 `;
 
-const RestaurantImage = styled(motion.img)`
+const RestaurantImage = styled.img`
   max-width: 100%;
   height: 100%;
   object-fit: cover;
@@ -38,7 +38,11 @@ export function Photos(props: PhotosProps) {
               Column
               Shrink
             >
-              <RestaurantImage src={image.url ? image.url : image} />
+              <Image
+                Width="100%"
+                Height="100%"
+                Src={image.url ? image.url : image}
+              />
             </Container>
           );
         })}

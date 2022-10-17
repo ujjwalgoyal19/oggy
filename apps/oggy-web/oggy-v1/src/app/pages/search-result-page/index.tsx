@@ -23,7 +23,7 @@ export function SearchResultPage(props: SearchResultPageProps) {
 
   return (
     <StyledSearchResultPage>
-      <SearchResultTemplate Heading="Madhur" />
+      <SearchResultTemplate />
     </StyledSearchResultPage>
   );
 }

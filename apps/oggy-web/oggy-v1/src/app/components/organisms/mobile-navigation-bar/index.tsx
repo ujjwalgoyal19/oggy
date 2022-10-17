@@ -1,24 +1,11 @@
 import Container from 'app/components/atoms/container';
 import LocationSelector from 'app/components/molecules/location-selector';
 import SearchRestaurants from 'app/components/molecules/search-restaurants';
-import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 
 /* eslint-disable-next-line */
 export interface MobileNavigationBarProps {}
-
-const StyledMobileNavigationBar = styled.div`
-  /* position: sticky; */
-  /* top: 0; */
-  width: 100%;
-  z-index: 100;
-  .mobile-nav__border {
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-  }
-`;
 
 export function MobileNavigationBar(props: MobileNavigationBarProps) {
   const [position, setPosition] = useState(false);

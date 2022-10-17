@@ -21,7 +21,6 @@ interface IStyledRating {
 
 const StyledRating = styled.div<IStyledRating>`
   background-color: ${(props) => props.Color};
-  min-width: 60px;
   ${(props) =>
     props.Small &&
     css`
@@ -53,10 +52,10 @@ export function Rating(props: RatingProps) {
           Gap="var(--gap-rating)"
           Width="fit-content"
         >
-          <Text Color="white" EB H4>
+          <Text Color="white" style={{ fontWeight: 700 }} H5>
             {props.Rating.toString()}
           </Text>
-          <AiFillStar color="white" size="14px" />
+          <AiFillStar color="white" size="10px" />
         </Container>
       </Container>
     </StyledRating>

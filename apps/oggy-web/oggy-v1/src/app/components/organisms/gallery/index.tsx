@@ -38,7 +38,8 @@ const StyledGalleryGrid = styled.div`
     flex-wrap: wrap;
     gap: 1.5%;
     > div {
-      width: 32%;
+      width: 31%;
+      margin-bottom: 3rem;
     }
   `}
 `;
@@ -87,8 +88,6 @@ export function Gallery(props: GalleryProps) {
   };
 
   useEffect(() => {
-    // console.log(SearchState.totalPage);
-    // console.log(SearchState.ids.length);
     if (SearchState.ids.length + 1 === SearchState.totalPage) {
       setResultsComplete(true);
     } else if (SearchState.loadingStatus === 'loaded' && loadMore) {
@@ -96,10 +95,12 @@ export function Gallery(props: GalleryProps) {
       setLoadMore(false);
       setResultsComplete(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [SearchState.loadingStatus, loadMore]);
 
   useLayoutEffect(() => {
     document.addEventListener('scroll', throttle(checkIfIntersecting, 500));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -108,20 +109,19 @@ export function Gallery(props: GalleryProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [SearchState.filters, SearchState.searchQuery, SearchState.location]);
 
-  const Desktop = useDeviceType().greaterThan('md');
   return (
     <StyledGallery>
       <Container CenterMA Width="calc(100 * var(--vw))">
         <Container
           Width={
-            (device.greaterThan('xl') && 'calc(70 * var(--vw) )') ||
+            (device.greaterThan('xl') && 'calc(60 * var(--vw) )') ||
             (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
             (device.lessThan('md') && '90%')
           }
           Column
         >
-          <Container Row MarginBottom="3rem">
-            <Text H2={!Desktop} D6={Desktop} B>
+          <Container Row MarginBottom="1rem">
+            <Text H1 B>
               {SearchState.location.type === 'City'
                 ? `Restaurants in ${SearchState.city}`
                 : `${SearchState.locality} Restaurants, ${SearchState.city}`}

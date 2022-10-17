@@ -147,7 +147,7 @@ export function LocationSelector(props: LocationSelectorProps) {
                 Shape="CS1"
                 Height="5rem"
               >
-                <FiSearch color="#ff9800" size={'2.5rem'} />
+                <FaLocationArrow color="#ff9800" size="2.5rem" />
                 <Input
                   TextNew={{
                     Type: 'A',

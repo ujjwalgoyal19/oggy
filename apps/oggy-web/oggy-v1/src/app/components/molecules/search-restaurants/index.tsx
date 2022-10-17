@@ -13,6 +13,7 @@ import { AutocompleteAPI } from 'app/service/autocomplete.service';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import RestaurantSuggestions from '../restaurant-suggestions';
+import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
 export interface SearchRestaurantsProps {
@@ -38,6 +39,7 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
   });
 
   const [suggestions, setSuggestions] = useState<any[]>([]);
+  const device = useDeviceType();
 
   const getSuggestions = (value: string) => {
     AutocompleteAPI.getRestaurants(Location.type, Location.id, value).then(
@@ -98,15 +100,13 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
             Padding="1rem 1rem 1rem 1rem"
             Elevation={{ L1: true }}
             Shape="CS2"
-            OverflowHide
           >
-            <Container Height="fit-content" EndMA>
-              <div
-                onClick={() => setModalState(false)}
-                style={{ height: 'fit-content' }}
-              >
-                <IoIosArrowDown size="2rem" />
-              </div>
+            <Container
+              ClickHandler={() => setModalState(false)}
+              Height="fit-content"
+              EndMA
+            >
+              <IoIosArrowDown size="2rem" />
             </Container>
 
             <Container Column Gap="2rem">
@@ -142,7 +142,11 @@ export function SearchRestaurants(props: SearchRestaurantsProps) {
                   Key={1}
                 />
               </Container>
-              <Container ScrollY ScrollStyle="Hide">
+              <Container
+                ScrollY
+                ScrollStyle="Hide"
+                Height={device.getHeight(80)}
+              >
                 <RestaurantSuggestions Data={suggestions} />
               </Container>
             </Container>

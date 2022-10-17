@@ -10,9 +10,7 @@ import media from 'app/hooks/styledMediaQuery.hook';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 
 /* eslint-disable-next-line */
-export interface SearchResultTemplateProps {
-  Heading: string;
-}
+export interface SearchResultTemplateProps {}
 
 const StyledSearchResultTemplate = styled.div`
   min-height: 100vh;
@@ -43,7 +41,7 @@ export function SearchResultTemplate(props: SearchResultTemplateProps) {
         >
           <Container
             Width={
-              (device.greaterThan('xl') && 'calc(70 * var(--vw) )') ||
+              (device.greaterThan('xl') && 'calc(60 * var(--vw) )') ||
               (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
               (device.lessThan('md') && '90%')
             }

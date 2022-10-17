@@ -47,6 +47,7 @@ export function NavigationBar(props: NavigationBarProps) {
         <Container
           Row
           Width={
+            ((location.pathname = '/search') && 'calc(60 * var(--vw))') ||
             (device.greaterThan('xl') && 'calc(70 * var(--vw) )') ||
             (device.greaterThan('md') && 'calc(90 * var(--vw) )') ||
             (device.lessThan('md') && '90%')
