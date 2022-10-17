@@ -144,6 +144,7 @@ const SignupForm = ({ setAuth }) => {
               size="large"
               type="submit"
               variant="contained"
+              style={{ fontSize: '12px', fontWeight: 'bold'}}
               loading={isSubmitting}
             >
               Sign up
