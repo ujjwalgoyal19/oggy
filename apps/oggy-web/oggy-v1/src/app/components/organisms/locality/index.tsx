@@ -96,8 +96,8 @@ const Locality = (props: LocalityProps) => {
       {device.lessThan('md') && (
         <Container Column BG="white" PaddingTop="2rem" PaddingBottom="2rem">
           <Container Row Padding="2rem">
-            <Text H1 EB Color="black">
-              Localites Guide
+            <Text H1 Sub EB Color="black">
+              Explore top localities
             </Text>
           </Container>
           <Container Row ScrollX ScrollStyle="Hide">
@@ -109,74 +109,103 @@ const Locality = (props: LocalityProps) => {
                     <Link
                       key={index}
                       onClick={() => {
-                        console.log('hello');
                         getRestaurantLocalityHandler(locality);
                       }}
                       to="/search"
                     >
-                      <Container
-                        key={index}
-                        Column
-                        BG="white"
-                        Shape="CS1"
-                        Width={'18rem'}
-                        Height={'18rem'}
-                        Border={{ Style: 'Solid', L1: true }}
-                        Elevation={{ L2: true }}
-                        OverflowHide
-                        Padding="0.7rem"
-                      >
-                        <Container
-                          Row
-                          SpaceBetweenMA
-                          Height="fit-content"
-                          MarginBottom="1.4rem"
-                        >
-                          <Text H4 B Color="black">
-                            Jaipur
-                          </Text>
-                          <Container
-                            Row
-                            Width="fit-content"
-                            Height="fit-content"
-                            CenterCA
-                            CenterMA
-                            Gap=".3rem"
-                          >
-                            <Container Height="1.2rem" Width="auto">
-                              <Image
-                                Width="100%"
-                                Height="100%"
-                                Src={Images.Logo.OggyMark}
-                              />
-                            </Container>
-                            <Container Width="fit-content" Height="fit-content">
-                              <Text
-                                H6
-                                B
-                                Color="black"
-                                style={{ lineHeight: '1rem' }}
-                              >
-                                Locality
-                              </Text>
-                            </Container>
-                          </Container>
-                        </Container>
-                        <Container Height="fit-content" MarginBottom="0.4rem">
-                          <Text H3 B Color="black">
-                            {locality.locality_name}
-                          </Text>
-                        </Container>
-                        <Container Width="100%" Height="100%" OverflowHide>
+                      <Container Column Gap="1.6rem">
+                        <Container Height="17rem" Width="17rem" Shape="CS2">
                           <Image
                             Width="100%"
                             Height="100%"
                             Src={'assets/images/malviyaNagar.jpg'}
                           />
                         </Container>
+                        <Container
+                          Height="fit-content"
+                          CenterMA
+                          Border={{ Style: 'Dotted', L2: true, Color: 'Grey' }}
+                          Padding="1rem"
+                          Shape="CS1"
+                        >
+                          <Text H4 B>
+                            {locality.locality_name}
+                          </Text>
+                        </Container>
                       </Container>
                     </Link>
                   );
+                  // return (
+                  //   <Link
+                  //     key={index}
+                  //     onClick={() => {
+                  //       getRestaurantLocalityHandler(locality);
+                  //     }}
+                  //     to="/search"
+                  //   >
+                  //     <Container
+                  //       key={index}
+                  //       Column
+                  //       BG="white"
+                  //       Shape="CS1"
+                  //       Width={'18rem'}
+                  //       Height={'18rem'}
+                  //       Border={{ Style: 'Solid', L1: true }}
+                  //       Elevation={{ L2: true }}
+                  //       OverflowHide
+                  //       Padding="0.7rem"
+                  //     >
+                  //       <Container
+                  //         Row
+                  //         SpaceBetweenMA
+                  //         Height="fit-content"
+                  //         MarginBottom="1.4rem"
+                  //       >
+                  //         <Text H4 B Color="black">
+                  //           Jaipur
+                  //         </Text>
+                  //         <Container
+                  //           Row
+                  //           Width="fit-content"
+                  //           Height="fit-content"
+                  //           CenterCA
+                  //           CenterMA
+                  //           Gap=".3rem"
+                  //         >
+                  //           <Container Height="1.2rem" Width="auto">
+                  //             <Image
+                  //               Width="100%"
+                  //               Height="100%"
+                  //               Src={Images.Logo.OggyMark}
+                  //             />
+                  //           </Container>
+                  //           <Container Width="fit-content" Height="fit-content">
+                  //             <Text
+                  //               H6
+                  //               B
+                  //               Color="black"
+                  //               style={{ lineHeight: '1rem' }}
+                  //             >
+                  //               Locality
+                  //             </Text>
+                  //           </Container>
+                  //         </Container>
+                  //       </Container>
+                  //       <Container Height="fit-content" MarginBottom="0.4rem">
+                  //         <Text H3 B Color="black">
+                  //           {locality.locality_name}
+                  //         </Text>
+                  //       </Container>
+                  //       <Container Width="100%" Height="100%" OverflowHide>
+                  //         <Image
+                  //           Width="100%"
+                  //           Height="100%"
+                  //           Src={'assets/images/malviyaNagar.jpg'}
+                  //         />
+                  //       </Container>
+                  //     </Container>
+                  //   </Link>
+                  // );
                 })}
             </Container>
           </Container>

@@ -129,6 +129,62 @@ export function Overview(props: OverviewProps) {
               </Container>
             </Container>
           )}
+          {device.lessThan('md') && (
+            <Container
+              Width="100%"
+              Column
+              Gap="3rem"
+              Padding="3rem"
+              Elevation={{ L1: true }}
+              Border={{ Style: 'Solid', L1: true }}
+              Shape="CS1"
+            >
+              <Container
+                style={{ overflow: 'hidden', zIndex: '0' }}
+                Height="18vh"
+                Width="100%"
+              >
+                <Map
+                  Location={[
+                    parseFloat(props.Data.location.latitude),
+                    parseFloat(props.Data.location.longitude),
+                  ]}
+                  ZoomLevel={15}
+                  Text={props.Data.name}
+                />
+              </Container>
+              <Container Column Gap="2rem">
+                <Text H4 N>
+                  {props.Data.location.address}
+                </Text>
+                <Container EndMA CenterCA>
+                  <Container>
+                    <Text H4 Color="Primary">
+                      <span
+                        onClick={() => {
+                          navigator.clipboard.writeText(
+                            props.Data.contact_details[0]
+                          );
+                        }}
+                      >
+                        {props.Data.contact_details[0]}
+                      </span>
+                    </Text>
+                  </Container>
+
+                  <Button Primary>
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${props.Data.location.latitude},${props.Data.location.longitude}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Directions
+                    </a>
+                  </Button>
+                </Container>
+              </Container>
+            </Container>
+          )}
         </Container>
         {device.greaterThan('md') && (
           <Container Width="40%" Column Gap="3rem" Padding="3rem">

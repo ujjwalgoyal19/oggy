@@ -87,13 +87,13 @@ export function Footer(props: FooterProps) {
               reserved.
             </Text>
           </Container>
-          <Container
+          {/* <Container
             Row
             SpaceBetweenMA
             Border={{ Style: 'Solid', Color: '#F8F8F8' }}
           >
             <GoogleAd></GoogleAd>
-          </Container>
+          </Container> */}
         </Container>
       </Container>
     </StyledFooter>

@@ -3,10 +3,13 @@ import {
   createEntityAdapter,
   createSelector,
   createSlice,
+  EnhancedStore,
   EntityState,
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { SearchAPI } from 'app/service/search.service';
+import { ReducerState } from 'react';
+import { RootState } from '..';
 
 export const SEARCH_FEATURE_KEY = 'search';
 
@@ -73,13 +76,13 @@ export const searchAdapter = createEntityAdapter<SearchEntity>({
 
 export const fetchSearch = createAsyncThunk(
   'search/fetchStatus',
-  async (searchState: SearchState, thunkAPI) => {
-    // console.log(searchState);
+  async (_, thunkAPI) => {
+    const State = thunkAPI.getState() as RootState;
     const Data = await SearchAPI.getRestaurants(
-      searchState.page + 1,
-      searchState.location,
-      searchState.filters,
-      searchState.searchQuery
+      State.search.page + 1,
+      State.search.location,
+      State.search.filters,
+      State.search.searchQuery
     );
 
     const RestaurantList = new Array<any>();
@@ -135,7 +138,7 @@ export const fetchSearch = createAsyncThunk(
     return {
       list: RestaurantList,
       currentPage: Data.data.currentPage,
-      pages: Data.data.total,
+      pages: Data.data.numberOfPages,
     };
   }
 );
@@ -165,19 +168,20 @@ export const searchSlice = createSlice({
   reducers: {
     addFilters: (state, action: PayloadAction<FilterEntity[]>) => {
       state.page = 0;
-      state.restart = true;
       state.filters = action.payload;
+      searchAdapter.removeAll(state);
     },
     changeQuery: (state, action: PayloadAction<string>) => {
       state.page = 0;
-      state.restart = true;
       state.searchQuery = action.payload;
+      searchAdapter.removeAll(state);
     },
     changeLocation: (state, action: PayloadAction<LocationEntity>) => {
       state.page = 0;
-      state.restart = true;
       state.location = action.payload;
       state.searchQuery = '';
+      state.filters = null;
+      searchAdapter.removeAll(state);
       if (state.location.type === 'city') {
         state.city = action.payload.name;
         state.locality = null;
@@ -194,15 +198,9 @@ export const searchSlice = createSlice({
       .addCase(
         fetchSearch.fulfilled,
         (state: SearchState, action: PayloadAction<any>) => {
-          if (state.restart) {
-            state.list = action.payload.list;
-            searchAdapter.setAll(state, action.payload.list);
-            state.restart = false;
-          } else {
-            searchAdapter.addMany(state, action.payload.list);
-          }
-          state.page = action.payload.currentPage;
+          searchAdapter.addMany(state, action.payload.list);
           state.totalPage = action.payload.pages;
+          state.page = action.payload.currentPage;
           state.loadingStatus = 'loaded';
         }
       )

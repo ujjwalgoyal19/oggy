@@ -1,7 +1,7 @@
 import RestaurantCard from 'app/components/molecules/restaurant-card';
 import { fetchSearch } from 'app/store/search/index.slice';
 import { AppDispatch, RootState } from 'app/store';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Text from 'app/components/atoms/text';
@@ -56,63 +56,74 @@ export function Gallery(props: GalleryProps) {
   const ref = useRef<HTMLDivElement>(null);
   const device = useDeviceType();
 
-  // const intersectHeight = parseFloat(device.getHeight(90).replace(/\D/g, ''));
   const intersectHeight = parseFloat(
     device.getHeight(90).match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]
   );
 
-  const [loadMore, setLoadMore] = useState(true);
   const [resultsComplete, setResultsComplete] = useState(false);
 
   const checkIfIntersecting = () => {
-    if (!resultsComplete) {
-      const pixels =
-        (ref.current &&
-          0 +
-            ref.current?.clientHeight -
-            window.scrollY -
-            window.innerHeight) ||
-        intersectHeight;
+    const pixels =
+      (ref.current &&
+        0 + ref.current?.clientHeight - window.scrollY - window.innerHeight) ||
+      intersectHeight;
 
-      if (pixels < intersectHeight) {
-        setLoadMore(true);
-      }
+    if (pixels < intersectHeight) {
+      dispatch(fetchSearch());
     }
   };
 
+  const throttledCheckIfIntersecting = useCallback(
+    throttle(checkIfIntersecting, 500),
+    []
+  );
+
   useEffect(() => {
-    if (SearchState.ids.length + 1 === SearchState.totalPage) {
+    if (SearchState.page === SearchState.totalPage) {
       setResultsComplete(true);
-    } else if (SearchState.loadingStatus === 'loaded' && loadMore) {
-      dispatch(fetchSearch(SearchState));
-      setLoadMore(false);
+    } else if (SearchState.page < (SearchState.totalPage || 1)) {
       setResultsComplete(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [SearchState.loadingStatus, loadMore]);
-
-  useLayoutEffect(() => {
-    document.addEventListener('scroll', throttle(checkIfIntersecting, 500));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [SearchState.page, SearchState.totalPage]);
 
   useEffect(() => {
-    dispatch(fetchSearch(SearchState));
-    setResultsComplete(false);
+    console.log('change');
+    !resultsComplete &&
+      document.addEventListener('scroll', throttledCheckIfIntersecting);
+    resultsComplete &&
+      document.removeEventListener('scroll', throttledCheckIfIntersecting);
+
+    return () =>
+      document.removeEventListener('scroll', throttledCheckIfIntersecting);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resultsComplete]);
+
+  useEffect(() => {
+    dispatch(fetchSearch());
   }, [SearchState.filters, SearchState.searchQuery, SearchState.location]);
 
   return (
     <StyledGallery>
       <Container CenterMA Width="calc(100 * var(--vw))">
         <Container Width="var(--search-page-width)" Column>
-          <Container Row MarginBottom="1rem">
-            <Text H1 B>
-              {SearchState.location.type === 'City'
-                ? `Restaurants in ${SearchState.city}`
-                : `${SearchState.locality} Restaurants, ${SearchState.city}`}
-            </Text>
-          </Container>
+          {device.greaterThan('md') && (
+            <Container Row MarginBottom="1rem">
+              <Text H1 B>
+                {SearchState.location.type === 'City'
+                  ? `Restaurants in ${SearchState.city}`
+                  : `${SearchState.locality} Restaurants, ${SearchState.city}`}
+              </Text>
+            </Container>
+          )}
+          {device.lessThan('md') && (
+            <Container Row MarginBottom="3rem">
+              <Text H1 Sub B>
+                {SearchState.location.type === 'City'
+                  ? `Restaurants in ${SearchState.city}`
+                  : `${SearchState.locality} Restaurants, ${SearchState.city}`}
+              </Text>
+            </Container>
+          )}
           <StyledGalleryGrid ref={ref}>
             {Object.entries(SearchState.entities).map((resObj, index) => {
               const res = resObj[1];
@@ -137,13 +148,13 @@ export function Gallery(props: GalleryProps) {
                 return <RestaurantCard Skeleton key={i} />;
               })}
           </StyledGalleryGrid>
-          <Container CenterMA PaddingTop="8vh">
-            {resultsComplete && (
+          {resultsComplete && (
+            <Container CenterMA PaddingTop="8vh">
               <Text D6 EB Color="Grey">
                 End of results!
               </Text>
-            )}
-          </Container>
+            </Container>
+          )}
         </Container>
       </Container>
     </StyledGallery>

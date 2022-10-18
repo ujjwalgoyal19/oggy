@@ -155,10 +155,6 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
                   dining: RatingArrayCreate(props.Data.dining_rating),
                   delivery: RatingArrayCreate(props.Data.delivery_rating),
                 }}
-                // Reviews={RatingArrayCreate(
-                //   props.Data.dining_rating,
-                //   props.Data.delivery_rating
-                // )}
               />
             ),
             3: <Photos Image={props.Data.images.all} />,
