@@ -3,14 +3,18 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Switch from 'app/routes';
 import config from './config';
 import GlobalStyles from './components/templates/Global.styled';
-import NavigationBar from './components/organisms/navigation-bar';
-import Footer from 'app/components/organisms/footer';
 import WebFont from 'webfontloader';
-import { useLayoutEffect } from 'react';
+import { lazy, Suspense, useLayoutEffect } from 'react';
 import { useDeviceType } from './hooks/useDeviceType.hook';
-import MobileNavigationBar from './components/organisms/mobile-navigation-bar';
-import MobileFooter from './components/organisms/mobile-footer';
 import Images from './constants/images';
+const MobileNavigationBar = lazy(
+  () => import('app/components/organisms/mobile-navigation-bar')
+);
+const MobileFooter = lazy(() => import('./components/organisms/mobile-footer'));
+const NavigationBar = lazy(
+  () => import('./components/organisms/navigation-bar')
+);
+const Footer = lazy(() => import('app/components/organisms/footer'));
 
 const StyledApp = styled.div`
   position: relative;
@@ -30,13 +34,15 @@ export function App() {
       <GlobalStyles />
       <StyledApp>
         <Router basename="/">
-          {device.greaterThan('md') && (
-            <NavigationBar Logo={Images.Logo.Oggy} />
-          )}
-          {device.lessThan('md') && <MobileNavigationBar />}
-          <Switch />
-          {device.greaterThan('md') && <Footer />}
-          {device.lessThan('md') && <MobileFooter />}
+          <Suspense>
+            {device.greaterThan('md') && (
+              <NavigationBar Logo={Images.Logo.Oggy} />
+            )}
+            {device.lessThan('md') && <MobileNavigationBar />}
+            <Switch />
+            {device.greaterThan('md') && <Footer />}
+            {device.lessThan('md') && <MobileFooter />}
+          </Suspense>
         </Router>
       </StyledApp>
     </ThemeProvider>
