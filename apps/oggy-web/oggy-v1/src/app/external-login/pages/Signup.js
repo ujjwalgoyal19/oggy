@@ -80,11 +80,11 @@ const Signup = ({ setAuth }) => {
             sx={{ color: "text.secondary", mt: 2 }}
           >
             By registering, I agree to{" "}
-            <Link underline="always" color="text.primary" href="#">
+            <Link underline="always" color="text.primary" href="/termsAndConditions">
               Terms of Service
             </Link>{" "}
             &{" "}
-            <Link underline="always" color="text.primary" href="#">
+            <Link underline="always" color="text.primary" href="/privacyPolicy">
               Privacy Policy
             </Link>
             .

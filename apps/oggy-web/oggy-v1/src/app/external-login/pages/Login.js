@@ -1,32 +1,32 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Container, Typography, Link, Box, Divider } from "@mui/material";
-import styled from "@emotion/styled";
-import LoginForm from "../components/LoginForm";
-import SocialAuth from "../components/SocialAuth";
-import Logo from "../components/Logo";
-import { motion } from "framer-motion";
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Container, Typography, Link, Box, Divider } from '@mui/material';
+import styled from '@emotion/styled';
+import LoginForm from '../components/LoginForm';
+import SocialAuth from '../components/SocialAuth';
+import Logo from '../components/Logo';
+import { motion } from 'framer-motion';
 
 //////////////////////////////////
-const RootStyle = styled("div")({
-  background: "rgb(249, 250, 251)",
-  height: "100vh",
-  display: "grid",
-  placeItems: "center",
+const RootStyle = styled('div')({
+  background: 'rgb(249, 250, 251)',
+  height: '100vh',
+  display: 'grid',
+  placeItems: 'center',
 });
 
 const HeadingStyle = styled(Box)({
-  textAlign: "center",
+  textAlign: 'center',
 });
 
-const ContentStyle = styled("div")({
+const ContentStyle = styled('div')({
   maxWidth: 480,
   padding: 25,
-  margin: "auto",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  background: "#fff",
+  margin: 'auto',
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  background: '#fff',
 });
 
 let easing = [0.6, -0.05, 0.01, 0.99];
@@ -53,8 +53,8 @@ const Login = ({ setAuth }) => {
         <ContentStyle>
           <HeadingStyle component={motion.div} {...fadeInUp}>
             <Logo />
-            <Typography sx={{ color: "text.secondary", mb: 5 }}>
-              Login to your account
+            <Typography sx={{ color: 'text.secondary', mb: 5 }} variant={'h6'}>
+              <a href="/login">Login</a> to your account
             </Typography>
           </HeadingStyle>
 
@@ -63,7 +63,7 @@ const Login = ({ setAuth }) => {
           </Box>
 
           <Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               OR
             </Typography>
           </Divider>
@@ -77,7 +77,7 @@ const Login = ({ setAuth }) => {
             align="center"
             sx={{ mt: 3 }}
           >
-            Don’t have an account?{" "}
+            Don’t have an account?{' '}
             <Link variant="subtitle2" component={RouterLink} to="/signup">
               Sign up
             </Link>

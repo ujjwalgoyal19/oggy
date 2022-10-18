@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import config from 'app/config';
 import Image from 'app/components/atoms/image';
 import Text from 'app/components/atoms/text';
+import GoogleAd from 'app/components/atoms/google-ad';
 import { Link, useLocation } from 'react-router-dom';
 import Separator from 'app/components/atoms/separator';
 import Container from 'app/components/atoms/container';
@@ -85,6 +86,13 @@ export function Footer(props: FooterProps) {
               of their respective owners. 2021-2022 © Oggy™ Ltd. All rights
               reserved.
             </Text>
+          </Container>
+          <Container
+            Row
+            SpaceBetweenMA
+            Border={{ Style: 'Solid', Color: '#F8F8F8' }}
+          >
+            <GoogleAd></GoogleAd>
           </Container>
         </Container>
       </Container>
