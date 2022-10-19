@@ -13,6 +13,7 @@ import { AutocompleteAPI } from 'app/service/autocomplete.service';
 import LocalitySuggestions from '../locality-suggestions';
 import { searchActions } from 'app/store/search/index.slice';
 import Input from 'app/components/atoms/input';
+import { LocalityAPI } from 'app/service/locality.service';
 /* eslint-disable-next-line */
 export interface LocationSelectorProps {
   Condensed?: boolean;
@@ -39,15 +40,19 @@ export function LocationSelector(props: LocationSelectorProps) {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  useEffect(() => {
+    AutocompleteAPI.getLocations('').then((sug) => {
+      console.log(sug);
+      setSuggestions(sug.location);
+    });
+  }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (formik.values.location !== '') {
-        AutocompleteAPI.getLocations(formik.values.location).then(
-          (suggestions) => {
-            setSuggestions(suggestions.location);
-          }
-        );
-      }
+      AutocompleteAPI.getLocations(formik.values.location).then((sug) => {
+        console.log(sug);
+        setSuggestions(sug.location);
+      });
     }, 200);
     return () => {
       clearTimeout(timer);
@@ -148,6 +153,7 @@ export function LocationSelector(props: LocationSelectorProps) {
                 Padding="1rem"
                 Gap="1rem"
                 Shape="CS1"
+                MinHeight="5rem"
                 Height="5rem"
               >
                 <FaLocationArrow color="#ff9800" size="2.5rem" />
@@ -163,18 +169,16 @@ export function LocationSelector(props: LocationSelectorProps) {
                   Key={1}
                 />
               </Container>
-              <Container Column>
-                <LocalitySuggestions
-                  Data={suggestions}
-                  ChangeHandler={ChangeLocationHandler}
-                />
-              </Container>
+              <LocalitySuggestions
+                Data={suggestions}
+                ChangeHandler={ChangeLocationHandler}
+              />
             </Container>
           </Container>
         </Modal>
       )}
 
-      {props.Desktop && formik.values.location.length > 0 && (
+      {props.Desktop && modalState && (
         <>
           <Container
             Position={{
@@ -190,8 +194,8 @@ export function LocationSelector(props: LocationSelectorProps) {
           <Container
             Column
             Width="20rem"
-            MaxHeight="100rem"
-            Height="fit-content"
+            Height="20vh"
+            // Height="fit-content"
             BG="white"
             Elevation={{ L1: true }}
             Border={{ Style: 'Solid', L1: true }}

@@ -1,7 +1,7 @@
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
-import { GetRatingColor, GetVendorColor, GetVendorImage } from 'app/utils';
+import { GetRatingColor, GetVendorImage } from 'app/utils';
 import { AiFillStar } from 'react-icons/ai';
 import styled from 'styled-components';
 
@@ -10,13 +10,7 @@ export interface ReviewProps {
   Reviews: any;
 }
 
-const StyledReview = styled.div`
-  /* .reviewGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    grid-template-rows: repeat(2, 1fr);
-  } */
-`;
+const StyledReview = styled.div``;
 
 export function Review(props: ReviewProps) {
   const device = useDeviceType();
@@ -64,6 +58,7 @@ export function Review(props: ReviewProps) {
                   <Container
                     Column
                     Height="fit-content"
+                    MinWidth="20rem"
                     Width="fit-content"
                     Shape="CS2"
                     BG="white"
@@ -73,7 +68,13 @@ export function Review(props: ReviewProps) {
                     style={{ overflow: 'initial' }}
                   >
                     <Container Column Gap=".5rem" Height="fit-content" CenterCA>
-                      <Container Height="fit-content" Row CenterCA Gap="1rem">
+                      <Container
+                        Height="fit-content"
+                        Width="fit-content"
+                        Row
+                        CenterCA
+                        Gap="1rem"
+                      >
                         <Text
                           D5
                           EB
@@ -151,6 +152,7 @@ export function Review(props: ReviewProps) {
                   <Container
                     Column
                     Height="fit-content"
+                    MinWidth="20rem"
                     Width="fit-content"
                     Shape="CS2"
                     Border={{ Style: 'Dashed', Color: 'Grey', L2: true }}
@@ -160,7 +162,13 @@ export function Review(props: ReviewProps) {
                     style={{ overflow: 'initial' }}
                   >
                     <Container Column Gap=".5rem" Height="fit-content" CenterCA>
-                      <Container Height="fit-content" Row CenterCA Gap="1rem">
+                      <Container
+                        Height="fit-content"
+                        Width="fit-content"
+                        Row
+                        CenterCA
+                        Gap="1rem"
+                      >
                         <Text
                           D5
                           EB

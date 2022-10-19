@@ -1,6 +1,5 @@
 import Container from 'app/components/atoms/container';
 import Rating from 'app/components/atoms/rating';
-import Section from 'app/components/atoms/section';
 import TabBar from 'app/components/atoms/tab-bar';
 import Review from 'app/components/organisms/review';
 import Offers from 'app/components/organisms/offers';
