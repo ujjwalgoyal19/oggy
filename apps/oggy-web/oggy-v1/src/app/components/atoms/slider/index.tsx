@@ -75,8 +75,17 @@ export function Slider(props: SliderProps) {
           ClassName={(showShadow && 'show-shadow') || ''}
           ScrollStyle="Hide"
           ScrollX
+          PaddingLeft={props.Padding}
+          PaddingRight={props.Padding}
+          PaddingTop="30px"
+          PaddingBottom="30px"
         >
-          <Container Row Gap="2rem" Padding={props.Padding} Width="max-content">
+          <Container
+            Row
+            Gap="2rem"
+            style={{ boxSizing: 'initial' }}
+            Width="max-content"
+          >
             {props.children.map((child) => {
               return <Container>{child}</Container>;
             })}

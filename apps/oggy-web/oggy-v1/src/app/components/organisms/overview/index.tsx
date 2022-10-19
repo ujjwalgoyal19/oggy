@@ -25,6 +25,13 @@ const FeatureCard = styled.div`
 
 export function Overview(props: OverviewProps) {
   const device = useDeviceType();
+  const dishes = new Array<string>();
+  props.TopDishes &&
+    props.TopDishes.forEach((dish: string) => {
+      if (dish !== '') {
+        dishes.push(dish);
+      }
+    });
   return (
     <StyledOverview>
       <Container Row>
@@ -111,13 +118,13 @@ export function Overview(props: OverviewProps) {
               </Container>
             </Container>
           )}
-          {props.TopDishes && (
+          {dishes.length > 0 && (
             <Container Column Gap="2rem">
               <Text H3 N>
                 Top Dishes from the restaurant
               </Text>
               <Container Width="90%" Row Wrap Gap="1.5rem">
-                {props.TopDishes.map((dish: string) => {
+                {dishes.map((dish: string) => {
                   return (
                     <FeatureCard>
                       <Text H4 L>

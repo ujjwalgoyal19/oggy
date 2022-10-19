@@ -68,10 +68,20 @@ export function Footer(props: FooterProps) {
                 </Text>
               </Container>
               <Container Column Gap="1rem">
-                <a href="https://www.instagram.com/oggy_india/?hl=en">
+                <a
+                  href="https://www.instagram.com/oggy_india/?hl=en"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Instagram
                 </a>
-                <a href="https://www.facebook.com/team0ggy">Facebook</a>
+                <a
+                  href="https://www.facebook.com/team0ggy"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Facebook
+                </a>
               </Container>
             </Container>
           </Container>

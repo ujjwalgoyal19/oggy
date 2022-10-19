@@ -12,7 +12,7 @@ export interface ChainProps {
   Content: {
     name: string;
     image: string;
-    url: string;
+    // url: string;
   }[];
 }
 
@@ -66,6 +66,7 @@ export function Chain(props: ChainProps) {
                 key={index}
                 Image={chain.image}
                 Name={chain.name}
+                Size="L"
                 Link="/search"
               />
             );

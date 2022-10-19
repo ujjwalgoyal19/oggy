@@ -6,7 +6,7 @@ import Offers from 'app/components/organisms/offers';
 import Overview from 'app/components/organisms/overview';
 import Photos from 'app/components/organisms/photos';
 import Text from 'app/components/atoms/text';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   RatingAggregation,
   RatingArrayCreate,
@@ -14,10 +14,12 @@ import {
 } from 'app/utils';
 import styled from 'styled-components';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface RestaurantPageTemplateProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Section: number;
   Data: any;
 }
 
@@ -27,13 +29,16 @@ const StyledRestaurantPageTemplate = styled.div`
 
 export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
   const device = useDeviceType();
+  const navigate = useNavigate();
+  const location = useLocation();
   const Sections = ['Overview', 'Offers', 'Reviews', 'Photos'];
-  const [activeSection, setActiveSection] = useState(1);
   const changeSectionHandler = (index: number) => {
-    setActiveSection(index);
+    const loc = location.pathname.split('/');
+    const sectionName = Sections.at(index)?.toLowerCase();
+    navigate(`/${loc[1]}/${loc[2]}/${sectionName}`);
   };
   useEffect(() => {
-    console.log(props.Data);
+    // console.log(props.Data);
   }, []);
   return (
     <StyledRestaurantPageTemplate>
@@ -108,7 +113,7 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
             <TabBar
               Horizontal
               Sections={Sections}
-              ActiveSection={activeSection}
+              ActiveSection={props.Section}
               ChangeSection={changeSectionHandler}
             />
           </Container>
@@ -157,7 +162,12 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
               />
             ),
             3: <Photos Image={props.Data.images.all} />,
-          }[activeSection] || <Overview Data={props.Data} />}
+          }[props.Section] || (
+            <Offers
+              Offers={props.Data.offer_details}
+              Links={props.Data.restaurant_mapped_url}
+            />
+          )}
         </Container>
       </Container>
     </StyledRestaurantPageTemplate>

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import SearchBarHero from 'app/components/molecules/search-bar';
 import Text from 'app/components/atoms/text';
 import Container from 'app/components/atoms/container';
-import media from 'app/hooks/styledMediaQuery.hook';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import SearchRestaurants from 'app/components/molecules/search-restaurants';
 import LocationSelector from 'app/components/molecules/location-selector';

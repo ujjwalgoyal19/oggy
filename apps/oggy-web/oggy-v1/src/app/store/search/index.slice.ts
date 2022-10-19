@@ -3,12 +3,10 @@ import {
   createEntityAdapter,
   createSelector,
   createSlice,
-  EnhancedStore,
   EntityState,
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { SearchAPI } from 'app/service/search.service';
-import { ReducerState } from 'react';
 import { RootState } from '..';
 
 export const SEARCH_FEATURE_KEY = 'search';

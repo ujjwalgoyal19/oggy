@@ -56,66 +56,67 @@ export function Offers(props: OffersProps) {
         const offers = props.Offers[`${vendor}_offer`];
         if (offers && offers.length > 0) {
           return (
-            <a href={Vendors[index] + props.Links[`${vendor.at(0)}_url`]}>
-              <Container Row MarginBottom="3rem" CenterCA>
-                <Container
-                  Row
-                  Gap="3rem"
-                  ScrollX
-                  ScrollStyle="Hide"
-                  PaddingBottom="30px"
-                >
-                  {offers.map((offer: any) => {
-                    return (
-                      <Container
-                        Width="30rem"
-                        MinWidth="min(30rem, 90%)"
-                        MarginRight="2rem"
-                        Column
-                        Gap="1.5rem"
-                        Shape="CS1"
-                        BG={GetVendorColor(vendor)}
-                        ClassName="shine"
-                        Border={{
-                          Style: 'Solid',
-                          L2: true,
-                          Color: GetVendorColor(vendor),
-                        }}
-                        Height="20rem"
-                        Position={{ Type: 'relative' }}
-                      >
-                        <Container
-                          BG="white"
-                          Height="fit-content"
-                          Padding="1rem"
-                        >
-                          <Text H4 EB Color={GetVendorColor(vendor)}>
-                            {vendor}
-                          </Text>
-                        </Container>
-                        {OfferCard(offer.code, offer.title, offer.subtitle)}
-
-                        <Container
-                          Shape="Circle"
-                          BG="White"
-                          Width="4rem"
-                          Height="4rem"
-                          Position={{
-                            Type: 'absolute',
-                            Bottom: '5%',
-                            Right: '5%',
-                          }}
-                          CenterCA
-                          CenterMA
-                        >
-                          <IoIosShareAlt color={GetVendorColor(vendor)} />
-                        </Container>
+            <Container
+              Row
+              MarginBottom="3rem"
+              CenterCA
+              ClickHandler={() =>
+                window.open(Vendors[index] + props.Links[`${vendor.at(0)}_url`])
+              }
+            >
+              <Container
+                Row
+                Gap="3rem"
+                ScrollX
+                ScrollStyle="Hide"
+                PaddingBottom="30px"
+              >
+                {offers.map((offer: any) => {
+                  return (
+                    <Container
+                      Width="30rem"
+                      MinWidth="min(30rem, 90%)"
+                      MarginRight="2rem"
+                      Column
+                      Gap="1.5rem"
+                      Shape="CS1"
+                      BG={GetVendorColor(vendor)}
+                      ClassName="shine"
+                      Border={{
+                        Style: 'Solid',
+                        L2: true,
+                        Color: GetVendorColor(vendor),
+                      }}
+                      Height="20rem"
+                      Position={{ Type: 'relative' }}
+                    >
+                      <Container BG="white" Height="fit-content" Padding="1rem">
+                        <Text H4 EB Color={GetVendorColor(vendor)}>
+                          {vendor}
+                        </Text>
                       </Container>
-                    );
-                  })}
-                </Container>
+                      {OfferCard(offer.code, offer.title, offer.subtitle)}
+
+                      <Container
+                        Shape="Circle"
+                        BG="White"
+                        Width="4rem"
+                        Height="4rem"
+                        Position={{
+                          Type: 'absolute',
+                          Bottom: '5%',
+                          Right: '5%',
+                        }}
+                        CenterCA
+                        CenterMA
+                      >
+                        <IoIosShareAlt color={GetVendorColor(vendor)} />
+                      </Container>
+                    </Container>
+                  );
+                })}
               </Container>
-            </a>
+            </Container>
           );
         } else {
           i++;

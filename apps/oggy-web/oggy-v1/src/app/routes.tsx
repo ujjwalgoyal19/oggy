@@ -20,6 +20,10 @@ const Switch = () => {
         <Route path="/signin" element={<LoginRegistrationPage />} />
         <Route path="/register" element={<Signup setAuth="false" />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantPage />} />
+        <Route
+          path="/restaurant/:restaurantId/:section"
+          element={<RestaurantPage />}
+        />
         <Route path="/error" element={<Page404 />} />
         <Route path="/login" element={<Login setAuth="false" />} />
         <Route path="/signup" element={<Signup setAuth="false" />} />

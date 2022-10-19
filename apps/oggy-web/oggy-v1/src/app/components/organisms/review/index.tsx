@@ -17,8 +17,8 @@ export function Review(props: ReviewProps) {
   return (
     <StyledReview>
       <Container
-        Row={device.greaterThan('md')}
-        Column={device.lessThan('md')}
+        Row={device.greaterThan('lg')}
+        Column={device.lessThan('lg')}
         Height="fit-content"
         Gap="5rem"
       >
@@ -44,8 +44,7 @@ export function Review(props: ReviewProps) {
           {(props.Reviews.delivery.length > 0 && (
             <Container
               Row
-              // ClassName="reviewGrid"
-              Height="100%"
+              MinHeight="20rem"
               CenterCA
               Gap="4rem"
               BG="transparent"
@@ -57,15 +56,16 @@ export function Review(props: ReviewProps) {
                 return (
                   <Container
                     Column
-                    Height="fit-content"
+                    MinHeight="17rem"
+                    MaxHeight="17rem"
                     MinWidth="20rem"
                     Width="fit-content"
                     Shape="CS2"
                     BG="white"
                     Padding="5rem"
                     CenterCA
+                    CenterMA
                     Position={{ Type: 'relative' }}
-                    style={{ overflow: 'initial' }}
                   >
                     <Container Column Gap=".5rem" Height="fit-content" CenterCA>
                       <Container
@@ -76,14 +76,16 @@ export function Review(props: ReviewProps) {
                         Gap="1rem"
                       >
                         <Text
-                          D5
-                          EB
+                          D5={review.rating}
+                          H3={!review.rating}
+                          EB={review.rating}
                           Color={
                             (review.rating && GetRatingColor(review.rating)) ||
                             'Grey'
                           }
+                          N={!review.rating}
                         >
-                          {review.rating ? review.rating : '-'}
+                          {review.rating ? review.rating : 'No ratings'}
                         </Text>
                         {review.rating && (
                           <AiFillStar
@@ -101,14 +103,12 @@ export function Review(props: ReviewProps) {
                     <Container
                       Height="fit-content"
                       Width="fit-content"
-                      // BG="White"
                       BG="transparent"
                       Position={{
                         Type: 'absolute',
                         Bottom: '0',
                         Right: '10px',
                       }}
-                      // style={{ transform: 'translateY(50%)' }}
                       Padding="1rem"
                     >
                       <Container Height="10px" Width="auto">
@@ -120,7 +120,7 @@ export function Review(props: ReviewProps) {
               })}
             </Container>
           )) || (
-            <Text Color="white" H4 N>
+            <Text Color="white" H4 B>
               Not available for delivery on any platform
             </Text>
           )}
@@ -140,7 +140,7 @@ export function Review(props: ReviewProps) {
           {(props.Reviews.dining.length > 0 && (
             <Container
               Row
-              Height="100%"
+              MinHeight="20rem"
               CenterCA
               Gap="4rem"
               ScrollX
@@ -151,13 +151,15 @@ export function Review(props: ReviewProps) {
                 return (
                   <Container
                     Column
-                    Height="fit-content"
+                    MinHeight="17rem"
+                    MaxHeight="17rem"
                     MinWidth="20rem"
                     Width="fit-content"
                     Shape="CS2"
                     Border={{ Style: 'Dashed', Color: 'Grey', L2: true }}
                     Padding="5rem"
                     CenterCA
+                    CenterMA
                     Position={{ Type: 'relative' }}
                     style={{ overflow: 'initial' }}
                   >
@@ -174,7 +176,7 @@ export function Review(props: ReviewProps) {
                           EB
                           Color={
                             (review.rating && GetRatingColor(review.rating)) ||
-                            'Grey'
+                            'LightGrey'
                           }
                         >
                           {review.rating ? review.rating : '-'}

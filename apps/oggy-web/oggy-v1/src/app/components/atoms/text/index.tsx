@@ -56,6 +56,9 @@ export interface TextProps {
   B?: boolean;
   EB?: boolean;
 
+  // Text Align
+  Center?: boolean;
+
   // Extra Styles
   style?: React.CSSProperties;
 
@@ -115,6 +118,8 @@ interface IText {
   N?: boolean;
   B?: boolean;
   EB?: boolean;
+
+  Center?: boolean;
 }
 
 const StyledText = styled.span<IText>`
@@ -164,6 +169,13 @@ const StyledText = styled.span<IText>`
     // Vertical Alignment for Font
     writing-mode: ${props.Vertical && 'vertical-rl'};
     transform: ${props.Vertical && 'rotate(180deg)'};
+
+    // Text alignment for Font
+    ${props.Center &&
+    css`
+      display: block;
+      text-align: center;
+    `}
 
     // Decoration Underline
     ${props.Underline &&
@@ -221,6 +233,7 @@ export function Text(props: TextProps) {
       EB={props.EB}
       Color={props.Color}
       NoWrap={props.NoWrap}
+      Center={props.Center}
     >
       {props.children}
     </StyledText>

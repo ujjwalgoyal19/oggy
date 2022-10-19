@@ -38,8 +38,8 @@ const ImageWrapper = styled.div<IImageWrapper>`
   overflow: hidden;
   top: -70%;
   left: 40%;
-  width: 45vh;
-  height: auto;
+  width: 40rem;
+  height: 30rem;
   visibility: hidden;
   transform: scale(0);
   transition: all 0.3s ease-in-out;
@@ -178,7 +178,7 @@ export function LinkHoverImage(props: LinkHoverImageProps) {
       >
         <Text D4>{getHeading(props.text)}</Text>
         <ImageWrapper active={active} clip={getRandomClipPath()}>
-          <Image Width="100%" Src={props.image} />
+          <Image Width="100%" Height="100%" Src={props.image} />
         </ImageWrapper>
         <Container OverflowHide Height="fit-content">
           <Subtext>
