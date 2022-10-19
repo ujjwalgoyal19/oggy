@@ -45,8 +45,8 @@ export function Footer(props: FooterProps) {
               </Container>
               <Container Column Gap="1rem">
                 <Link to="/about">Who We Are</Link>
-                <Link to="/blog">Blog</Link>
-                <Link to="/workWithUs">Work With Us</Link>
+                {/* <Link to="/blog">Blog</Link>
+                <Link to="/workWithUs">Work With Us</Link> */}
                 <Link to="/contactUs">Contact Us</Link>
               </Container>
             </Container>
@@ -72,9 +72,6 @@ export function Footer(props: FooterProps) {
                   Instagram
                 </a>
                 <a href="https://www.facebook.com/team0ggy">Facebook</a>
-                <a href="https://www.linkedin.com/in/samarth-gupta-5645911aa/">
-                  Linkedin
-                </a>
               </Container>
             </Container>
           </Container>

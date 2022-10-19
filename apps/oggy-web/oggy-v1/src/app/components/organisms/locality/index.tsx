@@ -8,8 +8,8 @@ import { LocalityAPI } from 'app/service/locality.service';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import Text from 'app/components/atoms/text';
 import Image from 'app/components/atoms/image';
-import Images from 'app/constants/images';
 import { Link } from 'react-router-dom';
+import config from 'app/config';
 
 /* eslint-disable-next-line */
 export interface LocalityProps {}
@@ -81,7 +81,9 @@ const Locality = (props: LocalityProps) => {
                 <LinkHoverImage
                   key={`loc-${index}`}
                   text={locality.locality_name}
-                  image="assets/images/malviyaNagar.jpg"
+                  image={
+                    config.content.Home.HeroSectionLocalitiesJaipur[index].image
+                  }
                   url="search"
                   subtext={locality.res_count + ' places'}
                   hoverHandler={hoverHandler}
@@ -118,7 +120,11 @@ const Locality = (props: LocalityProps) => {
                           <Image
                             Width="100%"
                             Height="100%"
-                            Src={'assets/images/malviyaNagar.jpg'}
+                            Src={
+                              config.content.Home.HeroSectionLocalitiesJaipur[
+                                index
+                              ].image
+                            }
                           />
                         </Container>
                         <Container

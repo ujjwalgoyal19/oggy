@@ -223,6 +223,11 @@ const getHSL = (value: string) => {
   return `${hsl[0]}deg ${hsl[1]}% ${hsl[2]}%`;
 };
 
+const getRGB = (value: string) => {
+  const rgb = convert.hex.rgb(value);
+  return `${rgb[0]}, ${rgb[1]}, ${rgb[2]}`;
+};
+
 const StyledContainer = styled.div<IContainer>`
   // Default Properties
   box-sizing: border-box;
@@ -331,6 +336,7 @@ const StyledContainer = styled.div<IContainer>`
 
       //* BackgroundColor
       background-color: ${props.BG};
+      --background-color: ${props.BG};
 
       //* Overflow Behavior
       overflow-x: ${props.ScrollX && 'auto'};
@@ -426,8 +432,10 @@ const StyledContainer = styled.div<IContainer>`
         transition: box-shadow 0.2s ease;
         border: 0.1rem solid rgb(255, 255, 255);
         &:hover {
+          /* box-shadow: 0 0 1rem 0.2rem rgba(${getRGB('#ff9800')}, 0.3); */
           box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.1);
           border-color: rgb(232, 232, 232);
+          /* border-color: getRGB('#ff9800'); */
         }
       `}
     `}

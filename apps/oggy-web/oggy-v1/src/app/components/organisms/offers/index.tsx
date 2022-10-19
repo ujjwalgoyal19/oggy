@@ -75,6 +75,7 @@ export function Offers(props: OffersProps) {
                         Gap="1.5rem"
                         Shape="CS1"
                         BG={GetVendorColor(vendor)}
+                        ClassName="shine"
                         Border={{
                           Style: 'Solid',
                           L2: true,

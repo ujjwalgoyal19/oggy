@@ -79,6 +79,28 @@ const GlobalStyles = createGlobalStyle`
 
 }
 
+//* Designs
+.shine {
+
+      will-change: background-position-x;
+      /* --loading-grey: --background-color; */
+      background: linear-gradient(
+          100deg,
+          rgba(255, 255, 255, 0) 40%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0) 60%
+        )
+        var(--background-color);
+      background-size: 200% 100%;
+      background-position-x: 180%;
+      animation: 1.2s loading ease-in-out infinite;
+
+      @keyframes loading {
+        to {
+          background-position-x: -20%;
+        }
+      }
+}
 
 //* Animations
 .blurApply {

@@ -1,6 +1,5 @@
 import Container from 'app/components/atoms/container';
 import Text from 'app/components/atoms/text';
-import Star from 'app/graphics/star.graphic';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
 import { GetRatingColor, GetVendorColor, GetVendorImage } from 'app/utils';
 import { AiFillStar } from 'react-icons/ai';
@@ -11,7 +10,13 @@ export interface ReviewProps {
   Reviews: any;
 }
 
-const StyledReview = styled.div``;
+const StyledReview = styled.div`
+  /* .reviewGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 1fr);
+  } */
+`;
 
 export function Review(props: ReviewProps) {
   const device = useDeviceType();
@@ -25,23 +30,31 @@ export function Review(props: ReviewProps) {
       >
         <Container
           Column
-          BG="White"
+          BG="#ff9800"
           Padding="3rem"
           Shape="CS2"
-          Border={{ L1: true, Style: 'Solid' }}
-          Elevation={{ L1: true }}
+          ClassName="shine"
+          Border={{ Style: 'Solid', L2: true, Color: '#ff9800' }}
         >
-          <Container Row Width="fit-content" MarginBottom="3rem" CenterCA>
-            <Text Color="Grey" H1 EB>
+          <Container
+            Row
+            Width="fit-content"
+            MarginBottom="3rem"
+            CenterCA
+            BG="transparent"
+          >
+            <Text Color="white" H1 EB>
               Delivery
             </Text>
           </Container>
           {(props.Reviews.delivery.length > 0 && (
             <Container
               Row
+              // ClassName="reviewGrid"
               Height="100%"
               CenterCA
               Gap="4rem"
+              BG="transparent"
               ScrollX
               ScrollStyle="Hide"
               PaddingBottom="2rem"
@@ -53,7 +66,7 @@ export function Review(props: ReviewProps) {
                     Height="fit-content"
                     Width="fit-content"
                     Shape="CS2"
-                    Border={{ Style: 'Dashed', Color: 'Grey', L2: true }}
+                    BG="white"
                     Padding="5rem"
                     CenterCA
                     Position={{ Type: 'relative' }}
@@ -87,13 +100,14 @@ export function Review(props: ReviewProps) {
                     <Container
                       Height="fit-content"
                       Width="fit-content"
-                      BG="White"
+                      // BG="White"
+                      BG="transparent"
                       Position={{
                         Type: 'absolute',
                         Bottom: '0',
                         Right: '10px',
                       }}
-                      style={{ transform: 'translateY(50%)' }}
+                      // style={{ transform: 'translateY(50%)' }}
                       Padding="1rem"
                     >
                       <Container Height="10px" Width="auto">
@@ -104,18 +118,21 @@ export function Review(props: ReviewProps) {
                 );
               })}
             </Container>
-          )) || <Text H4>Not available for delivery on any platform</Text>}
+          )) || (
+            <Text Color="white" H4 N>
+              Not available for delivery on any platform
+            </Text>
+          )}
         </Container>
         <Container
           Column
           BG="White"
-          Border={{ Style: 'Solid', L1: true }}
-          Elevation={{ L1: true }}
+          Border={{ Style: 'Solid', L2: true, Color: '#ff9800' }}
           Padding="3rem"
           Shape="CS2"
         >
           <Container Row Width="fit-content" MarginBottom="3rem" CenterCA>
-            <Text Color="Grey" H1 EB>
+            <Text Color="#ff9800" H1 EB>
               Dining
             </Text>
           </Container>
@@ -187,7 +204,11 @@ export function Review(props: ReviewProps) {
                 );
               })}
             </Container>
-          )) || <Text H4>Not available for dining on any platform</Text>}
+          )) || (
+            <Text H4 N>
+              Not available for dining on any platform
+            </Text>
+          )}
         </Container>
       </Container>
     </StyledReview>

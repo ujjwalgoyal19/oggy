@@ -68,9 +68,9 @@ export function RestaurantCard(props: RestaurantCardProps) {
             Width="calc(90 * var(--vw))"
             Height="40rem"
             BG="white"
-            Elevation={{ L2: true }}
             Shape="CS3"
             Column
+            // Border={{ Style: 'Solid', L2: true }}
             Gap="2rem"
           >
             <Container Height="75%" Skeleton />
@@ -111,7 +111,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
             Gap="1.5rem"
           >
             <Container Shape="CS2" Height="100%">
-              <Image Width="100%" Height="100%" Src={props.Image} />
+              <Image Width="100%" Src={props.Image} />
             </Container>
             <Container Column Gap=".5rem" Height="fit-content">
               <Container
@@ -162,7 +162,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
           <Container
             Width="calc(90 * var(--vw))"
             Height="40rem"
-            Elevation={{ L2: true }}
+            // Elevation={{ L1: true }}
             Shape="CS3"
             BG="white"
             Column

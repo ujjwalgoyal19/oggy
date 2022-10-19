@@ -50,7 +50,7 @@ const HomeTemplate = (props: HomeProps) => {
           CenterCA
           SpaceBetweenMA
         >
-          <Container Height="min(6vh, 7vw)" Width="fit-content">
+          <Container Height="6rem" Width="fit-content" style={{}}>
             <Image Src={Images.Logo.Oggy} />
           </Container>
           <Container

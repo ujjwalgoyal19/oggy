@@ -13,7 +13,16 @@ import { throttle } from 'lodash';
 /* eslint-disable-next-line */
 export interface GalleryProps {}
 
-const StyledGallery = styled.div``;
+const StyledGallery = styled.div`
+  ${media.lessThan('md')`
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(245, 245, 245, 1) 6vh 
+  );
+  `}
+`;
 
 const StyledGalleryGrid = styled.div`
   display: flex;

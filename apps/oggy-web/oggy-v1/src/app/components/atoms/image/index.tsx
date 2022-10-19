@@ -14,6 +14,7 @@ interface StyledImage {
 }
 
 const StyledImage = styled.img<StyledImage>`
+  object-fit: cover;
   width: ${(props) => props.Width || 'auto'};
   height: ${(props) => props.Height || 'auto'};
 `;

@@ -90,7 +90,7 @@ export function Download(props: DownloadProps) {
                     </Text>
                   </Link>
                 </Container>
-                <Container PaddingBottom=".6rem" Width="fit-content">
+                {/* <Container PaddingBottom=".6rem" Width="fit-content">
                   <Link to="/blog">
                     <Text H3 N>
                       Blog
@@ -103,7 +103,7 @@ export function Download(props: DownloadProps) {
                       Work With Us
                     </Text>
                   </Link>
-                </Container>
+                </Container> */}
                 <Container PaddingBottom=".6rem" Width="fit-content">
                   <Link to="/contactUs">
                     <Text H3 N>
@@ -173,17 +173,6 @@ export function Download(props: DownloadProps) {
                 >
                   <Text H3 N>
                     <a href="https://www.facebook.com/team0ggy">Facebook</a>
-                  </Text>
-                </Container>
-                <Container
-                  PaddingBottom=".6rem"
-                  Width="fit-content"
-                  Height="fit-content"
-                >
-                  <Text H3 N>
-                    <a href="https://www.linkedin.com/in/samarth-gupta-5645911aa/">
-                      Linkedin
-                    </a>
                   </Text>
                 </Container>
               </Container>
