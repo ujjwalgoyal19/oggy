@@ -21,6 +21,7 @@ export interface SearchEntity {
   image: string | undefined;
   rating: any;
   locality: string | undefined;
+  vendors: string[];
   id: number;
 }
 
@@ -93,6 +94,7 @@ export const fetchSearch = createAsyncThunk(
         : null;
       const delivery = restaurant.delivery_rating;
       const dining = restaurant.dining_rating;
+      const vendors = ['zomato', 'swiggy', 'dineout', 'eazydiner'];
       RestaurantList.push({
         id: restaurant.id,
         name: restaurant.name,
@@ -100,6 +102,13 @@ export const fetchSearch = createAsyncThunk(
         cft: restaurant.cft ? restaurant.cft : '',
         image: restaurant.images.indexImage,
         locality: `${restaurant.location.locality}, ${restaurant.location.city}`,
+        vendors: vendors.map((vendor) => {
+          if (restaurant.restaurant_mapped_id[`${vendor.at(0)}_id`]) {
+            return vendor;
+          } else {
+            return null;
+          }
+        }),
         rating: {
           delivery: [
             {

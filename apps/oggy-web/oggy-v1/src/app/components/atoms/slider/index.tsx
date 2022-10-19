@@ -47,96 +47,152 @@ const StyledSlider = styled.div`
 export function Slider(props: SliderProps) {
   const device = useDeviceType();
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [showShadow, setShowShadow] = useState(false);
+  const sliderRefChild = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
+  const [gap, setGap] = useState<any>();
   const handleScroll = useCallback(
     throttle(() => {
-      if (sliderRef.current?.scrollLeft !== 0) {
-        setAtStart(true);
-        setAtEnd(false);
-      } else if (
-        sliderRef.current?.scrollLeft === sliderRef.current?.clientHeight
-      ) {
-        setAtStart(false);
+      if (sliderRef.current) {
+        // console.log('Scroll Left: ' + sliderRef.current.scrollLeft);
+        // console.log('Slider Width: ' + sliderRef.current.clientWidth);
+        // console.log('Scroll Width: ' + sliderRef.current.scrollWidth);
+        // console.log(
+        //   sliderRefScroll.current.clientWidth - sliderRef.current.clientWidth
+        // );
+        if (sliderRef.current.scrollLeft !== 0) {
+          setAtStart(false);
+        } else {
+          setAtStart(true);
+        }
+        if (
+          sliderRef.current.scrollLeft ===
+          sliderRef.current.scrollWidth - sliderRef.current.clientWidth
+        ) {
+          setAtEnd(true);
+        } else {
+          setAtEnd(false);
+        }
       }
     }, 300),
     []
   );
   useEffect(() => {
-    sliderRef.current?.addEventListener('scroll', handleScroll);
+    if (device.greaterThan('md')) {
+      sliderRef.current?.addEventListener('scroll', handleScroll);
+    }
   }, []);
+
+  useEffect(() => {
+    if (sliderRef.current && sliderRefChild.current) {
+      const total = Math.floor(
+        sliderRef.current?.clientWidth /
+          (sliderRefChild.current?.clientWidth + 20)
+      );
+      setGap(
+        (sliderRef.current?.clientWidth -
+          total * sliderRefChild.current?.clientWidth) /
+          (total - 1)
+      );
+    }
+  }, [sliderRef.current?.clientWidth]);
   return (
     <StyledSlider>
       <Container OverflowHide>
         <Container
           Ref={sliderRef}
           SpaceBetweenMA
-          ClassName={(showShadow && 'show-shadow') || ''}
           ScrollStyle="Hide"
           ScrollX
-          PaddingLeft={props.Padding}
-          PaddingRight={props.Padding}
+          PaddingLeft={device.lessThan('md') && props.Padding}
+          PaddingRight={device.lessThan('md') && props.Padding}
           PaddingTop="30px"
           PaddingBottom="30px"
         >
           <Container
             Row
-            Gap="2rem"
+            Gap={device.greaterThan('md') ? `${gap}px` : '2rem'}
             style={{ boxSizing: 'initial' }}
             Width="max-content"
           >
             {props.children.map((child) => {
-              return <Container>{child}</Container>;
+              return <Container Ref={sliderRefChild}>{child}</Container>;
             })}
           </Container>
         </Container>
       </Container>
-      {(device.greaterThan('md') && atStart && (
-        <Container
-          ClickHandler={() => {
-            sliderRef.current?.scroll(sliderRef.current.clientWidth, 0);
-          }}
-          Position={{ Type: 'absolute', Right: '0', Top: '0' }}
-          style={{ transform: 'translateX(50%)' }}
-          Height="80%"
-          Width="fit-content"
-          CenterCA
-        >
+      {
+        //* Left Slider Arrow
+        (device.greaterThan('md') && !atStart && (
           <Container
-            Shape="Circle"
+            ClickHandler={() => {
+              console.log(gap);
+              sliderRef.current?.scroll(
+                sliderRefChild.current
+                  ? sliderRef.current.scrollLeft -
+                      sliderRefChild.current.clientWidth -
+                      gap -
+                      1
+                  : 0,
+                0
+              );
+            }}
+            Position={{ Type: 'absolute', Left: '0', Top: '0' }}
+            style={{ transform: 'translateX(-50%)' }}
             Width="fit-content"
-            Height="fit-content"
-            BG="White"
-            Padding="15px"
-            Elevation={{ L2: true }}
+            Height="80%"
+            CenterCA
           >
-            <MdOutlineArrowForwardIos />
+            <Container
+              Shape="Circle"
+              Width="fit-content"
+              Height="fit-content"
+              BG="White"
+              Padding="15px"
+              Elevation={{ L2: true }}
+            >
+              <MdOutlineArrowBackIos />
+            </Container>
           </Container>
-        </Container>
-      )) ||
-        null}
-      {(device.greaterThan('md') && atEnd && (
-        <Container
-          Position={{ Type: 'absolute', Left: '0', Top: '0' }}
-          style={{ transform: 'translateX(-50%)' }}
-          Width="fit-content"
-          Height="80%"
-          CenterCA
-        >
+        )) ||
+          null
+      }
+      {
+        //* Right Slider Arrow
+        (device.greaterThan('md') && !atEnd && (
           <Container
-            Shape="Circle"
+            ClickHandler={() => {
+              console.log();
+              sliderRef.current?.scroll(
+                sliderRefChild.current
+                  ? sliderRef.current.scrollLeft +
+                      sliderRefChild.current.clientWidth +
+                      gap +
+                      1
+                  : 0,
+                0
+              );
+            }}
+            Position={{ Type: 'absolute', Right: '0', Top: '0' }}
+            style={{ transform: 'translateX(50%)' }}
+            Height="80%"
             Width="fit-content"
-            Height="fit-content"
-            BG="White"
-            Padding="15px"
-            Elevation={{ L2: true }}
+            CenterCA
           >
-            <MdOutlineArrowBackIos />
+            <Container
+              Shape="Circle"
+              Width="fit-content"
+              Height="fit-content"
+              BG="White"
+              Padding="15px"
+              Elevation={{ L2: true }}
+            >
+              <MdOutlineArrowForwardIos />
+            </Container>
           </Container>
-        </Container>
-      )) ||
-        null}
+        )) ||
+          null
+      }
     </StyledSlider>
   );
 }

@@ -136,10 +136,12 @@ export function Gallery(props: GalleryProps) {
           <StyledGalleryGrid ref={ref}>
             {Object.entries(SearchState.entities).map((resObj, index) => {
               const res = resObj[1];
+              console.log(res);
               return (
                 res && (
                   <RestaurantCard
                     key={index}
+                    Vendors={res.vendors}
                     Id={res.id}
                     Name={res.name}
                     CostForTwo={res.cft}

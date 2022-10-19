@@ -3,10 +3,12 @@ import Image from 'app/components/atoms/image';
 import Rating from 'app/components/atoms/rating';
 import Text from 'app/components/atoms/text';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
+import { GetVendorColor } from 'app/utils';
 import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface RestaurantCardProps {
+  Vendors?: string[];
   Id?: number;
   Image?: string;
   DeliveryRating?: any;
@@ -37,6 +39,36 @@ const RatingAggregation = (ratings: Rating[]) => {
   } else {
     return ((rating / total) * 5).toFixed(1);
   }
+};
+
+const vendorComponent = (Vendors: any) => {
+  let pos = 0;
+  return Vendors?.map((vendor: any) => {
+    vendor && pos++;
+    return (
+      vendor && (
+        <Container
+          Width="fit-content"
+          PaddingLeft="1.5rem"
+          PaddingRight="1.5rem"
+          PaddingTop=".3rem"
+          PaddingBottom=".3rem"
+          Height="fit-content"
+          BG={GetVendorColor(vendor)}
+          Position={{
+            Type: 'absolute',
+            Top: `${60 - (pos - 1) * 9}%`,
+          }}
+          Elevation={{ L1: true }}
+          ClassName="shine"
+        >
+          <Text H5 EB Color="white">
+            {vendor}
+          </Text>
+        </Container>
+      )
+    );
+  });
 };
 
 export function RestaurantCard(props: RestaurantCardProps) {
@@ -109,6 +141,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
             Height="32rem"
             SpaceBetweenMA
             Gap="1.5rem"
+            Position={{ Type: 'relative' }}
           >
             <Container Shape="CS2" Height="100%">
               <Image Width="100%" Src={props.Image} />
@@ -156,6 +189,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
                 </Text>
               </Container>
             </Container>
+            {vendorComponent(props.Vendors)}
           </Container>
         )}
         {device.lessThan('md') && (
@@ -163,6 +197,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
             Width="calc(90 * var(--vw))"
             Height="40rem"
             // Elevation={{ L1: true }}
+            Position={{ Type: 'relative' }}
             Shape="CS3"
             BG="white"
             Column
@@ -220,6 +255,8 @@ export function RestaurantCard(props: RestaurantCardProps) {
                 </Text>
               </Container>
             </Container>
+
+            {vendorComponent(props.Vendors)}
           </Container>
         )}
       </Container>
