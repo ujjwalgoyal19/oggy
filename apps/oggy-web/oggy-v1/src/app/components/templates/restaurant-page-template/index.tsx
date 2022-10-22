@@ -6,7 +6,6 @@ import Offers from 'app/components/organisms/offers';
 import Overview from 'app/components/organisms/overview';
 import Photos from 'app/components/organisms/photos';
 import Text from 'app/components/atoms/text';
-import { useEffect } from 'react';
 import {
   RatingAggregation,
   RatingArrayCreate,
@@ -19,8 +18,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 /* eslint-disable-next-line */
 export interface RestaurantPageTemplateProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Section: number;
-  Data: any;
+  Section?: number;
+  Data?: any;
+  Skeleton?: boolean;
 }
 
 const StyledRestaurantPageTemplate = styled.div`
@@ -37,141 +37,152 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
     const sectionName = Sections.at(index)?.toLowerCase();
     navigate(`/${loc[1]}/${loc[2]}/${sectionName}`);
   };
-  useEffect(() => {
-    // console.log(props.Data);
-  }, []);
-  return (
-    <StyledRestaurantPageTemplate>
-      <Container Column Width="calc(100 * var(--vw))" CenterCA>
-        <Container
-          Column
-          CenterCA
-          CenterMA
-          BG="white"
-          Width="var(--restaurant-page-width)"
-          Position={{ Type: 'sticky', Top: '0' }}
-          Index={2}
-        >
-          <Container Row SpaceBetweenMA PaddingTop="3rem">
-            <Container Column>
-              <Container Row>
-                <Text H1 B NoWrap={{ Width: '100%' }}>
-                  {props.Data.name}
-                </Text>
+  if (props.Skeleton) {
+    return <Container Width="var(--restaurant-page-width)"></Container>;
+  } else if (props.Section !== undefined && props.Data !== undefined) {
+    return (
+      <StyledRestaurantPageTemplate>
+        <Container Column Width="calc(100 * var(--vw))" CenterCA>
+          <Container
+            Column
+            CenterCA
+            CenterMA
+            BG="white"
+            Width="var(--restaurant-page-width)"
+            Position={{ Type: 'sticky', Top: '0' }}
+            Index={2}
+          >
+            <Container Row SpaceBetweenMA PaddingTop="3rem">
+              <Container Column>
+                <Container Row>
+                  <Text H1 B NoWrap={{ Width: '100%' }}>
+                    {props.Data.name}
+                  </Text>
+                </Container>
+                <Container Row MarginTop="0.8rem">
+                  <Text
+                    H3
+                    L
+                    NoWrap={{ Width: '100%' }}
+                    Color="rgb(105,105,105)"
+                  >
+                    {CreateCuisineString(props.Data.cuisines)}
+                  </Text>
+                </Container>
+                <Container Row MarginTop="0.5rem">
+                  <Text
+                    H3
+                    L
+                    Sub
+                    Color="rgb(156,156,156)"
+                  >{`${props.Data.location.locality}, ${props.Data.location.city}`}</Text>
+                </Container>
               </Container>
-              <Container Row MarginTop="0.8rem">
-                <Text H3 L NoWrap={{ Width: '100%' }} Color="rgb(105,105,105)">
-                  {CreateCuisineString(props.Data.cuisines)}
-                </Text>
-              </Container>
-              <Container Row MarginTop="0.5rem">
-                <Text
-                  H3
-                  L
-                  Sub
-                  Color="rgb(156,156,156)"
-                >{`${props.Data.location.locality}, ${props.Data.location.city}`}</Text>
-              </Container>
+              {device.greaterThan('md') && (
+                <Container Row EndMA Gap="5vw">
+                  <Container Width="fit-content" Row CenterCA Gap="1rem">
+                    <Rating
+                      Large
+                      Rating={RatingAggregation(
+                        props.Data.delivery_rating,
+                        'rating'
+                      )}
+                    />
+                    <Container Column>
+                      <Text H5 N>
+                        {RatingAggregation(
+                          props.Data.delivery_rating,
+                          'reviews'
+                        )}
+                      </Text>
+                      <Text H5 Muted>
+                        Delivery Reviews
+                      </Text>
+                    </Container>
+                  </Container>
+                  <Container Width="fit-content" Row CenterCA Gap="1rem">
+                    <Rating
+                      Large
+                      Rating={RatingAggregation(props.Data.dining_rating)}
+                    />
+                    <Container Column>
+                      <Text H5 B>
+                        {RatingAggregation(props.Data.dining_rating, 'reviews')}
+                      </Text>
+                      <Text H5 Muted>
+                        Dining Reviews
+                      </Text>
+                    </Container>
+                  </Container>
+                </Container>
+              )}
             </Container>
-            {device.greaterThan('md') && (
-              <Container Row EndMA Gap="5vw">
-                <Container Width="fit-content" Row CenterCA Gap="1rem">
-                  <Rating
-                    Large
-                    Rating={RatingAggregation(
-                      props.Data.delivery_rating,
-                      'rating'
-                    )}
-                  />
-                  <Container Column>
-                    <Text H5 N>
-                      {RatingAggregation(props.Data.delivery_rating, 'reviews')}
-                    </Text>
-                    <Text H5 Muted>
-                      Delivery Reviews
-                    </Text>
-                  </Container>
-                </Container>
-                <Container Width="fit-content" Row CenterCA Gap="1rem">
-                  <Rating
-                    Large
-                    Rating={RatingAggregation(props.Data.dining_rating)}
-                  />
-                  <Container Column>
-                    <Text H5 B>
-                      {RatingAggregation(props.Data.dining_rating, 'reviews')}
-                    </Text>
-                    <Text H5 Muted>
-                      Dining Reviews
-                    </Text>
-                  </Container>
-                </Container>
-              </Container>
-            )}
-          </Container>
-          <Container Row Height="8rem">
-            <TabBar
-              Horizontal
-              Sections={Sections}
-              ActiveSection={props.Section}
-              ChangeSection={changeSectionHandler}
-            />
-          </Container>
-        </Container>
-        <Container
-          Column
-          Width="var(--restaurant-page-width)"
-          MarginBottom="20rem"
-          MarginTop="5rem"
-        >
-          {{
-            0: (
-              <Overview
-                Data={props.Data}
-                Features={
-                  props.Data.about.features.length > 0 &&
-                  props.Data.about.features
-                }
-                PeopleLiked={
-                  props.Data.about.people_liked.length > 0 &&
-                  props.Data.about.people_liked
-                }
-                TopTags={
-                  props.Data.about.top_tags.length > 0 &&
-                  props.Data.about.top_tags
-                }
-                TopDishes={
-                  props.Data.about.top_dishes.length > 0 &&
-                  props.Data.about.top_dishes
-                }
-                CFT={props.Data.cft && props.Data.cft}
+            <Container Row Height="8rem">
+              <TabBar
+                Horizontal
+                Sections={Sections}
+                ActiveSection={props.Section}
+                ChangeSection={changeSectionHandler}
               />
-            ),
-            1: (
+            </Container>
+          </Container>
+          <Container
+            Column
+            Width="var(--restaurant-page-width)"
+            MarginBottom="20rem"
+            MarginTop="5rem"
+          >
+            {{
+              0: (
+                <Overview
+                  Data={props.Data}
+                  Features={
+                    props.Data.about.features.length > 0 &&
+                    props.Data.about.features
+                  }
+                  PeopleLiked={
+                    props.Data.about.people_liked.length > 0 &&
+                    props.Data.about.people_liked
+                  }
+                  TopTags={
+                    props.Data.about.top_tags.length > 0 &&
+                    props.Data.about.top_tags
+                  }
+                  TopDishes={
+                    props.Data.about.top_dishes.length > 0 &&
+                    props.Data.about.top_dishes
+                  }
+                  CFT={props.Data.cft && props.Data.cft}
+                />
+              ),
+              1: (
+                <Offers
+                  Offers={props.Data.offer_details}
+                  Links={props.Data.restaurant_mapped_url}
+                />
+              ),
+              2: (
+                <Review
+                  Reviews={{
+                    dining: RatingArrayCreate(props.Data.dining_rating),
+                    delivery: RatingArrayCreate(props.Data.delivery_rating),
+                  }}
+                />
+              ),
+              3: <Photos Image={props.Data.images.all} />,
+            }[props.Section] || (
               <Offers
                 Offers={props.Data.offer_details}
                 Links={props.Data.restaurant_mapped_url}
               />
-            ),
-            2: (
-              <Review
-                Reviews={{
-                  dining: RatingArrayCreate(props.Data.dining_rating),
-                  delivery: RatingArrayCreate(props.Data.delivery_rating),
-                }}
-              />
-            ),
-            3: <Photos Image={props.Data.images.all} />,
-          }[props.Section] || (
-            <Offers
-              Offers={props.Data.offer_details}
-              Links={props.Data.restaurant_mapped_url}
-            />
-          )}
+            )}
+          </Container>
         </Container>
-      </Container>
-    </StyledRestaurantPageTemplate>
-  );
+      </StyledRestaurantPageTemplate>
+    );
+  } else {
+    return null;
+  }
 }
 
 export default RestaurantPageTemplate;

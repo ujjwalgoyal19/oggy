@@ -43,18 +43,20 @@ const OfferCard = (
 };
 
 export function Offers(props: OffersProps) {
-  let i = 0;
+  const VendorName = ['zomato', 'dineout', 'eazydiner', 'swiggy'];
   const Vendors = [
     'https://www.zomato.com',
     'https://dineout.co.in/',
     '',
     'https://www.swiggy.com',
   ];
+  const offersAvailable = [0, 0, 0, 0];
   return (
     <StyledOffers>
-      {['zomato', 'dineout', 'eazydiner', 'swiggy'].map((vendor, index) => {
+      {VendorName.map((vendor, index) => {
         const offers = props.Offers[`${vendor}_offer`];
         if (offers && offers.length > 0) {
+          offersAvailable[index] = 1;
           return (
             <Container
               Row
@@ -119,17 +121,69 @@ export function Offers(props: OffersProps) {
             </Container>
           );
         } else {
-          i++;
           return null;
         }
       })}
-      {i === 4 && (
-        <Container Column CenterCA CenterMA Width="100%">
-          <Text H1 EB Color="LightGrey">
-            No offers available
-          </Text>
-        </Container>
-      )}
+      <Container Gap="3rem">
+        {VendorName.map((vendor, index) => {
+          return (
+            !offersAvailable[index] && (
+              <Container
+                Width="30rem"
+                MinWidth="min(30rem, 90%)"
+                MarginRight="2rem"
+                MarginBottom="2rem"
+                Column
+                Gap="1.5rem"
+                Shape="CS1"
+                BG={GetVendorColor(vendor)}
+                ClassName="shine"
+                Border={{
+                  Style: 'Solid',
+                  L2: true,
+                  Color: GetVendorColor(vendor),
+                }}
+                ClickHandler={() =>
+                  window.open(
+                    Vendors[index] + props.Links[`${vendor.at(0)}_url`]
+                  )
+                }
+                Height="20rem"
+                Position={{ Type: 'relative' }}
+              >
+                <Container BG="white" Height="fit-content" Padding="1rem">
+                  <Text H4 EB Color={GetVendorColor(vendor)}>
+                    {vendor}
+                  </Text>
+                </Container>
+                <Container Padding="1rem" BG="transparent">
+                  <Text
+                    H4
+                    B
+                    Color="white"
+                  >{`No offers available on ${vendor}`}</Text>
+                </Container>
+
+                <Container
+                  Shape="Circle"
+                  BG="White"
+                  Width="4rem"
+                  Height="4rem"
+                  Position={{
+                    Type: 'absolute',
+                    Bottom: '5%',
+                    Right: '5%',
+                  }}
+                  CenterCA
+                  CenterMA
+                >
+                  <IoIosShareAlt color={GetVendorColor(vendor)} />
+                </Container>
+              </Container>
+            )
+          );
+        })}
+      </Container>
     </StyledOffers>
   );
 }

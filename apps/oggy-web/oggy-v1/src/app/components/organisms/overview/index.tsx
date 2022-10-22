@@ -26,12 +26,15 @@ const FeatureCard = styled.div`
 export function Overview(props: OverviewProps) {
   const device = useDeviceType();
   const dishes = new Array<string>();
-  props.TopDishes &&
+  if (props.TopDishes) {
     props.TopDishes.forEach((dish: string) => {
       if (dish !== '') {
         dishes.push(dish);
       }
     });
+  }
+  console.log('Hello');
+
   return (
     <StyledOverview>
       <Container Row>

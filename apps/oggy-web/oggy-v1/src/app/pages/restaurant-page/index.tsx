@@ -40,12 +40,12 @@ export function RestaurantPage(props: RestaurantPageProps) {
 
   return (
     <StyledRestaurantPage>
-      {restaurantState.loadingStatus === 'loaded' && (
+      {(restaurantState.loadingStatus === 'loaded' && (
         <RestaurantPageTemplate
           Section={sectionNum}
           Data={restaurantState?.entities[restaurantState.ids[0]]}
         />
-      )}
+      )) || <RestaurantPageTemplate Skeleton />}
     </StyledRestaurantPage>
   );
 }
