@@ -1,4 +1,5 @@
 import Container from 'app/components/atoms/container';
+import Slider from 'app/components/atoms/slider';
 import Text from 'app/components/atoms/text';
 import { GetVendorColor } from 'app/utils';
 import { IoIosShareAlt } from 'react-icons/io';
@@ -58,21 +59,8 @@ export function Offers(props: OffersProps) {
         if (offers && offers.length > 0) {
           offersAvailable[index] = 1;
           return (
-            <Container
-              Row
-              MarginBottom="3rem"
-              CenterCA
-              ClickHandler={() =>
-                window.open(Vendors[index] + props.Links[`${vendor.at(0)}_url`])
-              }
-            >
-              <Container
-                Row
-                Gap="3rem"
-                ScrollX
-                ScrollStyle="Hide"
-                PaddingBottom="30px"
-              >
+            <Container Row MarginBottom="3rem" CenterCA>
+              <Slider Gap="3rem">
                 {offers.map((offer: any) => {
                   return (
                     <Container
@@ -83,7 +71,12 @@ export function Offers(props: OffersProps) {
                       Gap="1.5rem"
                       Shape="CS1"
                       BG={GetVendorColor(vendor)}
-                      ClassName="shine"
+                      ClickHandler={() =>
+                        window.open(
+                          Vendors[index] + props.Links[`${vendor.at(0)}_url`]
+                        )
+                      }
+                      // ClassName="shine"
                       Border={{
                         Style: 'Solid',
                         L2: true,
@@ -117,17 +110,18 @@ export function Offers(props: OffersProps) {
                     </Container>
                   );
                 })}
-              </Container>
+              </Slider>
             </Container>
           );
         } else {
           return null;
         }
       })}
-      <Container Gap="3rem">
+      <Container ScrollX ScrollStyle="Hide" Gap="3rem">
         {VendorName.map((vendor, index) => {
           return (
-            !offersAvailable[index] && (
+            !offersAvailable[index] &&
+            props.Links[`${vendor.at(0)}_url`] && (
               <Container
                 Width="30rem"
                 MinWidth="min(30rem, 90%)"
@@ -137,7 +131,7 @@ export function Offers(props: OffersProps) {
                 Gap="1.5rem"
                 Shape="CS1"
                 BG={GetVendorColor(vendor)}
-                ClassName="shine"
+                // ClassName="shine"
                 Border={{
                   Style: 'Solid',
                   L2: true,
@@ -156,12 +150,13 @@ export function Offers(props: OffersProps) {
                     {vendor}
                   </Text>
                 </Container>
-                <Container Padding="1rem" BG="transparent">
-                  <Text
-                    H4
-                    B
-                    Color="white"
-                  >{`No offers available on ${vendor}`}</Text>
+                <Container Column Gap=".5rem" Padding="1rem" BG="transparent">
+                  <Text H4 B Color="white">
+                    {`Checkout on ${vendor}`}
+                  </Text>
+                  <Text H4 B Color="white">
+                    No offers available for now
+                  </Text>
                 </Container>
 
                 <Container

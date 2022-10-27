@@ -14,6 +14,7 @@ import { throttle } from 'lodash';
 export interface GalleryProps {}
 
 const StyledGallery = styled.div`
+  padding-bottom: 20vh;
   ${media.lessThan('md')`
   background: rgb(255, 255, 255);
   background: linear-gradient(
@@ -136,7 +137,6 @@ export function Gallery(props: GalleryProps) {
           <StyledGalleryGrid ref={ref}>
             {Object.entries(SearchState.entities).map((resObj, index) => {
               const res = resObj[1];
-              console.log(res);
               return (
                 res && (
                   <RestaurantCard

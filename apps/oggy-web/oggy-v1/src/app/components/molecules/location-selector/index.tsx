@@ -50,7 +50,7 @@ export function LocationSelector(props: LocationSelectorProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       AutocompleteAPI.getLocations(formik.values.location).then((sug) => {
-        console.log(sug);
+        // console.log(sug);
         setSuggestions(sug.location);
       });
     }, 200);

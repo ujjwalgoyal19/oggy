@@ -13,13 +13,13 @@ import { useDispatch } from 'react-redux';
 import { searchActions } from 'app/store/search/index.slice';
 import ChainCard from 'app/components/molecules/chain-card';
 import Text from 'app/components/atoms/text';
+import media from 'app/hooks/styledMediaQuery.hook';
 
 /* eslint-disable-next-line */
 export interface SearchResultTemplateProps {}
 
 const StyledSearchResultTemplate = styled.div`
   min-height: 100vh;
-  margin-bottom: 20vh;
   background-color: white;
 `;
 

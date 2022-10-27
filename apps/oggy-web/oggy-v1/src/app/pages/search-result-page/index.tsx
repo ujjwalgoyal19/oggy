@@ -9,7 +9,8 @@ import { useEffect, useLayoutEffect } from 'react';
 /* eslint-disable-next-line */
 export interface SearchResultPageProps {}
 
-const StyledSearchResultPage = styled.div``;
+const StyledSearchResultPage = styled.div`
+`;
 
 export function SearchResultPage(props: SearchResultPageProps) {
   const dispatch = useDispatch<AppDispatch>();

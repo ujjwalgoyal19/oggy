@@ -24,7 +24,7 @@ const Switch = () => {
           path="/restaurant/:restaurantId/:section"
           element={<RestaurantPage />}
         />
-        <Route path="/error" element={<Page404 />} />
+        <Route path="*" element={<Page404 />} />
         <Route path="/login" element={<Login setAuth="false" />} />
         <Route path="/signup" element={<Signup setAuth="false" />} />
         <Route

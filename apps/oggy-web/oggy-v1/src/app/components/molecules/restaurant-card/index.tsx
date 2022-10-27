@@ -128,7 +128,7 @@ export function RestaurantCard(props: RestaurantCardProps) {
         Width="100%"
         ClickHandler={() => {
           console.log('Hello');
-          navigate(`/restaurant/${props.Id}`, { replace: true });
+          navigate(`/restaurant/${props.Id}`);
         }}
       >
         {device.greaterThan('md') && (

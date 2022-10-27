@@ -48,18 +48,12 @@ export function Slider(props: SliderProps) {
   const device = useDeviceType();
   const sliderRef = useRef<HTMLDivElement>(null);
   const sliderRefChild = useRef<HTMLDivElement>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
+  const [atStart, setAtStart] = useState<boolean>();
+  const [atEnd, setAtEnd] = useState<boolean>();
   const [gap, setGap] = useState<any>();
   const handleScroll = useCallback(
     throttle(() => {
       if (sliderRef.current) {
-        // console.log('Scroll Left: ' + sliderRef.current.scrollLeft);
-        // console.log('Slider Width: ' + sliderRef.current.clientWidth);
-        // console.log('Scroll Width: ' + sliderRef.current.scrollWidth);
-        // console.log(
-        //   sliderRefScroll.current.clientWidth - sliderRef.current.clientWidth
-        // );
         if (sliderRef.current.scrollLeft !== 0) {
           setAtStart(false);
         } else {
@@ -69,6 +63,10 @@ export function Slider(props: SliderProps) {
           sliderRef.current.scrollLeft ===
           sliderRef.current.scrollWidth - sliderRef.current.clientWidth
         ) {
+          // console.log(sliderRef.current.scrollLeft);
+          // console.log(
+          //   sliderRef.current.scrollWidth - sliderRef.current.clientWidth
+          // );
           setAtEnd(true);
         } else {
           setAtEnd(false);
@@ -77,6 +75,11 @@ export function Slider(props: SliderProps) {
     }, 300),
     []
   );
+  useEffect(() => {
+    if (device.greaterThan('md')) {
+      handleScroll();
+    }
+  }, []);
   useEffect(() => {
     if (device.greaterThan('md')) {
       sliderRef.current?.addEventListener('scroll', handleScroll);
@@ -111,7 +114,13 @@ export function Slider(props: SliderProps) {
         >
           <Container
             Row
-            Gap={device.greaterThan('md') ? `${gap}px` : '2rem'}
+            Gap={
+              props.Gap
+                ? props.Gap
+                : device.greaterThan('md')
+                ? `${gap}px`
+                : '2rem'
+            }
             style={{ boxSizing: 'initial' }}
             Width="max-content"
           >

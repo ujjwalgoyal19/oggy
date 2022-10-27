@@ -45,8 +45,6 @@ export function Footer(props: FooterProps) {
               </Container>
               <Container Column Gap="1rem">
                 <Link to="/about">Who We Are</Link>
-                {/* <Link to="/blog">Blog</Link>
-                <Link to="/workWithUs">Work With Us</Link> */}
                 <Link to="/contactUs">Contact Us</Link>
               </Container>
             </Container>

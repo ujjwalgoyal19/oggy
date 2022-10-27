@@ -31,14 +31,58 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
   const device = useDeviceType();
   const navigate = useNavigate();
   const location = useLocation();
+  const mobileNavHeader = document.querySelector('.mobile-nav__header');
   const Sections = ['Overview', 'Offers', 'Reviews', 'Photos'];
   const changeSectionHandler = (index: number) => {
     const loc = location.pathname.split('/');
     const sectionName = Sections.at(index)?.toLowerCase();
-    navigate(`/${loc[1]}/${loc[2]}/${sectionName}`);
+    navigate(`/${loc[1]}/${loc[2]}/${sectionName}`, { replace: true });
   };
   if (props.Skeleton) {
-    return <Container Width="var(--restaurant-page-width)"></Container>;
+    return (
+      <Container
+        CenterCA
+        PaddingTop="3rem"
+        Column
+        Height="calc(100 * var(--vh))"
+      >
+        <Container
+          Width="var(--restaurant-page-width)"
+          Column
+          Height="fit-content"
+          Gap="5rem"
+        >
+          <Container Row>
+            <Container Column Gap="2rem">
+              <Container Skeleton Height="1rem" Width="70%" Shape="CS0" />
+              <Container Skeleton Height="1rem" Width="50%" Shape="CS0" />
+              <Container Skeleton Height="1rem" Width="30%" Shape="CS0" />
+            </Container>
+            <Container Width="6rem" Height="3rem" Skeleton Shape="CS2" />
+          </Container>
+          <Container Column>
+            <Container
+              Height="10rem"
+              Width="100%"
+              Skeleton
+              MarginBottom="4rem"
+            />
+            <Container Column Gap="1rem">
+              <Container
+                Width="70%"
+                Height="2rem"
+                Skeleton
+                Shape="CS0"
+                MarginBottom="1rem"
+              />
+              <Container Width="50%" Height="1rem" Skeleton Shape="CS0" />
+              <Container Width="40%" Height="1rem" Skeleton Shape="CS0" />
+              <Container Height="20rem" Skeleton MarginTop="3rem" />
+            </Container>
+          </Container>
+        </Container>
+      </Container>
+    );
   } else if (props.Section !== undefined && props.Data !== undefined) {
     return (
       <StyledRestaurantPageTemplate>
@@ -49,7 +93,12 @@ export function RestaurantPageTemplate(props: RestaurantPageTemplateProps) {
             CenterMA
             BG="white"
             Width="var(--restaurant-page-width)"
-            Position={{ Type: 'sticky', Top: '0' }}
+            Position={{
+              Type: 'sticky',
+              Top: `${
+                (mobileNavHeader && mobileNavHeader.clientHeight) || 0
+              }px`,
+            }}
             Index={2}
           >
             <Container Row SpaceBetweenMA PaddingTop="3rem">

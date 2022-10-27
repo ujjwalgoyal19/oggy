@@ -33,7 +33,7 @@ export function Overview(props: OverviewProps) {
       }
     });
   }
-  console.log('Hello');
+  // console.log('Hello');
 
   return (
     <StyledOverview>

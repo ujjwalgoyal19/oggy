@@ -1,6 +1,6 @@
 import RestaurantPageTemplate from 'app/components/templates/restaurant-page-template';
 import { AppDispatch, RootState } from 'app/store';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -18,6 +18,9 @@ export function RestaurantPage(props: RestaurantPageProps) {
   useEffect(() => {
     if (restaurantId) dispatch(fetchRestaurant(parseInt(restaurantId)));
   }, [restaurantId]);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   let sectionNum: number;
   switch (section) {

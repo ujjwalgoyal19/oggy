@@ -5,6 +5,7 @@ import Text from 'app/components/atoms/text';
 import Images from 'app/constants/images';
 import media from 'app/hooks/styledMediaQuery.hook';
 import { useDeviceType } from 'app/hooks/useDeviceType.hook';
+import { AiFillFacebook, AiFillInstagram } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -62,7 +63,7 @@ export function Download(props: DownloadProps) {
           </Container>
           <Container Row Width="fit-content" Height="fit-content">
             <a href="https://rb.gy/bqprcb">
-              <Container Height="max(2.5vw, 3.5vh)">
+              <Container Height="max(2.5vw, 4.5vh)">
                 <Image Src={Images.HomePage.AndroidStoreBadge} />
               </Container>
             </a>
@@ -90,20 +91,7 @@ export function Download(props: DownloadProps) {
                     </Text>
                   </Link>
                 </Container>
-                {/* <Container PaddingBottom=".6rem" Width="fit-content">
-                  <Link to="/blog">
-                    <Text H3 N>
-                      Blog
-                    </Text>
-                  </Link>
-                </Container>
-                <Container PaddingBottom=".6rem" Width="fit-content">
-                  <Link to="/workWithUs">
-                    <Text H3 N>
-                      Work With Us
-                    </Text>
-                  </Link>
-                </Container> */}
+
                 <Container PaddingBottom=".6rem" Width="fit-content">
                   <Link to="/contactUs">
                     <Text H3 N>
@@ -177,6 +165,29 @@ export function Download(props: DownloadProps) {
                 </Container>
               </Container>
             </Container>
+          </Container>
+        )}
+        {device.lessThan('md') && (
+          <Container
+            Width="fit-content"
+            Height="fit-content"
+            Gap="3rem"
+            PaddingBottom="8rem"
+          >
+            <a
+              href="https://www.instagram.com/oggy_india/?hl=en"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <AiFillInstagram size="3.5rem" color="#ff9800" />
+            </a>
+            <a
+              href="https://www.facebook.com/team0ggy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <AiFillFacebook size="3.5rem" color="#ff9800" />
+            </a>
           </Container>
         )}
       </Container>
