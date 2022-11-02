@@ -53,14 +53,12 @@ const Login = ({ setAuth }) => {
         <ContentStyle>
           <HeadingStyle component={motion.div} {...fadeInUp}>
             <Logo />
-            <Typography sx={{ color: 'text.secondary', mb: 5 }} variant={'h6'}>
-              <a href="/login">Login</a> to your account
+            <Typography sx={{ color: 'text.secondary', mb: 4 }} variant={'h6'}>
+              <a href="/login">Login</a> with your Mobile Number
             </Typography>
           </HeadingStyle>
 
-          <Box component={motion.div} {...fadeInUp}>
-            <SocialAuth />
-          </Box>
+          <LoginForm setAuth={setAuth} />
 
           <Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -68,7 +66,15 @@ const Login = ({ setAuth }) => {
             </Typography>
           </Divider>
 
-          <LoginForm setAuth={setAuth} />
+          <Typography sx={{ color: 'text.secondary', mb: 2 }} variant={'h6'}>
+            <center>
+              <a href="/login">Login</a> with
+            </center>
+          </Typography>
+
+          <Box component={motion.div} {...fadeInUp}>
+            <SocialAuth />
+          </Box>
 
           <Typography
             component={motion.p}
@@ -78,7 +84,7 @@ const Login = ({ setAuth }) => {
             sx={{ mt: 3 }}
           >
             Don’t have an account?{' '}
-            <Link variant="subtitle2" component={RouterLink} to="/signup">
+            <Link variant="subtitle2" component={RouterLink} to="/register">
               Sign up
             </Link>
           </Typography>

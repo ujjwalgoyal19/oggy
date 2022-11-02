@@ -1,33 +1,33 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Container, Typography, Link, Box, Divider } from "@mui/material";
-import styled from "@emotion/styled";
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Container, Typography, Link, Box, Divider } from '@mui/material';
+import styled from '@emotion/styled';
 
-import SocialAuth from "../components/SocialAuth";
-import SignupForm from "../components/SignUpForm";
-import Logo from "../components/Logo";
-import { motion } from "framer-motion";
+import SocialAuth from '../components/SocialAuth';
+import SignupForm from '../components/SignUpForm';
+import Logo from '../components/Logo';
+import { motion } from 'framer-motion';
 
 //////////////////////////////////
-const RootStyle = styled("div")({
-  background: "rgb(249, 250, 251)",
-  height: "100vh",
-  display: "grid",
-  placeItems: "center",
+const RootStyle = styled('div')({
+  background: 'rgb(249, 250, 251)',
+  height: '100vh',
+  display: 'grid',
+  placeItems: 'center',
 });
 
 const HeadingStyle = styled(Box)({
-  textAlign: "center",
+  textAlign: 'center',
 });
 
 const ContentStyle = styled(Box)({
   maxWidth: 480,
   padding: 25,
-  margin: "auto",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  background: "#fff",
+  margin: 'auto',
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  background: '#fff',
 });
 
 let easing = [0.6, -0.05, 0.01, 0.99];
@@ -55,35 +55,45 @@ const Signup = ({ setAuth }) => {
           <HeadingStyle component={motion.div} {...fadeInUp}>
             <Logo />
 
-            <Typography sx={{ color: "text.secondary", mb: 5 }}>
-              Enter your details below.
+            <Typography sx={{ color: 'text.secondary', mb: 5 }}>
+              Sign Up With your Mobile Number
             </Typography>
           </HeadingStyle>
 
-          <Box component={motion.div} {...fadeInUp}>
-            <SocialAuth />
-          </Box>
+          <SignupForm setAuth={setAuth} />
 
           <Divider sx={{ my: 3 }} component={motion.div} {...fadeInUp}>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               OR
             </Typography>
           </Divider>
 
-          <SignupForm setAuth={setAuth} />
+          <Typography sx={{ color: 'text.secondary', mb: 2 }} variant={'h6'}>
+            <center>
+              <a href="/login">Login</a> with
+            </center>
+          </Typography>
+
+          <Box component={motion.div} {...fadeInUp}>
+            <SocialAuth />
+          </Box>
 
           <Typography
             component={motion.p}
             {...fadeInUp}
             variant="body2"
             align="center"
-            sx={{ color: "text.secondary", mt: 2 }}
+            sx={{ color: 'text.secondary', mt: 2 }}
           >
-            By registering, I agree to{" "}
-            <Link underline="always" color="text.primary" href="/termsAndConditions">
+            By registering, I agree to{' '}
+            <Link
+              underline="always"
+              color="text.primary"
+              href="/termsAndConditions"
+            >
               Terms of Service
-            </Link>{" "}
-            &{" "}
+            </Link>{' '}
+            &{' '}
             <Link underline="always" color="text.primary" href="/privacyPolicy">
               Privacy Policy
             </Link>
@@ -97,7 +107,7 @@ const Signup = ({ setAuth }) => {
             align="center"
             sx={{ mt: 3 }}
           >
-            Have an account?{" "}
+            Have an account?{' '}
             <Link variant="subtitle2" component={RouterLink} to="/login">
               Login
             </Link>

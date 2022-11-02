@@ -3,11 +3,12 @@ import { Stack, Button, IconButton } from '@mui/material';
 import {
   auth,
   signInWithFacebook,
-  signInWithGoogle
+  signInWithGoogle,
 } from '../service/firebase.service.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
 
 const SocialAuth = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -24,7 +25,7 @@ const SocialAuth = () => {
 
   return (
     <>
-      <Stack direction="column" spacing={2}>
+      <Stack direction="row" spacing={2}>
         <IconButton
           sx={{
             border: '2px solid #ccc',
@@ -34,7 +35,8 @@ const SocialAuth = () => {
           }}
           onClick={signInWithGoogle}
         >
-          <Icon icon="eva:google-fill" color="#DF3E30" width={25} height={25} />
+          <FcGoogle size={28} />
+          {/* <Icon icon="eva:google-fill" color="#DF3E30" width={25} height={25} /> */}
         </IconButton>
         <IconButton
           sx={{
@@ -47,8 +49,8 @@ const SocialAuth = () => {
           <Icon
             icon="eva:facebook-fill"
             color="#1877F2"
-            width={25}
-            height={25}
+            width={30}
+            height={30}
             onClick={signInWithFacebook}
           />
         </IconButton>
