@@ -128,8 +128,8 @@ const checkUserExists = async (mobile) => {
     alert(err.message);
   }
 };
-const logout = () => {
-  signOut(auth);
+const logout = async () => {
+  await signOut(auth);
 };
 
 export {

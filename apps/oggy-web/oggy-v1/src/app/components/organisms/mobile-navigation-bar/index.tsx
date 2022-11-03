@@ -2,6 +2,7 @@ import Container from 'app/components/atoms/container';
 import Image from 'app/components/atoms/image';
 import LocationSelector from 'app/components/molecules/location-selector';
 import SearchRestaurants from 'app/components/molecules/search-restaurants';
+import UserProfile from 'app/components/molecules/user-profile/user-profile';
 import Images from 'app/constants/images';
 import { useEffect, useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -51,7 +52,7 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
           // PaddingTop="1rem"
           // PaddingBottom="1rem"
           Width="100%"
-          CenterCA
+          SpaceBetweenCA
           CenterMA
           BG="white"
           Index={99}
@@ -71,7 +72,9 @@ export function MobileNavigationBar(props: MobileNavigationBarProps) {
               <Image Src={Images.Logo.Oggy} />
             </Container>
           </Container>
-          <Container></Container>
+          <Container Width="fit-content">
+            <UserProfile />
+          </Container>
         </Container>
       )}
       {location.pathname === '/search' && (

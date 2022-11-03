@@ -13,6 +13,10 @@ export const HomePage = {
   AppleStoreBadge: 'assets/images/apple-badge-blk.webp',
 };
 
+export const User = {
+  ProfileThumb: 'assets/images/userProfileThumb.png',
+};
+
 export const Icons = {
   Plus: 'assets/images/plus-16.webp',
   Location: 'assets/icons/location-32.webp',
@@ -27,6 +31,7 @@ const Images = {
   Logo,
   Icons,
   HomePage,
+  User,
 };
 
 export default Images;

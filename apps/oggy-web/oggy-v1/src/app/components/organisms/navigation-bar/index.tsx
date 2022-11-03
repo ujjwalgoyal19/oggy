@@ -9,6 +9,7 @@ import LocationSelector from 'app/components/molecules/location-selector';
 import Separator from 'app/components/atoms/separator';
 import SearchRestaurants from 'app/components/molecules/search-restaurants';
 import Text from 'app/components/atoms/text';
+import UserProfile from 'app/components/molecules/user-profile/user-profile';
 /* eslint-disable-next-line */
 export interface NavigationBarProps {
   Logo: string;
@@ -80,16 +81,7 @@ export function NavigationBar(props: NavigationBarProps) {
             </Container>
           </Container>
           <Container Row EndMA Gap="5rem" Width="20%" Height="fit-content">
-            <Link to="/login">
-              <Text H4 N>
-                Log In
-              </Text>
-            </Link>
-            <Link to="/register">
-              <Text H4 Color="Primary" N>
-                Sign Up
-              </Text>
-            </Link>
+            <UserProfile />
           </Container>
         </Container>
       </Container>
