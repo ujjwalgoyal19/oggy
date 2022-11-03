@@ -55,7 +55,7 @@ const LoginForm = ({ setAuth }) => {
   const [enableLogIn, setEnableLoginIn] = useState(false);
   const [enableOtp, setEnableOtp] = useState(false);
   const [enableSendOtp, setEnableSendOtp] = useState(true);
-  const [otpTimer, setOtpTimer] = useState('Send OTP');
+  const [otpTimer, setOtpTimer] = useState('SEND OTP');
 
   const LoginSchema = Yup.object().shape({
     mobile: Yup.string()
@@ -98,7 +98,7 @@ const LoginForm = ({ setAuth }) => {
         let sec = 60;
         let intervalHandle;
         intervalHandle = setInterval(() => {
-          setOtpTimer(`Resend OTP (${sec--} s)`);
+          setOtpTimer(`RESEND OTP (${sec--}s)`);
           if (sec == 0) {
             setEnableSendOtp(true);
             setOtpTimer('Resend OTP');
@@ -158,7 +158,13 @@ const LoginForm = ({ setAuth }) => {
               fullWidth
               size="large"
               variant="contained"
-              style={{ fontSize: '12px', fontWeight: 'bold' }}
+              style={{
+                fontSize: '12px',
+                fontWeight: 'bold',
+                borderRadius: 5,
+                backgroundColor: '#FF9800',
+                textTransform: 'none',
+              }}
               disabled={enableSendOtp ? false : true}
               onClick={(e) => {
                 otpHandler();

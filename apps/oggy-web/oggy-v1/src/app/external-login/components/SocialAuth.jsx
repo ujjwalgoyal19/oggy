@@ -29,8 +29,8 @@ const SocialAuth = () => {
         <IconButton
           sx={{
             border: '2px solid #ccc',
-            borderRadius: '5px',
-            padding: '0.5675rem',
+            borderRadius: '8px',
+            padding: '0.4rem',
             flex: 1,
           }}
           onClick={signInWithGoogle}
@@ -41,8 +41,8 @@ const SocialAuth = () => {
         <IconButton
           sx={{
             border: '2px solid #ccc',
-            borderRadius: '5px',
-            padding: '0.5675rem',
+            borderRadius: '8px',
+            padding: '0.4rem',
             flex: 1,
           }}
         >
