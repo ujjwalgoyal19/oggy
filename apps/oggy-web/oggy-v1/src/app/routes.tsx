@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+import AboutUsPage from './pages/about-us-page';
 
 const Home = lazy(() => import('app/pages/home'));
 const RestaurantPage = lazy(() => import('app/pages/restaurant-page'));
@@ -40,6 +41,7 @@ const Switch = () => {
           }
         />
         <Route path="/search" element={<SearchResultPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
       </Routes>
     </Suspense>
   );

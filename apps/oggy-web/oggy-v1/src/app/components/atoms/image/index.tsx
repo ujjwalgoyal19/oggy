@@ -6,15 +6,18 @@ export interface ImageProps {
   Lazy?: boolean;
   Width?: string;
   Height?: string;
+  Fit?: boolean;
 }
 
 interface StyledImage {
   Width?: string;
   Height?: string;
+  Fit?: boolean;
 }
 
 const StyledImage = styled.img<StyledImage>`
   object-fit: cover;
+  object-fit: ${(props) => props.Fit && 'contain'};
   width: ${(props) => props.Width || 'auto'};
   height: ${(props) => props.Height || 'auto'};
 `;
@@ -22,6 +25,7 @@ const StyledImage = styled.img<StyledImage>`
 export function Image(props: ImageProps) {
   return (
     <StyledImage
+      Fit={props.Fit}
       src={props.Src}
       Width={props.Width}
       Height={props.Height}

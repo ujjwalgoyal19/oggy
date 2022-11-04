@@ -77,6 +77,17 @@ const GlobalStyles = createGlobalStyle`
     --restaurant-page-width: calc(70 * var(--vw));
   `}
 
+  //* About Us Page
+  ${media.greaterThan('xss')`
+    --about-us-page-width: calc(90 * var(--vw));
+  `}
+  ${media.greaterThan('xl')`
+    --about-us-page-width: calc(80 * var(--vw));
+  `}
+  ${media.greaterThan('xxl')`
+    --about-us-page-width: calc(70 * var(--vw));
+  `}
+
 }
 
 //* Designs

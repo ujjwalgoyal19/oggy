@@ -27,11 +27,18 @@ export const Icons = {
   Star: 'assets/images/star-16.webp',
 };
 
+export const AboutUsPage = {
+  Search: 'assets/images/Search.gif',
+  Find: 'assets/images/Find.gif',
+  Compare: 'assets/images/Compare.gif',
+};
+
 const Images = {
   Logo,
   Icons,
   HomePage,
   User,
+  AboutUsPage,
 };
 
 export default Images;
