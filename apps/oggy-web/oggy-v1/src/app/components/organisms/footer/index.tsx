@@ -45,7 +45,12 @@ export function Footer(props: FooterProps) {
               </Container>
               <Container Column Gap="1rem">
                 <Link to="/about">Who We Are</Link>
-                <Link to="/contactUs">Contact Us</Link>
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=samarth@oggy.co.in&su=Hey, there Oggy India&body=Hi Oggy,"
+                  target="_blank"
+                >
+                  Contact Us
+                </a>
               </Container>
             </Container>
             <Container Column Width="fit-content" Gap="2rem">

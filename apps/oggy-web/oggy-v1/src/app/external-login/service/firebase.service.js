@@ -19,7 +19,6 @@ import {
 } from 'firebase/firestore';
 
 import { initializeApp } from 'firebase/app';
-import { v4 as uuidv4 } from 'uuid';
 import { CustomAuth } from './token.service.js';
 
 const firebaseConfig = {
@@ -66,7 +65,7 @@ const signInWithFacebook = async () => {
     const res = await signInWithPopup(auth, facebookProvider);
     const user = res.user;
     const q = query(collection(db, 'users'), where('uid', '==', user.uid));
-    const docs = await getDocs(q);
+    const docs = await git(q);
     if (docs.docs.length === 0) {
       await addDoc(collection(db, 'users'), {
         uid: user.uid,

@@ -93,11 +93,14 @@ export function Download(props: DownloadProps) {
                 </Container>
 
                 <Container PaddingBottom=".6rem" Width="fit-content">
-                  <Link to="/contactUs">
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=samarth@oggy.co.in&su=Hey, there Oggy India&body=Hi Oggy,"
+                    target="_blank"
+                  >
                     <Text H3 N>
                       Contact Us
                     </Text>
-                  </Link>
+                  </a>
                 </Container>
               </Container>
               <Container Column Width="fit-content" CenterCA>
