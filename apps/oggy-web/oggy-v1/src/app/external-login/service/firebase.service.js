@@ -5,7 +5,7 @@ import {
   signOut,
   FacebookAuthProvider,
   signInWithCustomToken,
-} from 'firebase/auth';
+} from "firebase/auth";
 
 import {
   getFirestore,
@@ -16,20 +16,11 @@ import {
   addDoc,
   doc,
   setDoc,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 
-import { initializeApp } from 'firebase/app';
-import { CustomAuth } from './token.service.js';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyAQzmFa6VTUYiWmO3OoObYcKEyLFuQmoZs',
-  authDomain: 'oggy-mobile-app.firebaseapp.com',
-  projectId: 'oggy-mobile-app',
-  storageBucket: 'oggy-mobile-app.appspot.com',
-  messagingSenderId: '504255173922',
-  appId: '1:504255173922:web:331ebf12694673a58e817b',
-  measurementId: 'G-0Y5BR1GLX4',
-};
+import { initializeApp } from "firebase/app";
+import { CustomAuth } from "./token.service.js";
+import { firebaseConfig } from "./firebaseConfig.js";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -42,13 +33,13 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
-    const q = query(collection(db, 'users'), where('uid', '==', user.uid));
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, 'users'), {
+      await addDoc(collection(db, "users"), {
         uid: user.uid,
         name: user.displayName,
-        authProvider: 'google',
+        authProvider: "google",
         email: user.email,
         photo: user.photoURL,
       });
@@ -64,13 +55,13 @@ const signInWithFacebook = async () => {
   try {
     const res = await signInWithPopup(auth, facebookProvider);
     const user = res.user;
-    const q = query(collection(db, 'users'), where('uid', '==', user.uid));
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await git(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, 'users'), {
+      await addDoc(collection(db, "users"), {
         uid: user.uid,
         name: user.displayName,
-        authProvider: 'facebook',
+        authProvider: "facebook",
         email: user.email,
       });
     }
@@ -86,11 +77,11 @@ const saveUserWithMobile = async (name, mobile) => {
     const token = await CustomAuth.getToken(mobile);
     signInWithCustomToken(auth, token).then(async (userCredential) => {
       const user = userCredential.user;
-      const docRef = doc(db, 'users', user.uid);
+      const docRef = doc(db, "users", user.uid);
       await setDoc(docRef, {
         uid: user.uid,
         name: name,
-        authProvider: 'mobile',
+        authProvider: "mobile",
         mobile: mobile,
       });
     });
@@ -115,7 +106,7 @@ const logInUser = async (mobile) => {
 
 const checkUserExists = async (mobile) => {
   try {
-    const q = query(collection(db, 'users'), where('mobile', '==', mobile));
+    const q = query(collection(db, "users"), where("mobile", "==", mobile));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
       return false;
