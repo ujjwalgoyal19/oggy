@@ -193,6 +193,20 @@ export function Download(props: DownloadProps) {
             </a>
           </Container>
         )}
+        <Container Height="fit-content" CenterMA PaddingBottom="2rem">
+          <Text H3>
+            <Text>Made with ❤️ by </Text>
+            <a href="https://www.hypercharge.studio" target="_blank">
+              <Text
+                B
+                Color="var(--primary-color)"
+                style={{ textDecoration: 'underline' }}
+              >
+                hypercharge.studio
+              </Text>
+            </a>
+          </Text>
+        </Container>
       </Container>
     </StyledDownload>
   );

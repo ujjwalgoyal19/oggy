@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://oggyapi.herokuapp.com/mapi/restaurant',
+  baseURL: 'https://api.oggy.co.in/wapi/restaurant/',
 });
 
 export const RestaurantAPI = {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://oggyapi.herokuapp.com/wapi/',
+  baseURL: 'https://api.oggy.co.in/wapi/',
 });
 
 export const AutocompleteAPI = {

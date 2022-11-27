@@ -88,13 +88,34 @@ export function Footer(props: FooterProps) {
               </Container>
             </Container>
           </Container>
-          <Container Column Gap="1.5rem">
+          {/* <Container Column Gap="1.5rem">
             <Separator Color="#F8F8F8" ColorType="light" Horizontal />
             <Text style={{ textAlign: 'center' }}>
               By continuing past this page, you agree to our Terms of Service,
               Privacy Policy and Content Policies. All trademarks are properties
               of their respective owners. 2021-2022 © Oggy™ Ltd. All rights
               reserved.
+            </Text>
+          </Container> */}
+          <Container
+            Height="fit-content"
+            CenterCA
+            PaddingBottom="2rem"
+            Column
+            Gap="3rem"
+          >
+            <Separator Color="#F8F8F8" ColorType="light" Horizontal />
+            <Text H3>
+              <Text>Made with ❤️ by </Text>
+              <a href="https://www.hypercharge.studio" target="_blank">
+                <Text
+                  B
+                  Color="var(--primary-color)"
+                  style={{ textDecoration: 'underline' }}
+                >
+                  hypercharge.studio
+                </Text>
+              </a>
             </Text>
           </Container>
           {/* <Container

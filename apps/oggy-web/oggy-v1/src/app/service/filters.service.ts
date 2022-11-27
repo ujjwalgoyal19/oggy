@@ -2,7 +2,7 @@ import config from 'app/config';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://oggyapi.herokuapp.com/mapi/',
+  baseURL: 'https://api.oggy.co.in/wapi/',
 });
 
 export const FiltersAPI = {

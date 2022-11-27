@@ -1,5 +1,7 @@
 import Container from 'app/components/atoms/container';
 import Image from 'app/components/atoms/image';
+import Separator from 'app/components/atoms/separator';
+import Text from 'app/components/atoms/text';
 import Images from 'app/constants/images';
 import { AiFillFacebook, AiFillInstagram } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
@@ -41,6 +43,27 @@ export function MobileFooter(props: MobileFooterProps) {
             >
               <AiFillFacebook size="3.5rem" color="#ff9800" />
             </a>
+          </Container>
+          <Container
+            Height="fit-content"
+            CenterCA
+            PaddingBottom="2rem"
+            Column
+            Gap="3rem"
+            MarginTop="2rem"
+          >
+            <Text H3>
+              <Text>Made with ❤️ by </Text>
+              <a href="https://www.hypercharge.studio" target="_blank">
+                <Text
+                  B
+                  Color="var(--primary-color)"
+                  style={{ textDecoration: 'underline' }}
+                >
+                  hypercharge.studio
+                </Text>
+              </a>
+            </Text>
           </Container>
         </Container>
       )}
